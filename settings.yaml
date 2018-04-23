@@ -1,0 +1,18 @@
+# About
+title: org-gdpr-tool-website
+description: CHANGEME
+url: CHANGEME
+
+# Security
+require_password: false
+
+# Images
+favicon: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/favicon.png
+apple_touch_icon: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/apple_touch_icon.png
+
+# Social media
+use_facebook_meta_tags: false
+use_twitter_meta_tags: false
+facebook_card_image: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/fb-image.png
+twitter_card_image: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/fb-image.png
+twitter_card_handle: @projectsbyif

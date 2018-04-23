@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="icon" id="favicon" href="{{ settings.favicon }}" />
+    <link rel="apple-touch-icon-precomposed" href="{{ settings.apple_touch_icon }}" />
+    <meta name="description" content="{{ settings.description }}" />
+    {% if settings.use_facebook_meta_tags %}
+    <meta property="og:title" content="{{ settings.title }}" />
+    <meta property="og:url" content="{{ settings.url }}" />
+    <meta property="og:description" content="{{ settings.description }}" />
+    <meta property="og:image" content="{{ settings.facebook_card_image }}" />
+    {% endif %}
+    {% if settings.use_twitter_meta_tags %}
+    <meta property"twitter:title" content="{{ settings.title }}" />
+    <meta name="twitter:card" content="{{ settings.twitter_card_image }}" />
+    <meta name="twitter:site" content="{{ settings.twitter_card_handle }}" />
+    <meta name="twitter:creator" content="{{ settings.twitter_card_handle }}" />
+    <meta name="twitter:description" content="{{ settings.description }}" />
+    <meta name="twitter:image" content="{{ settings.twitter_card_image }}" />
+    {% endif %}
+    <script src="/public/js/app.js"></script>
+    {% block inline_js %}{% endblock %}
+    <link type="text/css" rel="stylesheet" href="/public/css/app.css" />
+    {% block inline_css %}{% endblock %}
+    {% block head %}{% endblock %}
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+    {% block header %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}{% endblock %}
+  </body>
+</html>
