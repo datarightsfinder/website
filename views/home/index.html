@@ -1,0 +1,21 @@
+{% extends "layouts/main.html" %}
+
+{% block page_title %}Prototype index{% endblock %}
+
+{% block body_class %}index{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+  <h1>GDPR tool homepage</h1>
+
+  <p>These are all the organisations I know about:</p>
+
+  <ul>
+    {% for organisation in organisations %}
+      <li><a href="/organisation/{{organisation.slug}}">{{organisation.name}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -29,28 +29,14 @@ nunjucks.configure('views', {
   express: app
 });
 
+
 // ROUTES
-app.get('/', function(req, res) {
-  res.render('index.html', { settings: settings });
-});
+var indexRouter = require('./controllers/home');
+var organisationRouter = require('./controllers/organisation');
 
-app.get('/*', function(req, res) {
-  var templatePath = "";
-  var path = req.path.split('/').filter(function(el) {
-    return el != "";
-  });
 
-  if (path.length === 2) {
-    prototype = path[1];
-    templatePath = path[0] + "/" + prototype + "/index.html";
-  } else if (path.length === 3) {
-    prototype = path[1];
-    page = path[2];
-    templatePath = path[0] + "/" + prototype + "/" + page + ".html";
-  }
-
-  res.render(templatePath, { settings: settings });
-});
+app.use('/', indexRouter);
+app.use('/organisation', organisationRouter);
 
 
 // START SERVER
