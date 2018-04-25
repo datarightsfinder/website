@@ -14,5 +14,11 @@
   {% set query = query %}
   {% include "partials/_search.html" %}
 
-
+  {% if results.length > 0 %}
+    {% for result in results %}
+      <p><a href="/organisation/{{ result.slug }}">{{ result.name }}</a></p>
+    {% endfor %}
+  {% else %}
+    <p>No results</p>
+  {% endif %}
 {% endblock %}

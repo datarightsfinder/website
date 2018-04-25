@@ -5,37 +5,11 @@ const async = require('async');
 const Sequelize = require('sequelize');
 const request = require('request');
 
-
-// CONSTANTS
-const URL_GITHUB_REPO = "https://raw.githubusercontent.com/projectsbyif/org-gdpr-tool-data/master/";
-
 // SEQUELIZE
 const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: "postgres" });
 const Organisation = sequelize.import("../models/organisation.js");
 
 // SERVER ROUTES
-router.get('/', function(req, res) {
-  Organisation.findAll().then(function(_all) {
-    var contents = [];
-
-    _all.forEach(function(item, index) {
-      contents.push(item.dataValues.label);
-    });
-
-    sendContents(contents, res);
-  }).catch(function() {
-    sendContents("Table not found", res);
-  });
-});
-
-function sendContents(contents, res) {
-  res.send({
-    "name": "org-gdpr-tool-updater",
-    "status": "healthy",
-    "contents": contents
-  });
-}
-
 router.get('/incoming', function(req, res) {
   // GitHub webhooks may require a valid GET path?
   res.status(200).send("200 OK");
@@ -76,28 +50,39 @@ router.post('/incoming', function(req, res) {
 function handleChanges(action, diff, parentCallback) {
   var thisDiff = diff[0];
 
-  console.log(action, ": ", thisDiff);
+  console.log(`Handling ${thisDiff} (${action})`);
 
   async.waterfall([
     function(callback) {
-      request([URL_GITHUB_REPO, thisDiff].join(''), function (err, res, body) {
+      request({ url: "https://api.github.com/repos/projectsbyif/org-gdpr-tool-data/contents/" + thisDiff, headers: { 'User-Agent': 'projectsbyif/org-gdpr-tool-website' }}, function (err, res, body) {
         if (err) {
-          // TODO: Handle request error
+          callback("Error: Can't get " + thisDiff + " from GitHub");
         }
 
-        if (tryParseJSON(body)) {
-          callback(null, body);
+        console.log("Getting " + thisDiff);
+
+        var json = JSON.parse(body);
+        var contentBase64 = json.content.replace(/\s/g, '');
+        var content = Buffer.from(contentBase64, 'base64').toString('ascii');
+
+        if (tryParseJSON(content)) {
+          callback(null, content);
         } else {
-          console.log("parse error");
-          callback("Parse Error");
+          callback("Error: Invalid JSON file " + thisDiff);
         }
       });
     },
     function(_json, callback) {
       if (action === "update") {
-        upsert({ "label": thisDiff, "payload": _json }, thisDiff, callback);
+        var json = JSON.parse(_json);
+
+        upsert({
+            "name": json.organisation.name,
+            "slug": thisDiff.split('.')[0],
+            "payload": _json
+          }, callback);
       } else if (action === "remove") {
-        Organisation.findOne({ where: { label: thisDiff } }).then(function(obj) {
+        Organisation.findOne({ where: { slug: thisDiff.split('.')[0] } }).then(function(obj) {
           obj.destroy().then(function() {
             callback(null);
           });
@@ -178,8 +163,9 @@ function createDiff(payload) {
   }
 }
 
-function upsert(values, label, parentCallback) {
-  Organisation.findOne({ where: { "label": label }}).then(function(obj) {
+function upsert(values, parentCallback) {
+  Organisation.findOne({ where: { "slug": values.slug }}).then(function(obj) {
+
     if (obj) {
       // Update
       obj.update(values).then(function() {

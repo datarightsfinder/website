@@ -24,7 +24,15 @@ router.post('/', [
 router.get('/:query', function(req, res, next) {
   var query = req.params.query;
 
-  res.render('search/search.html', { settings: settings, query: query });
+  Organisation.findAll({
+    where: {
+      name: {
+        ilike: "%" + query + "%"
+      }
+    }
+  }).then(function(results) {
+    res.render('search/search.html', { settings: settings, query: query, results: results });
+  });
 });
 
 module.exports = router;

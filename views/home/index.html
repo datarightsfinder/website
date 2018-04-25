@@ -17,7 +17,7 @@
 
   <ul>
     {% for item in payload %}
-      <li><a href="/organisation/{{item.label.split('.')[0]}}">{{item.payload.organisation.name}}</a></li>
+      <li><a href="/organisation/{{item.slug}}">{{item.payload.organisation.name}}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}

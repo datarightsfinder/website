@@ -10,7 +10,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: "postgres" 
 const Organisation = sequelize.import("../models/organisation.js");
 
 router.get('/:slug', function(req, res, next) {
-  Organisation.findOne({ where: { label:  req.params.slug + ".json" }}).then(function(_result) {
+  Organisation.findOne({ where: { slug:  req.params.slug }}).then(function(_result) {
     _result.payload = JSON.parse(_result.payload);
     res.render('organisation/show.html', { settings: settings, result: _result });
   }).catch(function() {
