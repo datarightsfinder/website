@@ -54,23 +54,27 @@ function handleChanges(action, diff, parentCallback) {
 
   async.waterfall([
     function(callback) {
-      request({ url: "https://api.github.com/repos/projectsbyif/org-gdpr-tool-data/contents/" + thisDiff, headers: { 'User-Agent': 'projectsbyif/org-gdpr-tool-website' }}, function (err, res, body) {
-        if (err) {
-          callback("Error: Can't get " + thisDiff + " from GitHub");
-        }
+      if (action === "update") {
+        request({ url: "https://api.github.com/repos/projectsbyif/org-gdpr-tool-data/contents/" + thisDiff, headers: { 'User-Agent': 'projectsbyif/org-gdpr-tool-website' }}, function (err, res, body) {
+          if (err) {
+            callback("Error: Can't get " + thisDiff + " from GitHub");
+          }
 
-        console.log("Getting " + thisDiff);
+          console.log("Getting " + thisDiff);
 
-        var json = JSON.parse(body);
-        var contentBase64 = json.content.replace(/\s/g, '');
-        var content = Buffer.from(contentBase64, 'base64').toString('ascii');
+          var json = JSON.parse(body);
+          var contentBase64 = json.content.replace(/\s/g, '');
+          var content = Buffer.from(contentBase64, 'base64').toString('ascii');
 
-        if (tryParseJSON(content)) {
-          callback(null, content);
-        } else {
-          callback("Error: Invalid JSON file " + thisDiff);
-        }
-      });
+          if (tryParseJSON(content)) {
+            callback(null, content);
+          } else {
+            callback("Error: Invalid JSON file " + thisDiff);
+          }
+        });
+      } else if (action === "remove") {
+        callback(null);
+      }
     },
     function(_json, callback) {
       if (action === "update") {
