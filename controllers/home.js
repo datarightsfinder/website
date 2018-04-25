@@ -1,15 +1,27 @@
-var express = require('express');
-var router = express.Router();
-var yaml = require('yamljs');
+const express = require('express');
+const router = express.Router();
+const yaml = require('yamljs');
+const Sequelize = require('sequelize');
 
 var settings = yaml.load('settings.yaml');
-var db = require('../data/organisations.js');
+
+// SEQUELIZE
+const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: "postgres" });
+const Organisation = sequelize.import("../models/organisation.js");
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  let organisations = db.organisations;
-  res.render('home/index.html', { settings: settings, organisations: organisations });
+  Organisation.findAll().then(function(_all) {
+    var organisations = [];
+    _all.forEach(function(item, index) {
+      _all[index].payload = JSON.parse(_all[index].payload);
+    });
+    res.render('home/index.html', { settings: settings, payload: _all });
+  }).catch(function() {
+    res.render('home/index.html', { settings: settings, organisations: [] });
+  });
+
 });
 
 module.exports = router;

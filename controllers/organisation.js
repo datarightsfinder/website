@@ -1,15 +1,22 @@
-var express = require('express');
-var router = express.Router();
-var yaml = require('yamljs');
+const express = require('express');
+const router = express.Router();
+const yaml = require('yamljs');
+const Sequelize = require('sequelize');
 
-var settings = yaml.load('settings.yaml');
-var db = require('../data/organisations.js');
+const settings = yaml.load('settings.yaml');
+
+// SEQUELIZE
+const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: "postgres" });
+const Organisation = sequelize.import("../models/organisation.js");
 
 router.get('/:slug', function(req, res, next) {
-  let organisation = db.organisations.filter(org => org.slug === req.params.slug)[0];
-  if (!organisation) return next('route');
+  Organisation.findOne({ where: { label:  req.params.slug + ".json" }}).then(function(_result) {
+    _result.payload = JSON.parse(_result.payload);
+    res.render('organisation/show.html', { settings: settings, result: _result });
+  }).catch(function() {
+    next('route');
+  });
 
-  res.render('organisation/show.html', { settings: settings, organisation: organisation });
 });
 
 router.get('/', function(req, res, next) {
