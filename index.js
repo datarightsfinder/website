@@ -12,6 +12,8 @@ const async = require('async');
 const Sequelize = require('sequelize');
 const request = require('request');
 
+require('dotenv').config()
+
 // LOCAL IMPORTS
 const Utils = require('./libs/utils.js');
 

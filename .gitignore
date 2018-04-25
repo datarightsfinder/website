@@ -41,3 +41,6 @@ jspm_packages
 bower_components
 public/css/*
 public/js/*
+
+# dotenv environment variables file
+.env
