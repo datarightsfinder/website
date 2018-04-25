@@ -43,11 +43,12 @@ const Organisation = sequelize.import(__dirname + "/models/organisation.js");
 
 // ROUTES
 var indexRouter = require('./controllers/home');
+var searchRouter = require('./controllers/search');
 var organisationRouter = require('./controllers/organisation');
 var webhookRouter = require('./controllers/webhook');
 
-
 app.use('/', indexRouter);
+app.use('/search', searchRouter);
 app.use('/organisation', organisationRouter);
 app.use('/webhook', webhookRouter);
 
