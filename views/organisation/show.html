@@ -11,5 +11,8 @@
 {% block content %}
   <h1>Organisation: {{result.payload.organisation.name}}</h1>
 
+  <p>
+    <a href="/organisation/{{result.slug}}.json">JSON</a>
+  </p>
 
 {% endblock %}
