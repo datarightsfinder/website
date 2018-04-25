@@ -96,8 +96,11 @@ function createEntries(items, parentCallback) {
     },
     function(_label, _json, callback) {
       // Write contents of JSON file to database
+      var json = JSON.parse(_json);
+
       Organisation.create({
-        "label": _label,
+        "slug": _label.split('.')[0],
+        "name": json.organisation.name,
         "payload": _json
       }).then(function() {
         callback(null);

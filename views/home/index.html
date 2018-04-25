@@ -11,11 +11,13 @@
 {% block content %}
   <h1>GDPR tool homepage</h1>
 
+  {% include "partials/_search.html" %}
+
   <p>These are all the organisations I know about:</p>
 
   <ul>
     {% for item in payload %}
-      <li><a href="/organisation/{{item.label.split('.')[0]}}">{{item.payload.organisation.name}}</a></li>
+      <li><a href="/organisation/{{item.slug}}">{{item.payload.organisation.name}}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}
