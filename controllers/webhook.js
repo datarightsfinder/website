@@ -89,6 +89,8 @@ function handleChanges(action, diff, parentCallback) {
         Organisation.findOne({ where: { slug: thisDiff.split('.')[0] } }).then(function(obj) {
           obj.destroy().then(function() {
             callback(null);
+          }).catch(function() {
+            callback(null);
           });
         });
       }
