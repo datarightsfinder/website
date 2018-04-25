@@ -14,8 +14,8 @@
   <p>These are all the organisations I know about:</p>
 
   <ul>
-    {% for organisation in organisations %}
-      <li><a href="/organisation/{{organisation.slug}}">{{organisation.name}}</a></li>
+    {% for item in payload %}
+      <li><a href="/organisation/{{item.label.split('.')[0]}}">{{item.payload.organisation.name}}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}

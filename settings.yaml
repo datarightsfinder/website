@@ -3,9 +3,6 @@ title: org-gdpr-tool-website
 description: CHANGEME
 url: CHANGEME
 
-# Security
-require_password: false
-
 # Images
 favicon: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/favicon.png
 apple_touch_icon: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/apple_touch_icon.png

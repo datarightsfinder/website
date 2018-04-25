@@ -1,27 +1,34 @@
 // REQUIRES
-var yaml = require('yamljs');
-var settings = yaml.load('settings.yaml');
-var express = require('express');
-var path = require('path');
-var app = express();
-var http = require('http').Server(app)
-var nunjucks = require('nunjucks');
-var helmet = require('helmet');
+const _ = require('lodash');
+const yaml = require('yamljs');
+const settings = yaml.load('settings.yaml');
+const express = require('express');
+const path = require('path');
+const app = express();
+const http = require('http').Server(app)
+const nunjucks = require('nunjucks');
+const helmet = require('helmet');
+const async = require('async');
+const Sequelize = require('sequelize');
+const request = require('request');
 
-app.use(helmet());
+// LOCAL IMPORTS
+const Utils = require('./libs/utils.js');
 
-// HTTP authentication
-if (settings.require_password) {
-  var auth = require('http-auth');
-  var basic = auth.basic({
-    realm: "secure",
-    file: path.join(__dirname, 'htpasswd')
-  });
-
-  app.use(auth.connect(basic));
+// STARTUP CHECKS
+if (Utils.checkForMissingEnvVars(["DATABASE_URL"])) {
+  process.exit();
 }
 
-// CONFIG
+// CONSTANTS
+const URL_GITHUB_REPO = "https://raw.githubusercontent.com/projectsbyif/org-gdpr-tool-data/master/";
+
+// SERVER CONFIGURATION
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 app.set('port', process.env.PORT || 3000);
 app.use('/public', express.static(path.join(__dirname, 'public')));
 nunjucks.configure('views', {
@@ -29,14 +36,20 @@ nunjucks.configure('views', {
   express: app
 });
 
+// SEQUELIZE
+const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: "postgres" });
+const Organisation = sequelize.import(__dirname + "/models/organisation.js");
+
 
 // ROUTES
 var indexRouter = require('./controllers/home');
 var organisationRouter = require('./controllers/organisation');
+var webhookRouter = require('./controllers/webhook');
 
 
 app.use('/', indexRouter);
 app.use('/organisation', organisationRouter);
+app.use('/webhook', webhookRouter);
 
 
 // START SERVER
