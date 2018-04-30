@@ -28,8 +28,38 @@
     {% block head %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">Open Data Rights</li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><input type="search" placeholder="Search"></li>
+          <li><button type="button" class="button">Search</button></li>
+        </ul>
+      </div>
+    </div>
     {% block header %}{% endblock %}
-    {% block content %}{% endblock %}
+    <div class="row">
+      <div class="column small-12 medium-8 large-6 small-centered">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
     {% block footer %}{% endblock %}
+
+    <footer class="callout secondary">
+      <div class="row">
+        <div class="small-12 medium-4 column">Open Data Rights</div>
+        <div class="small-12 medium-8 column">
+          <ul class="menu simple align-right">
+            <li><a href="https://github.com/projectsbyif/org-gdpr-tool-data">Contribute on Github</a></li>
+            <li><a href="https://projectsbyif.com/">Projects by IF</a></li>
+            <li><a href="https://www.openrightsgroup.org/">Open Rights Group</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

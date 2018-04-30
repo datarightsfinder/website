@@ -9,8 +9,75 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Organisation: {{result.payload.organisation.name}}</h1>
+  <h1>{{result.name}}</h1>
+  <p>
+    <a href="{{organisationUrl}}">{{organisationUrl}}</a>
+    {% if result.payload.organisation.urls.length > 1 %}
+      and {{result.payload.organisation.urls.length - 1}} more
+    {% endif %}
+  </p>
 
+
+  <h2>Privacy Policy</h2>
+  <p>–><a href="{{result.payload.privacyNotice.url}}"> {{result.payload.privacyNotice.url}}</a> (updated {{privacyNoticeLastUpdatedTimeAgo}})</p>
+
+  <h2>Company information</h2>
+  <p>Country <strong>{{result.payload.organisation.country.toLowerCase()}}</strong></p>
+  <p>
+    Company number <strong>{{result.payload.organisation.companyNumber}}</strong>
+    {% if result.payload.organisation.country.toLowerCase() === 'gb' %}
+      <a href="https://beta.companieshouse.gov.uk/company/{{result.payload.organisation.companyNumber}}">View on Companies House</a>
+    {% endif %}
+
+    <a href="https://opencorporates.com/companies/{{result.payload.organisation.country.toLowerCase()}}/{{result.payload.organisation.companyNumber}}">View on OpenCorporates</a>
+  </p>
+  <p>
+    Data Protection Register number <strong>{{result.payload.dataProtectionRegister.registrationNumber}}</strong>
+    <a href="{{result.payload.dataProtectionRegister.registrationLink}}">View</a>
+  </p>
+
+  <h2>Data controller</h2>
+  <p>Name: <strong>{{result.payload.dataController.name}}</strong></p>
+  <p>Address: <strong>{{result.payload.dataController.postalAddress}}</strong></p>
+  <p>Phone number: <strong>{{result.payload.dataController.telephoneNumber}}</strong></p>
+  <p>Email: <strong>{{result.payload.dataController.emailAddress}}</strong></p>
+
+  <h2>Data protection officer</h2>
+  <p>Name: <strong>{{result.payload.dataProtectionOfficer.name}}</strong></p>
+  <p>Role: <strong>{{result.payload.dataProtectionOfficer.role}}</strong></p>
+  <p>Address: <strong>{{result.payload.dataProtectionOfficer.postalAddress}}</strong></p>
+  <p>Phone number: <strong>{{result.payload.dataProtectionOfficer.telephoneNumber}}</strong></p>
+  <p>Email: <strong>{{result.payload.dataProtectionOfficer.emailAddress}}</strong></p>
+
+  <h2>Right to access</h2>
+  {% set right = result.payload.rights.access %}
+  {% include "partials/_right.html" %}
+
+  <h2>Right to rectification</h2>
+  {% set right = result.payload.rights.rectification %}
+  {% include "partials/_right.html" %}
+
+  <h2>Right to erasure</h2>
+  {% set right = result.payload.rights.erasure %}
+  {% include "partials/_right.html" %}
+
+  <h2>Right to restrict processing</h2>
+  {% set right = result.payload.rights.restrictProcessing %}
+  {% include "partials/_right.html" %}
+
+  <h2>Right to data portability</h2>
+  {% set right = result.payload.rights.dataPortability %}
+  {% include "partials/_right.html" %}
+
+  <h2>Right to object</h2>
+  {% set right = result.payload.rights.object %}
+  {% include "partials/_right.html" %}
+
+  <h2>Automated decision making</h2>
+  {% set right = result.payload.rights.automatedDecisionMaking %}
+  {% include "partials/_right.html" %}
+
+  <h2>Get this as JSON</h2>
   <p>
     <a href="/organisation/{{result.slug}}.json">JSON</a>
   </p>
