@@ -21,7 +21,13 @@ router.get('/:slug', function(req, res, next) {
   }).catch(function() {
     next('route');
   });
+});
 
+router.get('/:slug.json', function(req, res, next) {
+  Organisation.findOne({ where: { slug: req.params.slug }}).then(function(_result) {
+    res.setHeader("content-type", "application/json");
+    res.status(200).send(_result.payload);
+  });
 });
 
 router.get('/', function(req, res, next) {

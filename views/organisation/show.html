@@ -17,6 +17,7 @@
     {% endif %}
   </p>
 
+
   <h2>Privacy Policy</h2>
   <p>–><a href="{{result.payload.privacyNotice.url}}"> {{result.payload.privacyNotice.url}}</a> (updated {{privacyNoticeLastUpdatedTimeAgo}})</p>
 
@@ -75,5 +76,10 @@
   <h2>Automated decision making</h2>
   {% set right = result.payload.rights.automatedDecisionMaking %}
   {% include "partials/_right.html" %}
+
+  <h2>Get this as JSON</h2>
+  <p>
+    <a href="/organisation/{{result.slug}}.json">JSON</a>
+  </p>
 
 {% endblock %}
