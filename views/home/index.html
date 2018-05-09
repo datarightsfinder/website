@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% block page_title %}Prototype index{% endblock %}
+{% block page_title %}{{ settings.title }}{% endblock %}
 
 {% block body_class %}index{% endblock %}
 
@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Open Data Rights</h1>
-  <p>Find how to exercise your GDPR rights</p>
+  <h1>{{ settings.title }}</h1>
+  <h2>{{ settings.description }}</h2>
   {% include "partials/_search.html" %}
 
   <p>These are all the organisations I know about:</p>
