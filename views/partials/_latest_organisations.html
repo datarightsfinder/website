@@ -1,0 +1,6 @@
+<p class="latest-organisations">
+  <span class="bold">Latest</span>
+{% for organisation in last_five %}
+  <span><a href="/organisation/{{ organisation.slug }}">{{ organisation.name }}</a></span>
+{% endfor %}
+</p>

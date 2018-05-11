@@ -1,7 +1,10 @@
 # About
 title: Open Data Rights
-description: Find how to exercise your GDPR rights
+description: Find out how to use your new digital rights
 url: CHANGEME
+licence_name: LICENCE
+licence_url: https://projectsbyif.com
+contact_email: hello@projectsbyif.com
 
 # Images
 favicon: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/favicon.png

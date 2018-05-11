@@ -31,7 +31,20 @@ router.get('/:query', function(req, res, next) {
       }
     }
   }).then(function(results) {
-    res.render('search/search.html', { settings: settings, query: query, results: results });
+    Organisation.findAll().then(function(_all) {
+      var organisations = [];
+
+      _all.forEach(function(item, index) {
+        _all[index].payload = JSON.parse(_all[index].payload);
+      });
+
+      res.render('search/search.html', {
+        settings: settings,
+        query: query,
+        results: results,
+        last_five: _all.slice(Math.max(_all.length - 5, 1))
+      });
+    });
   });
 });
 
