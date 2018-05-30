@@ -79,7 +79,8 @@ function createEntries(items, parentCallback) {
   async.waterfall([
     function(callback) {
       // Skip template.json file
-      if (item.name === "template.json") {
+      // TODO: Don't use a conditional for this
+      if (item.name === "template.json" || item.name === "template-new.json" || item.name === "schema-readme.md") {
         callback(true);
         return;
       }
