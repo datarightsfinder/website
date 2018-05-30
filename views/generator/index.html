@@ -1,0 +1,20 @@
+{% extends "layouts/main.html" %}
+
+{% block page_title %}Create a new entry &bull; {{ settings.title }}{% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
+    <a href="#" id="buttonStartAgain">Start again</a>
+
+    <div id="form1"></div>
+
+    <textarea id="result"></textarea>
+    <a href="mailto:ian@projectsbyif.com" id="buttonSendAsEmail">Send as email</a>
+  </div>
+</div>
+{% endblock %}

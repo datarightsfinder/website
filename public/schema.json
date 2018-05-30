@@ -1,0 +1,981 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "organisationInfo": {
+      "$id": "/properties/organisationInfo",
+      "type": "object",
+      "title": "Organisation Info",
+      "properties": {
+        "country": {
+          "$id": "/properties/organisationInfo/properties/country",
+          "type": "string",
+          "title": "Company registered in",
+          "description": "",
+          "default": ""
+        },
+        "number": {
+          "$id": "/properties/organisationInfo/properties/number",
+          "type": "string",
+          "title": "Company number",
+          "description": "",
+          "default": ""
+        },
+        "urls": {
+          "$id": "/properties/organisationInfo/properties/urls",
+          "type": "array",
+          "title": "URLs",
+          "items": {
+            "$id": "/properties/organisationInfo/properties/urls/items",
+            "type": "string",
+            "title": "URL",
+            "default": "",
+            "examples": [
+              "https://example.com"
+            ]
+          }
+        }
+      }
+    },
+    "dataProtectionOfficer": {
+      "$id": "/properties/dataProtectionOfficer",
+      "type": "object",
+      "title": "Data Protection Officer",
+      "properties": {
+        "name": {
+          "$id": "/properties/dataProtectionOfficer/properties/name",
+          "type": "string",
+          "title": "Name",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "role": {
+          "$id": "/properties/dataProtectionOfficer/properties/role",
+          "type": "string",
+          "title": "Role",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "contactInfo": {
+          "$id": "/properties/dataProtectionOfficer/properties/contactInfo",
+          "type": "object",
+          "title": "Contact info",
+          "properties": {
+            "url": {
+              "$id": "/properties/dataProtectionOfficer/properties/contactInfo/properties/url",
+              "type": "string",
+              "title": "URL",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            },
+            "postalAddress": {
+              "$id": "/properties/dataProtectionOfficer/properties/contactInfo/properties/postalAddress",
+              "type": "string",
+              "title": "Postal address",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            },
+            "emailAddress": {
+              "$id": "/properties/dataProtectionOfficer/properties/contactInfo/properties/emailAddress",
+              "type": "string",
+              "title": "Email address",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            },
+            "telephoneNumber": {
+              "$id": "/properties/dataProtectionOfficer/properties/contactInfo/properties/telephoneNumber",
+              "type": "string",
+              "title": "Telephone number",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        }
+      }
+    },
+    "internationalTransfer": {
+      "$id": "/properties/internationalTransfer",
+      "type": "object",
+      "title": "International transfer",
+      "properties": {
+        "privacyShieldUrl": {
+          "$id": "/properties/internationalTransfer/properties/privacyShieldUrl",
+          "type": "string",
+          "title": "Privacy Shield URL",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "dataProcessingAddendum": {
+          "$id": "/properties/internationalTransfer/properties/dataProcessingAddendum",
+          "type": "object",
+          "title": "Data Processing Addendum",
+          "properties": {
+            "type": {
+              "$id": "/properties/internationalTransfer/properties/dataProcessingAddendum/properties/type",
+              "type": "string",
+              "title": "Type",
+              "enum": [
+                "form", "setting", "assumed"
+              ]
+            },
+            "url": {
+              "$id": "/properties/internationalTransfer/properties/dataProcessingAddendum/properties/url",
+              "type": "string",
+              "title": "URL",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            },
+            "notes": {
+              "$id": "/properties/internationalTransfer/properties/dataProcessingAddendum/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        }
+      }
+    },
+    "privacyNotice": {
+      "$id": "/properties/privacyNotice",
+      "type": "object",
+      "title": "Privacy notice",
+      "properties": {
+        "url": {
+          "$id": "/properties/privacyNotice/properties/url",
+          "type": "string",
+          "title": "URL",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "dataProtectionRegister": {
+      "$id": "/properties/dataProtectionRegister",
+      "type": "object",
+      "title": "Data Protection Register",
+      "properties": {
+        "identifier": {
+          "$id": "/properties/dataProtectionRegister/properties/identifier",
+          "type": "string",
+          "title": "Identifier",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "url": {
+          "$id": "/properties/dataProtectionRegister/properties/url",
+          "type": "string",
+          "title": "URL",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "thirdParties": {
+      "$id": "/properties/thirdParties",
+      "type": "object",
+      "title": "Third parties",
+      "properties": {
+        "list": {
+          "$id": "/properties/thirdParties/properties/list",
+          "type": "array",
+          "items": {
+            "$id": "/properties/thirdParties/properties/list/items",
+            "type": "string",
+            "title": "Name",
+            "default": "",
+            "examples": [
+              ""
+            ]
+          }
+        },
+        "notes": {
+          "$id": "/properties/thirdParties/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "retentionRules": {
+      "$id": "/properties/retentionRules",
+      "type": "object",
+      "title": "Retention rules",
+      "properties": {
+        "rules": {
+          "$id": "/properties/retentionRules/properties/rules",
+          "type": "array",
+          "items": {
+            "$id": "/properties/retentionRules/properties/rules/items",
+            "type": "object",
+            "properties": {
+              "type": {
+                "$id": "/properties/retentionRules/properties/rules/items/properties/type",
+                "type": "string",
+                "title": "Data Category",
+                "default": "",
+                "examples": [
+                  ""
+                ]
+              },
+              "duration": {
+                "$id": "/properties/retentionRules/properties/rules/items/properties/duration",
+                "type": "string",
+                "title": "Duration",
+                "default": "",
+                "examples": [
+                  ""
+                ]
+              }
+            }
+          }
+        },
+        "notes": {
+          "$id": "/properties/retentionRules/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "dataTypesCollected": {
+      "$id": "/properties/dataTypesCollected",
+      "type": "object",
+      "title": "Data types collected",
+      "properties": {
+        "list": {
+          "$id": "/properties/dataTypesCollected/properties/list",
+          "type": "array",
+          "items": {
+            "$id": "/properties/dataTypesCollected/properties/list/items",
+            "type": "string",
+            "title": "Data type",
+            "default": "",
+            "examples": [
+              ""
+            ],
+            "enum": [
+              "foo", "bar", "baz", "123", "456", "789"
+            ]
+          }
+        },
+        "notes": {
+          "$id": "/properties/dataTypesCollected/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "automatedDecisionMaking": {
+      "$id": "/properties/automatedDecisionMaking",
+      "type": "object",
+      "title": "Automated decision making",
+      "properties": {
+        "usesAutomatedDecisionMaking": {
+          "$id": "/properties/automatedDecisionMaking/properties/usesAutomatedDecisionMaking",
+          "type": "boolean",
+          "title": "Uses automated decision making?",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "notes": {
+          "$id": "/properties/automatedDecisionMaking/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "lawfulBases": {
+      "$id": "/properties/lawfulBases",
+      "type": "object",
+      "title": "Lawful bases",
+      "properties": {
+        "consent": {
+          "$id": "/properties/lawfulBases/properties/consent",
+          "type": "object",
+          "title": "Consent",
+          "properties": {
+            "notes": {
+              "$id": "/properties/lawfulBases/properties/consent/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "contract": {
+          "$id": "/properties/lawfulBases/properties/contract",
+          "type": "object",
+          "title": "Contract",
+          "properties": {
+            "notes": {
+              "$id": "/properties/lawfulBases/properties/contract/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "legalObligation": {
+          "$id": "/properties/lawfulBases/properties/legalObligation",
+          "type": "object",
+          "title": "Legal obligation",
+          "properties": {
+            "notes": {
+              "$id": "/properties/lawfulBases/properties/legalObligation/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "vitalInterests": {
+          "$id": "/properties/lawfulBases/properties/vitalInterests",
+          "type": "object",
+          "title": "Vital interests",
+          "properties": {
+            "notes": {
+              "$id": "/properties/lawfulBases/properties/vitalInterests/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "publicTask": {
+          "$id": "/properties/lawfulBases/properties/publicTask",
+          "type": "object",
+          "title": "Public task",
+          "properties": {
+            "notes": {
+              "$id": "/properties/lawfulBases/properties/publicTask/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "legitimateInterests": {
+          "$id": "/properties/lawfulBases/properties/legitimateInterests",
+          "type": "object",
+          "title": "Legitmate interests",
+          "properties": {
+            "notes": {
+              "$id": "/properties/lawfulBases/properties/legitimateInterests/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        }
+      }
+    },
+    "processingActivities": {
+      "$id": "/properties/processingActivities",
+      "type": "object",
+      "title": "Processing activities",
+      "properties": {
+        "activities": {
+          "$id": "/properties/processingActivities/properties/activities",
+          "type": "array",
+          "items": {
+            "$id": "/properties/processingActivities/properties/activities/items",
+            "type": "string",
+            "title": "Activity",
+            "default": "",
+            "examples": [
+              ""
+            ],
+            "enum": [
+              "foo", "bar", "baz", "123", "456", "789"
+            ]
+          }
+        },
+        "notes": {
+          "$id": "/properties/processingActivities/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "rights": {
+      "$id": "/properties/rights",
+      "type": "object",
+      "title": "Rights",
+      "properties": {
+        "access": {
+          "$id": "/properties/rights/properties/access",
+          "type": "object",
+          "title": "Right to access",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/access/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/access/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/access/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/access/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/access/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/access/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "rectification": {
+          "$id": "/properties/rights/properties/rectification",
+          "type": "object",
+          "title": "Right to rectification",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/rectification/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/rectification/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/rectification/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/rectification/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/rectification/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/rectification/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "erasure": {
+          "$id": "/properties/rights/properties/erasure",
+          "type": "object",
+          "title": "Right to erasure",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/erasure/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/erasure/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/erasure/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/erasure/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/erasure/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/erasure/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "restrictProcessing": {
+          "$id": "/properties/rights/properties/restrictProcessing",
+          "type": "object",
+          "title": "Right to restrict processing",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/restrictProcessing/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/restrictProcessing/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/restrictProcessing/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/restrictProcessing/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/restrictProcessing/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/restrictProcessing/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "dataPortability": {
+          "$id": "/properties/rights/properties/dataPortabiltiy",
+          "type": "object",
+          "title": "Right to data portability",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/dataPortabiltiy/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "object": {
+          "$id": "/properties/rights/properties/object",
+          "type": "object",
+          "title": "Right to object",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/object/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/object/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/object/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/object/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/object/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/object/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "automatedDecisionMaking": {
+          "$id": "/properties/rights/properties/automatedDecisionMaking",
+          "type": "object",
+          "title": "Rights related to automated decision making",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/automatedDecisionMaking/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/automatedDecisionMaking/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/automatedDecisionMaking/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/automatedDecisionMaking/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/automatedDecisionMaking/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/automatedDecisionMaking/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        }
+      }
+    },
+    "complaintInformation": {
+      "$id": "/properties/complaintInformation",
+      "type": "object",
+      "title": "Complaint information",
+      "properties": {
+        "present": {
+          "$id": "/properties/complaintInformation/properties/present",
+          "type": "boolean",
+          "title": "Present",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "notes": {
+          "$id": "/properties/complaintInformation/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "securityStandards": {
+      "$id": "/properties/securityStandards",
+      "type": "object",
+      "title": "Security standards",
+      "properties": {
+        "url": {
+          "$id": "/properties/securityStandards/properties/url",
+          "type": "string",
+          "title": "URL",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "notes": {
+          "$id": "/properties/securityStandards/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    },
+    "legibility": {
+      "$id": "/properties/legibility",
+      "type": "object",
+      "title": "Legibility score",
+      "properties": {
+        "point1": {
+          "$id": "/properties/legibility/properties/point1",
+          "type": "boolean",
+          "title": "Point1",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "point2": {
+          "$id": "/properties/legibility/properties/point2",
+          "type": "boolean",
+          "title": "Point2",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "point3": {
+          "$id": "/properties/legibility/properties/point3",
+          "type": "boolean",
+          "title": "Point3",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "point4": {
+          "$id": "/properties/legibility/properties/point4",
+          "type": "boolean",
+          "title": "Point4",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "point5": {
+          "$id": "/properties/legibility/properties/point5",
+          "type": "boolean",
+          "title": "Point5",
+          "default": false,
+          "examples": [
+            false
+          ]
+        }
+      }
+    }
+  }
+}

@@ -48,11 +48,13 @@ var indexRouter = require('./controllers/home');
 var searchRouter = require('./controllers/search');
 var organisationRouter = require('./controllers/organisation');
 var webhookRouter = require('./controllers/webhook');
+var generatorRouter = require('./controllers/generator');
 
 app.use('/', indexRouter);
 app.use('/search', searchRouter);
 app.use('/organisation', organisationRouter);
 app.use('/webhook', webhookRouter);
+app.use('/generator', generatorRouter);
 
 
 // START SERVER
