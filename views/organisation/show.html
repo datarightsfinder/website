@@ -11,100 +11,190 @@
 {% block content %}
 {% set find_out_more_link = "More info" %}
 
-<div class="row">
-  <div class="columns small-12 large-8 large-offset-2">
-    <h1>{{ result.name }}</h1>
+<div class="org_wrapper">
+  <div class="row">
+    <div class="columns small-12 large-8 large-offset-2">
+      <h1>{{ result.name }}</h1>
+    </div>
+  </div>
 
-    <hr />
+  <div class="row">
+    <div class="columns large-4 large-offset-2 small-12">
+      <h3 style="word-wrap:break-word;">Websites</h3>
+      <p><a href="{{ organisationUrl }}">{{ organisationUrl }}</a></p>
+    </div>
 
-    <h2>About</h2>
+    <div class="columns large-4 small-12 end">
+      <h3>Privacy notice</h3>
+      <p style="word-wrap:break-word;"><a href="{{ result.payload.privacyNotice.url }}">{{ result.payload.privacyNotice.url }}</a></p>
+      <p class="supp">Last updated {{ privacyNoticeLastUpdatedTimeAgo }}</p>
+    </div>
+  </div>
 
-    <h3>Websites</h3>
-    <p><a href="{{ organisationUrl }}">{{ organisationUrl }}</a></p>
+  <div class="row">
+    <div class="columns large-4 large-offset-2 small-12">
+      <h3>Company number</h3>
+      <p>{{ result.payload.organisation.country.toUpperCase() }} {{ result.payload.organisation.companyNumber }}</p>
+      <p class="supp"><a href="https://opencorporates.com/companies/{{ result.payload.organisation.country.toLowerCase() }}/{{ result.payload.organisation.companyNumber }}">View on OpenCorporates</a></p>
+    </div>
 
-    <h3>Privacy Policy</h3>
-    <p><a href="{{ result.payload.privacyNotice.url }}">{{ result.payload.privacyNotice.url }}</a></p>
-    <p>Last updated {{ privacyNoticeLastUpdatedTimeAgo }}</p>
+    <div class="columns large-4 small-12 end">
+      <h3>Regulator number</h3>
+      <p>{{ result.payload.dataProtectionRegister.registrationNumber }}</p>
+      <p class="supp"><a href="{{ result.payload.dataProtectionRegister.registrationLink }}">View entry</a></p>
+    </div>
+  </div>
 
-    <h3>Company information</h3>
-    <p>{{ result.payload.organisation.country.toUpperCase() }}{{ result.payload.organisation.companyNumber }}</p>
-    <p><a href="https://opencorporates.com/companies/{{result.payload.organisation.country.toLowerCase()}}/{{result.payload.organisation.companyNumber}}">View on OpenCorporates</a></p>
-    {% if result.payload.organisation.country.toLowerCase() === 'gb' %}
-    <p><a href="https://beta.companieshouse.gov.uk/company/{{result.payload.organisation.companyNumber}}">View on Companies House</a></p>
-    {% endif %}
 
-    <h3>Data Protection Register number</h3>
-    <p>{{ result.payload.dataProtectionRegister.registrationNumber }}</p>
-    <p><a href="{{result.payload.dataProtectionRegister.registrationLink}}">View entry</a></p>
+</div>
 
-    <hr />
+<!-- <div class="on_this_page">
+  <div class="row">
+    <div class="columns large-8 small-12 large-offset-2">
+      <ul>
+        <li><p class="bold" style="width: 8rem;">Contacts</p></li>
+        <li><a href="#data-protection-officer">Data protection officer</a></li>
+      </ul>
 
+      <ul style="clear: both;">
+        <li><p class="bold" style="width: 8rem;">Your rights</p></li>
+        <li><a href="#access">Access</a></li>
+        <li><a href="#rectification">Rectification</a></li>
+        <li><a href="#erasure">Erasure</a></li>
+        <li><a href="#restrict-processing">Restrict processing</a></li>
+        <li><a href="#data-portability">Data portability</a></li>
+        <li><a href="#object">Object</a></li>
+        <li><a href="#automated-decision-making">Related to automated decision making</a></li>
+      </ul>
+    </div>
+  </div>
+</div> -->
+
+<div class="split_wrapper">
+<div id="data-protection-officer" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Data protection officer</h2>
     <p>The person at an organisation responsible for implementing data protection rules.</p>
-    <p>Name: <strong>{{result.payload.dataProtectionOfficer.name}}</strong></p>
-    <p>Role: <strong>{{result.payload.dataProtectionOfficer.role}}</strong></p>
-    <p>Address: <strong>{{result.payload.dataProtectionOfficer.postalAddress}}</strong></p>
-    <p>Phone number: <strong>{{result.payload.dataProtectionOfficer.telephoneNumber}}</strong></p>
-    <p>Email: <strong>{{result.payload.dataProtectionOfficer.emailAddress}}</strong></p>
+  </div>
+  <div class="columns large-4 small-12 end">
+    <h3>Name</h3>
+    <p>{{ result.payload.dataProtectionOfficer.name }}</p>
+    <h3>Role</h3>
+    <p>{{ result.payload.dataProtectionOfficer.role }}</p>
+    <h3>Email</h3>
+    <p><a href="mailto:{{ result.payload.dataProtectionOfficer.emailAddress }}">{{ result.payload.dataProtectionOfficer.emailAddress }}</a></p>
+    <h3>Phone number</h3>
+    <p>{{ result.payload.dataProtectionOfficer.telephoneNumber }}</p>
+    <h3>Address</h3>
+    <p>{{ result.payload.dataProtectionOfficer.postalAddress }}</p>
+  </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="split_wrapper">
+<div id="access" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Right to access</h2>
-    <p>See what data an organisation has about you. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-of-access/">{{ find_out_more_link }}</a></p>
+    <p>See what data an organisation has about you.</p>
+    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-of-access/">{{ find_out_more_link }}</a></p>
+  </div>
+  <div class="columns large-4 small-12 end">
     {% set right = result.payload.rights.access %}
     {% include "partials/_right.html" %}
+  </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="split_wrapper">
+<div id="rectification" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Right to rectification</h2>
-    <p>Change incorrect or incomplete data about you. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-rectification/">{{ find_out_more_link }}</a></p>
+    <p>Change incorrect or incomplete data about you.</p>
+    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-rectification/">{{ find_out_more_link }}</a></p>
+  </div>
+  <div class="columns large-4 small-12 end">
     {% set right = result.payload.rights.rectification %}
     {% include "partials/_right.html" %}
+  </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="split_wrapper">
+<div id="erasure" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Right to erasure</h2>
-    <p>Request that information about you is deleted. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/">{{ find_out_more_link }}</a></p>
+    <p>Request that information about you is deleted.</p>
+    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/">{{ find_out_more_link }}</a></p>
+  </div>
+  <div class="columns large-4 small-12 end">
     {% set right = result.payload.rights.erasure %}
     {% include "partials/_right.html" %}
+  </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="split_wrapper">
+<div id="restrict-processing" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Right to restrict processing</h2>
-    <p>Stop this organisation from using data about you for certain reasons. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-restrict-processing/">{{ find_out_more_link }}</a></p>
+    <p>Stop this organisation from using data about you for certain reasons.</p>
+    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-restrict-processing/">{{ find_out_more_link }}</a></p>
+  </div>
+  <div class="columns large-4 small-12 end">
     {% set right = result.payload.rights.restrictProcessing %}
     {% include "partials/_right.html" %}
+  </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="split_wrapper">
+<div id="data-portability" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Right to data portability</h2>
-    <p>Request that data held about you by one organisation is moved to another. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-data-portability/">{{ find_out_more_link }}</a></p>
+    <p>Request that data held about you by one organisation is moved to another.</p>
+    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-data-portability/">{{ find_out_more_link }}</a></p>
+  </div>
+  <div class="columns large-4 small-12 end">
     {% set right = result.payload.rights.dataPortability %}
     {% include "partials/_right.html" %}
+  </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="split_wrapper">
+<div id="object" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Right to object</h2>
-    <p>Allow this organisation to store, but not use, data about you. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-object/">{{ find_out_more_link }}</a></p>
+    <p>Allow this organisation to store, but not use, data about you.</p>
+    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-object/">{{ find_out_more_link }}</a></p>
+  </div>
+  <div class="columns large-4 small-12 end">
     {% set right = result.payload.rights.object %}
     {% include "partials/_right.html" %}
+  </div>
+</div>
+</div>
 
-    <hr />
-
+<div class="split_wrapper">
+<div id="automated-decision-making" class="row split">
+  <div class="columns large-4 large-offset-2 small-12">
     <h2>Rights related to automated decision making</h2>
-    <p>Get information about how automated decision making is used by this organisation and opt out of it. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/rights-related-to-automated-decision-making-including-profiling/">{{ find_out_more_link }}</a></p>
+    <p>Get information about how automated decision making is used by this organisation and opt out of it.</p>
+    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/rights-related-to-automated-decision-making-including-profiling/">{{ find_out_more_link }}</a></p>
+  </div>
+  <div class="columns large-4 small-12 end">
     {% set right = result.payload.rights.automatedDecisionMaking %}
     {% include "partials/_right.html" %}
+  </div>
+</div>
+</div>
 
-    <hr />
-
-    <h2>Download</h2>
-    <p>Developers can use the data from this page in their own applications.</p>
-    <p><a href="/organisation/{{result.slug}}.json">JSON</a></p>
-
-    <hr />
-
-    <p class="last-updated">This page was last updated at {{ result.updatedAt }}</p>
+<div class="row meta">
+  <div class="columns large-8 small-12 large-offset-2">
+    <p>Download as <a href="/organisation/{{result.slug}}.json">JSON</a></p>
+    <p>Contribute via <a href="#">GitHub</a> or <a href="#">Email</a></p>
+    <p>This page was last updated at {{ result.updatedAt }}</p>
+    <p><a href="#">Back to top</a></p>
   </div>
 </div>
 {% endblock %}

@@ -1,5 +1,14 @@
-<p>URL: <strong>{{right.contact.url}}</strong></p>
-<p>Email: <strong>{{right.contact.emailAddress}}</strong></p>
-<p>Address: <strong>{{right.contact.postalAddress}}</strong></p>
-<p>Phone number: <strong>{{right.contact.telephoneNumber}}</strong></p>
-<p>Notes: <em>{{right.notes}}</em></p>
+<h3>URL</h3>
+<p><a href="{{ right.contact.url }}" target="_blank">{{ right.contact.url }}</a></p>
+
+<h3>Email</h3>
+<p><a href="mailto:{{ right.contact.emailAddress }}" target="_blank">{{ right.contact.emailAddress }}</a></p>
+
+<h3>Phone number</h3>
+<p>{{ right.contact.telephoneNumber }}</p>
+
+<h3>Address</h3>
+<p>{{ right.contact.postalAddress }}</p>
+
+<h3>Notes</h3>
+<p>{{ right.notes }}</p>

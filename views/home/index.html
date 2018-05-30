@@ -5,24 +5,21 @@
 {% block body_class %}index{% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="columns small-12 large-8 large-offset-2">
-    <h2>{{ settings.description }}</h2>
-    {% include "partials/_search.html" %}
-  </div>
-</div>
-
-<div class="row">
-  <div class="columns small-12 large-8 large-offset-2">
-    {% include "partials/_latest_organisations.html" %}
+<div class="home-search-wrapper">
+  <div class="row">
+    <div class="columns small-12 large-8 large-offset-2">
+      <h2>{{ settings.description }}</h2>
+      {% include "partials/_search.html" %}
+      {% include "partials/_latest_organisations.html" %}
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
     <h3>About</h3>
-    <p>The <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/">General Data Protection Regulation</a> gives people new rights to see and control how data about them is used by companies and services.</p>
-    <p>{{ settings.title }} collects the information people need to use these rights, helping them easily find the links and contact details that are found in privacy policies.</p>
+    <p>The <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/">General Data Protection Regulation</a> gives people new rights to see and control how data about them is used by organisations.</p>
+    <p>{{ settings.title }} collects information people need to use these rights, helping them easily find the links and contact details that are found in privacy notices.</p>
     <p>Developers can also use information from {{ settings.title }} to build new services that help people exercise their new rights.</p>
 
     <h3>Contribute</h3>
