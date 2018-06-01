@@ -1,0 +1,157 @@
+{
+  "fields": {
+    "organisationInformation": {
+      "helperPosition": "above",
+      "label": "About the organisation",
+      "helper": ""
+    },
+    "organisationUrls": {
+      "helperPosition": "above",
+      "label": "What websites do they run?",
+      "helper": "",
+      "hideToolbarWithChildren": false,
+      "toolbarSticky": true,
+      "toolbarStyle": "link",
+      "toolbarPosition": "bottom",
+      "actionbarStyle": "right",
+      "actionbar": {
+        "actions": [
+          { "action": "remove", "enabled": true },
+          { "action": "add", "enabled": false },
+          { "action": "up", "enabled": false },
+          { "action": "down", "enabled": false }
+        ]
+      }
+    },
+    "privacyNoticeUrl": {
+      "helperPosition": "above",
+      "label": "Where is their privacy notice?",
+      "helper": ""
+    },
+    "dataProtectionOfficer": {
+      "helperPosition": "above",
+      "label": "Who is their data protection officer?",
+      "helper": ""
+    },
+    "dataProtectionRegister": {
+      "helperPosition": "above",
+      "label": "Is the organisation in a data protection register?",
+      "helper": ""
+    },
+    "internationalTransfer": {
+      "helperPosition": "above",
+      "label": "How does the organisation protect data outside the EU?",
+      "helper": "",
+      "fields": {
+        "dataProcessingAddendum": {
+          "fields": {
+            "type": {
+              "type": "radio",
+              "optionLabels": [
+                "Sign and return a form",
+                "Change a setting",
+                "Part of Terms of Service"
+              ],
+              "hideNone": true
+            }
+          }
+        }
+      }
+    },
+    "thirdParties": {
+      "helperPosition": "above",
+      "label": "What third parties does the organisation share data with?",
+      "helper": "",
+      "fields": {
+        "list": {
+          "hideToolbarWithChildren": false,
+          "toolbarSticky": true,
+          "toolbarStyle": "link",
+          "toolbarPosition": "bottom",
+          "actionbarStyle": "right",
+          "actionbar": {
+            "actions": [
+              { "action": "remove", "enabled": true },
+              { "action": "add", "enabled": false },
+              { "action": "up", "enabled": false },
+              { "action": "down", "enabled": false }
+            ]
+          }
+        }
+      }
+    },
+    "retentionRules": {
+      "helperPosition": "above",
+      "label": "How long does this organisation keep data for?",
+      "helper": "",
+      "fields": {
+        "rules": {
+          "hideToolbarWithChildren": false,
+          "toolbarSticky": true,
+          "toolbarStyle": "link",
+          "toolbarPosition": "bottom",
+          "actionbarStyle": "right",
+          "actionbar": {
+            "actions": [
+              { "action": "remove", "enabled": true },
+              { "action": "add", "enabled": false },
+              { "action": "up", "enabled": false },
+              { "action": "down", "enabled": false }
+            ]
+          }
+        }
+      }
+    },
+    "dataTypesCollected": {
+      "helperPosition": "above",
+      "label": "What categories of data do they collect?",
+      "helper": "",
+      "fields": {
+        "list": {
+          "type": "checkbox",
+          "optionLabels": [ "Foo", "Bar", "Baz", "123", "456", "789" ]
+        }
+      }
+    },
+    "automatedDecisionMaking": {
+      "helperPosition": "above",
+      "label": "Do they use automated decision making?",
+      "helper": ""
+    },
+    "complaintInformation": {
+      "helperPosition": "above",
+      "label": "Do they have information on how to make a complaint?",
+      "helper": ""
+    },
+    "securityStandards": {
+      "helperPosition": "above",
+      "label": "Do they mention how they secure data?",
+      "helper": ""
+    },
+    "lawfulBases": {
+      "helperPosition": "above",
+      "label": "What lawful bases do they use?",
+      "helper": "",
+      "fields": {
+        "consent": {
+          "label": "Consent"
+        },
+        "contract": {
+          "label": "Contract"
+        },
+        "legalObligation": {
+          "label": "Legal obligation"
+        },
+        "vitalInterests": {
+          "label": "Vital interests"
+        },
+        "publicTask": {
+          "label": "Public task"
+        },
+        "legitimateInterests": {
+          "label": "Legitimate interests"
+        }
+      }
+    }
+  }
+}
