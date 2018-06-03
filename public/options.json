@@ -535,6 +535,14 @@
           }
         }
       }
+    },
+    "unusualProcessingPurposes": {
+      "label": "Do they process data for unusual purposes?",
+      "fields": {
+        "notes": {
+          "type": "textarea"
+        }
+      }
     }
   },
   "form": {

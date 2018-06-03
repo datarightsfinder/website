@@ -1135,6 +1135,17 @@
           }
         }
       }
+    },
+    "unusualProcessingPurposes": {
+      "$id": "/properties/unusualProcessingPurposes",
+      "type": "object",
+      "properties": {
+        "notes": {
+          "$id": "/properties/unusualProcessingPurposes/properties/notes",
+          "type": "string",
+          "title": "Notes"
+        }
+      }
     }
   }
 }
