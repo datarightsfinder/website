@@ -424,6 +424,12 @@
       "label": "Do they mention how they secure data?",
       "helper": "",
       "fields": {
+        "specificity": {
+          "optionLabels": [
+            "Specifically", "Generally", "No mention"
+          ],
+          "hideNone": true
+        },
         "notes": {
           "type": "textarea"
         }

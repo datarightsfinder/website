@@ -551,7 +551,7 @@
           "type": "string",
           "title": "",
           "enum": [
-            "specifically", "generally", "none"
+            "specific", "general", "none"
           ]
         },
         "url": {
