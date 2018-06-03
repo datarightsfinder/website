@@ -118,7 +118,38 @@
       "fields": {
         "list": {
           "type": "checkbox",
-          "optionLabels": [ "Foo", "Bar", "Baz", "123", "456", "789" ]
+          "optionLabels": [
+            "Bank account details",
+            "Bank transactions",
+            "Biometric",
+            "Communication",
+            "Credit history",
+            "Criminal record",
+            "Date of birth",
+            "Device information",
+            "Education",
+            "Email address",
+            "Employment",
+            "Ethnicity",
+            "Gender",
+            "Genetic",
+            "Identity documents",
+            "Income",
+            "Location",
+            "Medical",
+            "Names",
+            "Online activity",
+            "Passwords",
+            "Personal preferences",
+            "Political opinions",
+            "Postal address",
+            "Religious beliefs",
+            "Sexual preferences",
+            "Social network",
+            "Social security number",
+            "Telephone number",
+            "Trade union membership"
+          ]
         },
         "notes": {
           "type": "textarea"
