@@ -18,13 +18,13 @@ $(function() {
       // Close
       container.attr("data-open", "false");
 
-      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend").hide();
+      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend, .form-custom-button").hide();
       $(this).parent().find("legend").eq(0).show();
     } else if (container.attr("data-open") === "false" || !container.attr("data-open")) {
       // Open
       container.attr("data-open", "true");
 
-      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend").show();
+      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend, .form-custom-button").show();
     }
   });
 
@@ -109,6 +109,20 @@ $(function() {
     }, 200);
   });
 
+  $("body").on("click", "#buttonShowAllRights", function(e) {
+    e.preventDefault();
+
+    $('[data-alpaca-field-path="/rights/access"], '
+        + '[data-alpaca-field-path="/rights/rectification"], '
+        + '[data-alpaca-field-path="/rights/erasure"], '
+        + '[data-alpaca-field-path="/rights/restrictProcessing"], '
+        + '[data-alpaca-field-path="/rights/dataPortability"], '
+        + '[data-alpaca-field-path="/rights/object"], '
+        + '[data-alpaca-field-path="/rights/automatedDecisionMaking"]').show();
+
+    $(this).hide();
+  });
+
   // FUNCTIONS
   function setupForm(form) {
     // Repopulate form with JSON from localStorage if exists
@@ -126,7 +140,7 @@ $(function() {
       form.setValue(payload);
 
       // Hide all fields
-      $(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right").hide();
+      $(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, .form-custom-button").hide();
 
       // Show first field
       showFirstField();
@@ -210,6 +224,16 @@ $(function() {
       });
 
       createTextboxArrayForms();
+
+      // CUSTOM FORM ELEMENTS
+      // Add link to show specific right contact details
+      var showAllRightsLink = $("<a>");
+      showAllRightsLink.addClass("form-custom-button");
+      showAllRightsLink.attr("href", "#");
+      showAllRightsLink.attr("id", "buttonShowAllRights");
+      showAllRightsLink.text("Show fields for each right");
+
+      $('[data-alpaca-field-name="rights_general"]').append(showAllRightsLink);
     }, 200);
   }
 
@@ -275,7 +299,7 @@ $(function() {
 
   function showFirstField() {
     $('[data-alpaca-container-item-name="organisationInformation"]')
-      .find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right")
+      .find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, .form-custom-button")
       .show();
 
     $('[data-alpaca-container-item-name="organisationInformation"]')
