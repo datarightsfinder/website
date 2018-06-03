@@ -472,6 +472,10 @@
         "legitimateInterests": {
           "label": "Legitimate interests",
           "type": "textarea"
+        },
+        "notes": {
+          "label": "Notes",
+          "type": "textarea"
         }
       }
     },
