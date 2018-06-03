@@ -152,6 +152,37 @@
           "label": "Legitimate interests"
         }
       }
+    },
+    "rights": {
+      "helperPosition": "above",
+      "label": "How can you exercise your rights?",
+      "helper": "",
+      "fields": {
+        "general": {
+          "label": "General"
+        },
+        "rectification": {
+          "label": "Right to rectification"
+        },
+        "erasure": {
+          "label": "Right to erasure"
+        },
+        "restrictProcessing": {
+          "label": "Right to restrict processing"
+        },
+        "dataPortability": {
+          "label": "Right to data portability"
+        },
+        "object": {
+          "label": "Right to object"
+        },
+        "automatedDecisionMaking": {
+          "label": "Rights around automated decision making"
+        }
+      }
     }
+  },
+  "form": {
+    "buttons": {}
   }
 }
