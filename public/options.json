@@ -53,6 +53,9 @@
                 "Part of Terms of Service"
               ],
               "hideNone": true
+            },
+            "notes": {
+              "type": "textarea"
             }
           }
         }
@@ -77,6 +80,9 @@
               { "action": "down", "enabled": false }
             ]
           }
+        },
+        "notes": {
+          "type": "textarea"
         }
       }
     },
@@ -99,6 +105,9 @@
               { "action": "down", "enabled": false }
             ]
           }
+        },
+        "notes": {
+          "type": "textarea"
         }
       }
     },
@@ -110,23 +119,41 @@
         "list": {
           "type": "checkbox",
           "optionLabels": [ "Foo", "Bar", "Baz", "123", "456", "789" ]
+        },
+        "notes": {
+          "type": "textarea"
         }
       }
     },
     "automatedDecisionMaking": {
       "helperPosition": "above",
       "label": "Do they use automated decision making?",
-      "helper": ""
+      "helper": "",
+      "fields": {
+        "notes": {
+          "type": "textarea"
+        }
+      }
     },
     "complaintInformation": {
       "helperPosition": "above",
       "label": "Do they have information on how to make a complaint?",
-      "helper": ""
+      "helper": "",
+      "fields": {
+        "notes": {
+          "type": "textarea"
+        }
+      }
     },
     "securityStandards": {
       "helperPosition": "above",
       "label": "Do they mention how they secure data?",
-      "helper": ""
+      "helper": "",
+      "fields": {
+        "notes": {
+          "type": "textarea"
+        }
+      }
     },
     "lawfulBases": {
       "helperPosition": "above",
@@ -134,22 +161,28 @@
       "helper": "",
       "fields": {
         "consent": {
-          "label": "Consent"
+          "label": "Consent",
+          "type": "textarea"
         },
         "contract": {
-          "label": "Contract"
+          "label": "Contract",
+          "type": "textarea"
         },
         "legalObligation": {
-          "label": "Legal obligation"
+          "label": "Legal obligation",
+          "type": "textarea"
         },
         "vitalInterests": {
-          "label": "Vital interests"
+          "label": "Vital interests",
+          "type": "textarea"
         },
         "publicTask": {
-          "label": "Public task"
+          "label": "Public task",
+          "type": "textarea"
         },
         "legitimateInterests": {
-          "label": "Legitimate interests"
+          "label": "Legitimate interests",
+          "type": "textarea"
         }
       }
     },
@@ -159,25 +192,55 @@
       "helper": "",
       "fields": {
         "general": {
-          "label": "General"
+          "label": "General",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }
         },
         "rectification": {
-          "label": "Right to rectification"
-        },
+          "label": "Right to rectification",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }        },
         "erasure": {
-          "label": "Right to erasure"
-        },
+          "label": "Right to erasure",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }        },
         "restrictProcessing": {
-          "label": "Right to restrict processing"
-        },
+          "label": "Right to restrict processing",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }        },
         "dataPortability": {
-          "label": "Right to data portability"
-        },
+          "label": "Right to data portability",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }        },
         "object": {
-          "label": "Right to object"
-        },
+          "label": "Right to object",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }        },
         "automatedDecisionMaking": {
-          "label": "Rights around automated decision making"
+          "label": "Rights around automated decision making",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }
         }
       }
     }

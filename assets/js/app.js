@@ -44,7 +44,7 @@ $(function() {
   });
 
   // Save form JSON to localStorage on keyup event
-  $("body").on("keyup", "input", function(e) {
+  $("body").on("keyup", "input, textarea", function(e) {
     saveLocalStorage();
 
     refreshContributeForm();
