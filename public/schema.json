@@ -8,18 +8,18 @@
       "$id": "/properties/organisationInformation",
       "type": "object",
       "properties": {
-        "companyName": {
-          "$id": "/properties/organisationInformation/properties/companyName",
+        "name": {
+          "$id": "/properties/organisationInformation/properties/name",
           "type": "string",
           "title": "Organisation name"
         },
-        "companyNumber": {
-          "$id": "/properties/organisationInformation/properties/companyNumber",
+        "number": {
+          "$id": "/properties/organisationInformation/properties/number",
           "type": "string",
           "title": "Registration number"
         },
-        "companyRegistrationCountry": {
-          "$id": "/properties/organisationInformation/properties/companyRegistrationCountry",
+        "registrationCountry": {
+          "$id": "/properties/organisationInformation/properties/registrationCountry",
           "type": "string",
           "title": "Registration country",
           "enum": [

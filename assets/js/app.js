@@ -46,7 +46,11 @@ $(function() {
   // Save form JSON to localStorage on keyup event
   $("body").on("keyup", "input, textarea", function(e) {
     saveLocalStorage();
+    refreshContributeForm();
+  });
 
+  $("body").on("change", "select", function(e) {
+    saveLocalStorage();
     refreshContributeForm();
   });
 
@@ -60,7 +64,7 @@ $(function() {
   // Contribute buttons
   $(".contribute-buttons a").click(function(e) {
     // Ignore if required fills aren't filled out
-    if ($("input[name=organisationInformation_companyName]").val() === "") {
+    if ($("input[name=organisationInformation_number]").val() === "" || $("select[name=organisationInformation_registrationCountry]").val() === "") {
       e.preventDefault();
       return;
     }
@@ -213,9 +217,7 @@ $(function() {
       });
 
       // Refresh contribute form
-      if ($('input[name=organisationInformation_companyName]').val() !== "") {
-        refreshContributeForm();
-      }
+      refreshContributeForm();
 
       $("#form1 input:radio, #form1 input:checkbox").each(function(i, e) {
         if ($(e).prop("checked")) {
@@ -307,11 +309,6 @@ $(function() {
   }
 
   function saveLocalStorage() {
-    // Skip if company name isn't filled out
-    if ($("input[name=organisationInformation_companyName]").val() === "") {
-      return;
-    }
-
     // Get form contents
     var payload = $("#form1").alpaca("get").getValue();
 
@@ -327,6 +324,11 @@ $(function() {
   }
 
   function refreshContributeForm() {
+    // Skip if required organisation details are missing
+    if ($("input[name=organisationInformation_number]").val() === "" || $("select[name=organisationInformation_registrationCountry]").val() === "") {
+      return;
+    }
+
     // Get JSON from form
     var payload = $("#form1").alpaca("get").getValue();
 
@@ -339,17 +341,13 @@ $(function() {
     // Populate mailto: link for email contributions
     $(".contribute-buttons a").last().attr("href", "mailto:ian@projectsbyif.com?body=" + JSON.stringify(payload));
 
-    // Populate fields with company name slugs
-    var slugifiedOrgName = easySlugify($("input[name=organisationInformation_companyName]").val());
+    // Populate fields
+    var proposedFilename = $("select[name=organisationInformation_registrationCountry]").val() + $("input[name=organisationInformation_number]").val();
+    var proposedSlug = $("select[name=organisationInformation_registrationCountry]").val() + "/" + $("input[name=organisationInformation_number]").val();
 
-    $(".contribute-url-preview").attr("href", "/organisation" + slugifiedOrgName)
-      .text("https://example.com/organisation/" + slugifiedOrgName);
+    $(".contribute-filename").text(proposedFilename);
 
-    $(".contribute-filename").text(slugifiedOrgName);
-  }
-
-  // HELPERS
-  function easySlugify(input) {
-    return input.replace(/[.]/g, "").replace(/[\s+]/g, "-").toLowerCase();
+    $(".contribute-url-preview").attr("href", "/organisation" + proposedSlug)
+      .text("https://example.com/organisation/" + proposedSlug);
   }
 });
