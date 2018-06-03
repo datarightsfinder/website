@@ -44,6 +44,25 @@
   overflow: auto;
 }
 
+.pull-left,
+.pull-right {
+  float: left;
+}
+
+.pull-left {
+  width: 85%;
+}
+
+.pull-right {
+  width: 15%;
+  text-align: center;
+  line-height: 40px;
+}
+
+.alpaca-array-toolbar-action {
+  display: none;
+}
+
 /* Custom controls */
 .radio,
 .checkbox {

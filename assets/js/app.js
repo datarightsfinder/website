@@ -208,8 +208,59 @@ $(function() {
           $(e).parent().parent().addClass("active");
         }
       });
+
+      createTextboxArrayForms();
     }, 200);
   }
+
+  function createTextboxArrayForms() {
+    $(".alpaca-array-toolbar").each(function(i, e) {
+      var input = $("<input>");
+      input.attr("type", "text");
+      input.attr("id", "array-input-box" + i);
+      input.addClass("array-input-box");
+      input.attr("placeholder", "Enter a value and press return...");
+
+      // var a = $("<a>");
+      // a.attr("href", "#");
+      // a.text("Add");
+
+      $(e).append(input);
+    });
+  }
+
+  $("body").on("keyup", ".array-input-box", function(e) {
+    // TODO: Fix lag when adding a new item to the array
+
+    if (e.keyCode === 13 && $(this).val().length > 0) {
+      var value = $(this).val();
+      var cachedParent = $(this).parent().parent();
+      var cachedId = $(this).attr("id");
+
+      $(this).parent().find(".alpaca-array-toolbar-action").trigger("click");
+
+      setTimeout(function() {
+        cachedParent.find("input.alpaca-control").last().val(value);
+        refreshContributeForm();
+        saveLocalStorage();
+        createTextboxArrayForms();
+
+        $('#' + cachedId).focus();
+      }, 200);
+    }
+  });
+
+  $("body").on("mouseup", ".alpaca-array-actionbar-action", function(e) {
+    // TODO: Fix lag when removing an item in the array
+
+    e.preventDefault();
+
+    setTimeout(function() {
+      createTextboxArrayForms();
+      saveLocalStorage();
+      refreshContributeForm();
+    }, 200);
+  });
 
   function showFirstField() {
     $('[data-alpaca-container-item-name="organisationInformation"]')
