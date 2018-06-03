@@ -215,6 +215,10 @@ $(function() {
 
   function createTextboxArrayForms() {
     $(".alpaca-array-toolbar").each(function(i, e) {
+      if ($(e).find("input").length !== 0) {
+        return;
+      }
+
       var input = $("<input>");
       input.attr("type", "text");
       input.attr("id", "array-input-box" + i);
