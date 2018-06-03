@@ -39,17 +39,24 @@
   margin-top: 0 !important;
 }
 
-.alpaca-field-checkbox {
+.alpaca-field-checkbox,
+.alpaca-field-radio {
   overflow: auto;
 }
 
 /* Custom controls */
+.radio,
 .checkbox {
-  border: #000 1px solid;
-  padding: 2px 10px;
+  float: left;
   margin-right: 8px;
   margin-bottom: 8px;
-  float: left;
+  margin-left: 0 !important;
+
+  label {
+    padding: 2px 10px;
+    border: #000 1px solid;
+    line-height: 1.8 !important;
+  }
 
   input {
     display: none;

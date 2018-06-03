@@ -258,11 +258,7 @@
         "usesAutomatedDecisionMaking": {
           "$id": "/properties/automatedDecisionMaking/properties/usesAutomatedDecisionMaking",
           "type": "boolean",
-          "title": "",
-          "default": false,
-          "examples": [
-            true
-          ]
+          "title": ""
         },
         "notes": {
           "$id": "/properties/automatedDecisionMaking/properties/notes",
@@ -282,11 +278,7 @@
         "present": {
           "$id": "/properties/complaintInformation/properties/present",
           "type": "boolean",
-          "title": "",
-          "default": false,
-          "examples": [
-            true
-          ]
+          "title": ""
         },
         "notes": {
           "$id": "/properties/complaintInformation/properties/notes",

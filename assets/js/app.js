@@ -29,8 +29,18 @@ $(function() {
   });
 
   // Enable checkbox toggle style
-  $("body").on("click", "input:checkbox", function(e) {
+  $("body").on("click", "input:checkbox, input:radio", function(e) {
+    if ($(this).parent().parent().parent().hasClass("boolean-toggle")) {
+      return;
+    }
+
+    $(this).parent().parent().parent().find(".radio").removeClass("active");
     $(this).parent().parent().toggleClass("active");
+
+    setTimeout(function() {
+      saveLocalStorage();
+      refreshContributeForm();
+    }, 200);
   });
 
   // Save form JSON to localStorage on keyup event
@@ -71,6 +81,34 @@ $(function() {
     $(this).addClass("active");
   });
 
+  // Boolean toggle
+  $("body").on("click", ".boolean-toggle input:radio", function(e) {
+    var targetCheckbox = $(this).parent().parent().parent()
+                          .find("input:checkbox");
+    var targetCheckboxOn = targetCheckbox.is(":checked");
+
+    $(this).parent().parent().parent().children().removeClass("active");
+    $(this).parent().parent().addClass("active");
+
+    $(this).parent().parent().parent().find('input:radio').not(this)
+      .prop("checked", false);
+
+    if ($(this).val() === "true") {
+      if (!targetCheckboxOn) {
+        targetCheckbox.trigger("click");
+      }
+    } else {
+      if (targetCheckboxOn) {
+        targetCheckbox.trigger("click");
+      }
+    }
+
+    setTimeout(function() {
+      saveLocalStorage();
+      refreshContributeForm();
+    }, 200);
+  });
+
   // FUNCTIONS
   function setupForm(form) {
     // Repopulate form with JSON from localStorage if exists
@@ -109,10 +147,67 @@ $(function() {
         $(e).empty().append(a);
       });
 
+      // Radio selectors in Alpaca can't be used with boolean types and enum to
+      // create yes/no toggles, so this makes our own using a checkbox
+      var addToggle = [];
+
+      $(".checkbox").each(function(i, e) {
+        // Find where label-less checkboxes are
+        var labelText = $(e).find("label").text().trim();
+
+        if (labelText === "") {
+          addToggle.push(e);
+        }
+      });
+
+      addToggle.forEach(function(e, i) {
+        $(e).hide();
+
+        $(e).parent().addClass("boolean-toggle");
+
+        var buttonYes = $("<div>");
+        var buttonNo = $("<div>");
+        buttonYes.addClass("alpaca-control").addClass("radio");
+        buttonNo.addClass("alpaca-control").addClass("radio");
+
+        var labelYes = $("<label>");
+        var labelNo = $("<label>");
+        labelYes.text("Yes");
+        labelNo.text("No");
+
+        var inputYes = $("<input>");
+        var inputNo = $("<input>");
+        inputYes.attr("type", "radio");
+        inputYes.attr("value", "true");
+        inputNo.attr("type", "radio");
+        inputNo.attr("value", "false");
+
+        if ($(e).find("input").prop("checked")) {
+          inputYes.prop("checked", true);
+        } else {
+          inputNo.prop("checked", true);
+        }
+
+        labelYes.prepend(inputYes);
+        labelNo.prepend(inputNo);
+
+        buttonYes.append(labelYes);
+        buttonNo.append(labelNo);
+
+        $(e).parent().append(buttonYes);
+        $(e).parent().append(buttonNo);
+      });
+
       // Refresh contribute form
       if ($('input[name=organisationInformation_companyName]').val() !== "") {
         refreshContributeForm();
       }
+
+      $("#form1 input:radio, #form1 input:checkbox").each(function(i, e) {
+        if ($(e).prop("checked")) {
+          $(e).parent().parent().addClass("active");
+        }
+      });
     }, 200);
   }
 
