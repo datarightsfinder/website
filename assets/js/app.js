@@ -266,6 +266,13 @@ $(function() {
     }, 200);
   });
 
+  // Pressing tab and focusing on section opens it
+  $("body").on("keyup", "#form1", function(e) {
+    if (e.which === 9 && $(document.activeElement).parent().hasClass("alpaca-container-label")) {
+      $(document.activeElement).trigger("click");
+    }
+  });
+
   function showFirstField() {
     $('[data-alpaca-container-item-name="organisationInformation"]')
       .find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right")
