@@ -12,7 +12,20 @@ $(function() {
   $("body").on("click", "legend", function(e) {
     e.preventDefault();
 
-    $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend").show();
+    var container = $(this).parent().parent();
+
+    if (container.attr("data-open") === "true") {
+      // Close
+      container.attr("data-open", "false");
+
+      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend").hide();
+      $(this).parent().find("legend").eq(0).show();
+    } else if (container.attr("data-open") === "false" || !container.attr("data-open")) {
+      // Open
+      container.attr("data-open", "true");
+
+      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend").show();
+    }
   });
 
   // Enable checkbox toggle style
@@ -109,7 +122,7 @@ $(function() {
       .show();
 
     $('[data-alpaca-container-item-name="organisationInformation"]')
-      .css({ "height": "auto" });
+      .attr("data-open", "true")
   }
 
   function saveLocalStorage() {
