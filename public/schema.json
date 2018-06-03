@@ -651,16 +651,16 @@
             }
           }
         },
-        "dataPortabiltiy": {
-          "$id": "/properties/rights/properties/dataPortabiltiy",
+        "dataPortability": {
+          "$id": "/properties/rights/properties/dataPortability",
           "type": "object",
           "properties": {
             "contactInfo": {
-              "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo",
+              "$id": "/properties/rights/properties/dataPortability/properties/contactInfo",
               "type": "object",
               "properties": {
                 "url": {
-                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/url",
+                  "$id": "/properties/rights/properties/dataPortability/properties/contactInfo/properties/url",
                   "type": "string",
                   "title": "URL",
                   "default": "",
@@ -669,7 +669,7 @@
                   ]
                 },
                 "postalAddress": {
-                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/postalAddress",
+                  "$id": "/properties/rights/properties/dataPortability/properties/contactInfo/properties/postalAddress",
                   "type": "string",
                   "title": "Postal address",
                   "default": "",
@@ -678,7 +678,7 @@
                   ]
                 },
                 "emailAddress": {
-                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/emailAddress",
+                  "$id": "/properties/rights/properties/dataPortability/properties/contactInfo/properties/emailAddress",
                   "type": "string",
                   "title": "Email address",
                   "default": "",
@@ -687,7 +687,7 @@
                   ]
                 },
                 "telephoneNumber": {
-                  "$id": "/properties/rights/properties/dataPortabiltiy/properties/contactInfo/properties/telephoneNumber",
+                  "$id": "/properties/rights/properties/dataPortability/properties/contactInfo/properties/telephoneNumber",
                   "type": "string",
                   "title": "Telephone number",
                   "default": "",
@@ -698,7 +698,7 @@
               }
             },
             "notes": {
-              "$id": "/properties/rights/properties/dataPortabiltiy/properties/notes",
+              "$id": "/properties/rights/properties/dataPortability/properties/notes",
               "type": "string",
               "title": "Notes",
               "default": "",
