@@ -710,6 +710,63 @@
       "type": "object",
       "properties": {
         "general": {
+          "$id": "/properties/rights/properties/general",
+          "type": "object",
+          "properties": {
+            "contactInfo": {
+              "$id": "/properties/rights/properties/general/properties/contactInfo",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "$id": "/properties/rights/properties/general/properties/contactInfo/properties/url",
+                  "type": "string",
+                  "title": "URL",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "postalAddress": {
+                  "$id": "/properties/rights/properties/general/properties/contactInfo/properties/postalAddress",
+                  "type": "string",
+                  "title": "Postal address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "emailAddress": {
+                  "$id": "/properties/rights/properties/general/properties/contactInfo/properties/emailAddress",
+                  "type": "string",
+                  "title": "Email address",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "telephoneNumber": {
+                  "$id": "/properties/rights/properties/general/properties/contactInfo/properties/telephoneNumber",
+                  "type": "string",
+                  "title": "Telephone number",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "notes": {
+              "$id": "/properties/rights/properties/general/properties/notes",
+              "type": "string",
+              "title": "Notes",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "access": {
           "$id": "/properties/rights/properties/access",
           "type": "object",
           "properties": {

@@ -492,6 +492,14 @@
             }
           }
         },
+        "access": {
+          "label": "Right to access",
+          "fields": {
+            "notes": {
+              "type": "textarea"
+            }
+          }
+        },
         "rectification": {
           "label": "Right to rectification",
           "fields": {
