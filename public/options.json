@@ -3,7 +3,7 @@
     "organisationInformation": {
       "helperPosition": "above",
       "label": "About the organisation",
-      "helper": ""
+      "helper": "Start by entering some basic details about the organisation. You can look up registration numbers and countries on <a href=\"https://opencorporates.com/\" target=\"_blank\">OpenCorporates</a>.",
       "fields": {
         "registrationCountry": {
           "noneLabel": " ",
@@ -266,7 +266,7 @@
     "organisationUrls": {
       "helperPosition": "above",
       "label": "What websites do they run?",
-      "helper": "",
+      "helper": "Enter the organisations main website, including any websites for subsiduaries.",
       "hideToolbarWithChildren": false,
       "toolbarSticky": true,
       "toolbarStyle": "link",
@@ -294,7 +294,7 @@
     "dataProtectionRegister": {
       "helperPosition": "above",
       "label": "Is the organisation in a data protection register?",
-      "helper": ""
+      "helper": "Find the details of this organisation in a national data processors register, like the <a href=\"https://ico.org.uk/about-the-ico/what-we-do/register-of-fee-payers/\" target=\"_blank\">ICO register of fee payers</a>. Some countries may not have one."
     },
     "internationalTransfer": {
       "helperPosition": "above",
