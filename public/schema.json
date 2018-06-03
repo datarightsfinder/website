@@ -443,37 +443,6 @@
       "$id": "/properties/retentionRules",
       "type": "object",
       "properties": {
-        "rules": {
-          "$id": "/properties/retentionRules/properties/rules",
-          "type": "array",
-          "items": {
-            "$id": "/properties/retentionRules/properties/rules/items",
-            "type": "object",
-            "properties": {
-              "type": {
-                "$id": "/properties/retentionRules/properties/rules/items/properties/type",
-                "type": "string",
-                "title": "Type",
-                "enum": [
-                  "type_1", "type_2", "type_3", "type_4"
-                ]
-              },
-              "durationValue": {
-                "$id": "/properties/retentionRules/properties/rules/items/properties/duration",
-                "type": "string",
-                "title": "Value"
-              },
-              "durationLength": {
-                "$id": "/properties/retentionRules/properties/rules/items/properties/type",
-                "type": "string",
-                "title": "Length",
-                "enum": [
-                  "days", "months", "weeks", "years"
-                ]
-              }
-            }
-          }
-        },
         "notes": {
           "$id": "/properties/retentionRules/properties/notes",
           "type": "string",

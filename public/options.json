@@ -349,21 +349,6 @@
       "label": "How long does this organisation keep data for?",
       "helper": "",
       "fields": {
-        "rules": {
-          "hideToolbarWithChildren": false,
-          "toolbarSticky": true,
-          "toolbarStyle": "link",
-          "toolbarPosition": "bottom",
-          "actionbarStyle": "right",
-          "actionbar": {
-            "actions": [
-              { "action": "remove", "enabled": true },
-              { "action": "add", "enabled": false },
-              { "action": "up", "enabled": false },
-              { "action": "down", "enabled": false }
-            ]
-          }
-        },
         "notes": {
           "type": "textarea"
         }
