@@ -298,7 +298,7 @@
     },
     "internationalTransfer": {
       "helperPosition": "above",
-      "label": "How does the organisation protect data outside the EU?",
+      "label": "How does the organisation protect data outside the EEA?",
       "helper": "",
       "fields": {
         "dataProcessingAddendum": {
