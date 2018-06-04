@@ -1146,6 +1146,28 @@
           "title": "Notes"
         }
       }
+    },
+    "transparencyRecommendations": {
+      "$id": "/properties/transparencyRecommendations",
+      "type": "object",
+      "properties": {
+        "plainLanguage": {
+          "$id": "/properties/transparencyRecommendations/properties/plainLanguage",
+          "type": "boolean"
+        },
+        "definiteLanguage": {
+          "$id": "/properties/transparencyRecommendations/properties/definiteLanguage",
+          "type": "boolean"
+        },
+        "easyToFind": {
+          "$id": "/properties/transparencyRecommendations/properties/easyToFind",
+          "type": "boolean"
+        },
+        "legibleDesign": {
+          "$id": "/properties/transparencyRecommendations/properties/legibleDesign",
+          "type": "boolean"
+        }
+      }
     }
   }
 }

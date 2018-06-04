@@ -543,6 +543,23 @@
           "type": "textarea"
         }
       }
+    },
+    "transparencyRecommendations": {
+      "label": "What is their privacy notice like?",
+      "fields": {
+        "plainLanguage": {
+          "label": "Was it written in plain language?"
+        },
+        "definiteLanguage": {
+          "label": "Was it written in certain language?"
+        },
+        "easyToFind": {
+          "label": "Was it easy to find the privacy notice?"
+        },
+        "legibleDesign": {
+          "label": "Was the privacy notice easy to navigate?"
+        }
+      }
     }
   },
   "form": {
