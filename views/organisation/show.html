@@ -159,6 +159,25 @@
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
+    <h2>Data categories collected</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
+  </div>
+  <div class="column small-12 large-6 data">
+    <h3>List</h3>
+    <ul>
+      {% for item in result.payload.dataTypesCollected.list %}
+      <li><p>{{ item | replace("_", " ") | capitalize }}{{ item | highlightSpecialCategory }}</p></li>
+      {% endfor %}
+    </ul>
+
+    <h3>Notes</h3>
+    <p>{{ result.payload.dataTypesCollected.notes }}</p>
+  </div>
+</div>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
     <h2>Automated decision making</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>

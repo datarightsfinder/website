@@ -11,6 +11,7 @@ const helmet = require('helmet');
 const async = require('async');
 const Sequelize = require('sequelize');
 const request = require('request');
+const Constants = require("./libs/constants");
 
 require('dotenv').config()
 
@@ -33,10 +34,26 @@ app.use(express.urlencoded({
 }));
 app.set('port', process.env.PORT || 3000);
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
+// NUNJUCKS
 nunjucks.configure('views', {
   autoescape: true,
   express: app
 });
+
+var nunjucksEnv = new nunjucks.Environment();
+
+nunjucksEnv.addFilter("highlightSpecialCategory", function(category) {
+  var lookup = Constants.getSpecialCategories().indexOf(category);
+
+  if (lookup !== -1) {
+    return "true";
+  } else {
+    return "false";
+  }
+});
+
+nunjucksEnv.express(app);
 
 // SEQUELIZE
 const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: "postgres" });
