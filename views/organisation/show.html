@@ -9,192 +9,361 @@
 {% endblock %}
 
 {% block content %}
-{% set find_out_more_link = "More info" %}
-
-<div class="org_wrapper">
+<div class="banner">
   <div class="row">
-    <div class="columns small-12 large-8 large-offset-2">
+    <div class="columns small-12 large-12">
       <h1>{{ result.name }}</h1>
+      <p class="banner-buttons">
+        <a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}">
+          <span class="emoji-flag">{{ extraData.emojiFlag }}</span>
+          {{ result.registrationNumber }}
+        </a><a href="{{ result.payload.organisationUrls[0] }}">Website</a><a href="{{ result.payload.privacyNoticeUrl.url }}">Privacy notice</a>
+      </p>
     </div>
   </div>
-
-  <div class="row">
-    <div class="columns large-4 large-offset-2 small-12">
-      <h3 style="word-wrap:break-word;">Websites</h3>
-      <p><a href="{{ organisationUrl }}">{{ organisationUrl }}</a></p>
-    </div>
-
-    <div class="columns large-4 small-12 end">
-      <h3>Privacy notice</h3>
-      <p style="word-wrap:break-word;"><a href="{{ result.payload.privacyNotice.url }}">{{ result.payload.privacyNotice.url }}</a></p>
-      <p class="supp">Last updated {{ privacyNoticeLastUpdatedTimeAgo }}</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="columns large-4 large-offset-2 small-12">
-      <h3>Company number</h3>
-      <p>{{ result.payload.organisation.country.toUpperCase() }} {{ result.payload.organisation.companyNumber }}</p>
-      <p class="supp"><a href="https://opencorporates.com/companies/{{ result.payload.organisation.country.toLowerCase() }}/{{ result.payload.organisation.companyNumber }}">View on OpenCorporates</a></p>
-    </div>
-
-    <div class="columns large-4 small-12 end">
-      <h3>Regulator number</h3>
-      <p>{{ result.payload.dataProtectionRegister.registrationNumber }}</p>
-      <p class="supp"><a href="{{ result.payload.dataProtectionRegister.registrationLink }}">View entry</a></p>
-    </div>
-  </div>
-
-
 </div>
 
-<!-- <div class="on_this_page">
+<div class="overview">
   <div class="row">
-    <div class="columns large-8 small-12 large-offset-2">
+    <div class="columns small-12 large-12">
+      <h2>Overview</h2>
       <ul>
-        <li><p class="bold" style="width: 8rem;">Contacts</p></li>
-        <li><a href="#data-protection-officer">Data protection officer</a></li>
-      </ul>
-
-      <ul style="clear: both;">
-        <li><p class="bold" style="width: 8rem;">Your rights</p></li>
-        <li><a href="#access">Access</a></li>
-        <li><a href="#rectification">Rectification</a></li>
-        <li><a href="#erasure">Erasure</a></li>
-        <li><a href="#restrict-processing">Restrict processing</a></li>
-        <li><a href="#data-portability">Data portability</a></li>
-        <li><a href="#object">Object</a></li>
-        <li><a href="#automated-decision-making">Related to automated decision making</a></li>
+        <li>
+          <span>✅</span>
+          <span>Has a named <a href="#">data protection officer</a></span>
+        </li>
+        <li>
+          <span>✅</span>
+          <span>Uses <a href="#">specific security measures</a> to protect data</span>
+        </li>
+        <li>
+          <span>✅</span>
+          <span>Follows some good practices for writing privacy policies</span>
+        </li>
+        <li>
+          <span>⚠️</span>
+          <span>Collects some special categories of personal data</span>
+        </li>
+        <li>
+          <span>⚠️</span>
+          <span>Uses automated decision making</span>
+        </li>
       </ul>
     </div>
   </div>
-</div> -->
+</div>
 
-<div class="split_wrapper">
-<div id="data-protection-officer" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Data protection officer</h2>
-    <p>The person at an organisation responsible for implementing data protection rules.</p>
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Data Protection Officer</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
+  <div class="column small-12 large-6 data">
     <h3>Name</h3>
     <p>{{ result.payload.dataProtectionOfficer.name }}</p>
+
     <h3>Role</h3>
     <p>{{ result.payload.dataProtectionOfficer.role }}</p>
-    <h3>Email</h3>
-    <p><a href="mailto:{{ result.payload.dataProtectionOfficer.emailAddress }}">{{ result.payload.dataProtectionOfficer.emailAddress }}</a></p>
-    <h3>Phone number</h3>
-    <p>{{ result.payload.dataProtectionOfficer.telephoneNumber }}</p>
-    <h3>Address</h3>
-    <p>{{ result.payload.dataProtectionOfficer.postalAddress }}</p>
+
+    {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
   </div>
-</div>
 </div>
 
-<div class="split_wrapper">
-<div id="access" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Right to access</h2>
-    <p>See what data an organisation has about you.</p>
-    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-of-access/">{{ find_out_more_link }}</a></p>
+
+
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Data protection register</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
-    {% set right = result.payload.rights.access %}
-    {% include "partials/_right.html" %}
+  <div class="column small-12 large-6 data">
+    <h3>Identifier</h3>
+    <p>{{ result.payload.dataProtectionRegister.identifier }}</p>
+
+    <h3>URL</h3>
+    <p>
+      <a href="{{ result.payload.dataProtectionRegister.url }}" target="_blank">{{ result.payload.dataProtectionRegister.url }}</a>
+    </p>
   </div>
-</div>
 </div>
 
-<div class="split_wrapper">
-<div id="rectification" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Right to rectification</h2>
-    <p>Change incorrect or incomplete data about you.</p>
-    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-rectification/">{{ find_out_more_link }}</a></p>
+
+
+
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>International transfer</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
-    {% set right = result.payload.rights.rectification %}
-    {% include "partials/_right.html" %}
+  <div class="column small-12 large-6 data">
+    <h3>US–EU Privacy Shield URL</h3>
+    <p>
+      <a href="#">{{ result.payload.internationalTransfer.privacyShieldUrl }}</a>
+    </p>
+
+    <h3>Data processing addendum</h3>
+    {% set addendumType = result.payload.internationalTransfer.dataProcessingAddendum.type %}
+    {% if addendumType == "form" %}
+    <p>Form</p>
+    {% elif addendumType == "setting" %}
+    <p>Setting</p>
+    {% elif addendumType == "assumed" %}
+    <p>Assumed</p>
+    {% endif %}
+
+    <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
+
+    <h3>Notes</h3>
+    <p>{{ result.payload.internationalTransfer.dataProcessingAddendum.notes }}</p>
   </div>
-</div>
 </div>
 
-<div class="split_wrapper">
-<div id="erasure" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Right to erasure</h2>
-    <p>Request that information about you is deleted.</p>
-    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/">{{ find_out_more_link }}</a></p>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Third parties</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
-    {% set right = result.payload.rights.erasure %}
-    {% include "partials/_right.html" %}
+  <div class="column small-12 large-6 data">
+    <h3>List</h3>
+    <ul>
+      {% for item in result.payload.thirdParties.list %}
+      <li><p>{{ item }}</p></li>
+      {% endfor %}
+    </ul>
+
+    <h3>Notes</h3>
+    <p>{{ result.payload.thirdParties.notes }}</p>
   </div>
-</div>
 </div>
 
-<div class="split_wrapper">
-<div id="restrict-processing" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Right to restrict processing</h2>
-    <p>Stop this organisation from using data about you for certain reasons.</p>
-    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-restrict-processing/">{{ find_out_more_link }}</a></p>
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Retention rules</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
-    {% set right = result.payload.rights.restrictProcessing %}
-    {% include "partials/_right.html" %}
+  <div class="column small-12 large-6 data">
+    <h3>Notes</h3>
+    <p>{{ result.payload.retentionRules.notes }}</p>
   </div>
-</div>
 </div>
 
-<div class="split_wrapper">
-<div id="data-portability" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Right to data portability</h2>
-    <p>Request that data held about you by one organisation is moved to another.</p>
-    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-data-portability/">{{ find_out_more_link }}</a></p>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Automated decision making</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
-    {% set right = result.payload.rights.dataPortability %}
-    {% include "partials/_right.html" %}
+  <div class="column small-12 large-6 data">
+    <h3></h3>
+    {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
+    <p>Uses automated decision making</p>
+    {% else %}
+    <p>No automated decision making</p>
+    {% endif %}
+
+    <h3>Notes</h3>
+    <p>{{ result.payload.automatedDecisionMaking.notes }}</p>
   </div>
-</div>
 </div>
 
-<div class="split_wrapper">
-<div id="object" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Right to object</h2>
-    <p>Allow this organisation to store, but not use, data about you.</p>
-    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-object/">{{ find_out_more_link }}</a></p>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Complaint information</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
-    {% set right = result.payload.rights.object %}
-    {% include "partials/_right.html" %}
+  <div class="column small-12 large-6 data">
+    <h3></h3>
+    {% if result.payload.complaintInformation.present %}
+    <p>Has complaint information</p>
+    {% else %}
+    <p>No complaint information</p>
+    {% endif %}
+
+    <h3>Notes</h3>
+    <p>{{ result.payload.complaintInformation.notes }}</p>
   </div>
-</div>
 </div>
 
-<div class="split_wrapper">
-<div id="automated-decision-making" class="row split">
-  <div class="columns large-4 large-offset-2 small-12">
-    <h2>Rights related to automated decision making</h2>
-    <p>Get information about how automated decision making is used by this organisation and opt out of it.</p>
-    <p><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/rights-related-to-automated-decision-making-including-profiling/">{{ find_out_more_link }}</a></p>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Security standards</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
   </div>
-  <div class="columns large-4 small-12 end">
-    {% set right = result.payload.rights.automatedDecisionMaking %}
-    {% include "partials/_right.html" %}
+  <div class="column small-12 large-6 data">
+    <h3></h3>
+
+    {% set specificity = result.payload.securityStandards.specificity %}
+
+    {% if specificity == "specific" %}
+    <p>Specific</p>
+    {% elif specificity == "general" %}
+    <p>General</p>
+    {% elif specificity == "none" %}
+    <p>None</p>
+    {% endif %}
+
+
+    <p>
+      <a href="{{ result.payload.securityStandards.url }}" target="_blank">{{ result.payload.securityStandards.url }}</a>
+    </p>
+
+    <h3>Notes</h3>
+    <p>{{ result.payload.securityStandards.notes }}</p>
   </div>
-</div>
 </div>
 
-<div class="row meta">
-  <div class="columns large-8 small-12 large-offset-2">
-    <p>Download as <a href="/organisation/{{result.slug}}.json">JSON</a></p>
-    <p>Contribute via <a href="#">GitHub</a> or <a href="#">Email</a></p>
-    <p>This page was last updated at {{ result.updatedAt }}</p>
-    <p><a href="#">Back to top</a></p>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Lawful bases</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
+  </div>
+  <div class="column small-12 large-6 data">
+
+    {% set lawfulBases = result.payload.lawfulBases %}
+
+    <h3>Consent</h3>
+    <p>{{ lawfulBases.consent }}</p>
+
+    <h3>Contract</h3>
+    <p>{{ lawfulBases.contract }}</p>
+
+    <h3>Legal obligation</h3>
+    <p>{{ lawfulBases.legalObligation }}</p>
+
+    <h3>Vital interests</h3>
+    <p>{{ lawfulBases.vitalInterests }}</p>
+
+    <h3>Public task</h3>
+    <p>{{ lawfulBases.publicTask }}</p>
+
+    <h3>Legitimate interests</h3>
+    <p>{{ lawfulBases.legitimateInterests }}</p>
+
+    <h3>Notes</h3>
+    <p>{{ lawfulBases.notes }}</p>
+
   </div>
 </div>
+
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Rights</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
+  </div>
+  <div class="column small-12 large-6 data">
+    {% set rights = result.payload.rights %}
+
+
+    <h3>General</h3>
+    {% set contactInfo = rights.general.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.general.notes }}</p>
+
+    <h3>Access</h3>
+    {% set contactInfo = rights.access.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.access.notes }}</p>
+
+    <h3>Rectification</h3>
+    {% set contactInfo = rights.rectification.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.rectification.notes }}</p>
+
+    <h3>Erasure</h3>
+    {% set contactInfo = rights.erasure.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.erasure.notes }}</p>
+
+    <h3>Restrict processing</h3>
+    {% set contactInfo = rights.restrictProcessing.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.restrictProcessing.notes }}</p>
+
+    <h3>Data portability</h3>
+    {% set contactInfo = rights.dataPortability.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.dataPortability.notes }}</p>
+
+    <h3>Object</h3>
+    {% set contactInfo = rights.object.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.object.notes }}</p>
+
+    <h3>Automated decision making</h3>
+    {% set contactInfo = rights.automatedDecisionMaking.contactInfo %}
+    {% include 'partials/_contact_info.html' %}
+    <h3>Notes</h3>
+    <p>{{ rights.automatedDecisionMaking.notes }}</p>
+  </div>
+</div>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Processing purposes</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
+  </div>
+  <div class="column small-12 large-6 data">
+
+    <h3>Notes</h3>
+    <p>{{ result.payload.unusualProcessingPurposes.notes }}</p>
+
+  </div>
+</div>
+
+<div class="row data-row">
+  <div class="column small-12 large-6 description">
+    <h2>Transparency recommendations</h2>
+    <p>Description</p>
+    <p><a href="#">Link to ICO website</a></p>
+  </div>
+  <div class="column small-12 large-6 data">
+
+    {% set points = result.payload.transparencyRecommendations %}
+
+    {% if points.plainLanguage %}
+    <p>Plain language</p>
+    {% endif %}
+
+    {% if points.definiteLanguage %}
+    <p>Definite language</p>
+    {% endif %}
+
+    {% if points.easyToFind %}
+    <p>Easy to find</p>
+    {% endif %}
+
+    {% if points.legibleDesign %}
+    <p>Legible design</p>
+    {% endif %}
+
+  </div>
+</div>
+
+
 {% endblock %}

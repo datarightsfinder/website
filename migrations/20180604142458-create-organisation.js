@@ -9,17 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
-      slug: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
+      registrationNumber: {
+        type: Sequelize.STRING
+      },
+      registrationCountry: {
+        type: Sequelize.STRING
       },
       payload: {
-        type: Sequelize.JSON,
-        allowNull: false
+        type: Sequelize.JSON
       },
       createdAt: {
         allowNull: false,

@@ -76,6 +76,8 @@ async.waterfall([
 function createEntries(items, parentCallback) {
   var item = items[0];
 
+  var json;
+
   async.waterfall([
     function(callback) {
       // Skip template.json file
@@ -92,17 +94,41 @@ function createEntries(items, parentCallback) {
           return;
         }
 
-        callback(null, item.name, body);
+        callback(null, body);
       });
     },
-    function(_label, _json, callback) {
+    function(_json, callback) {
       // Write contents of JSON file to database
-      var json = JSON.parse(_json);
+      json = JSON.parse(_json);
+
+      // Pull organisation information from OpenCorporates if available
+      request(`https://api.opencorporates.com/companies/` +
+        `${json.organisationInformation.registrationCountry.toLowerCase()}/` +
+        `${json.organisationInformation.number}`, function(err, res, body) {
+        if (res.statusCode === 404) {
+          callback(null, null);
+        } else {
+          callback(null, body);
+        }
+      });
+    },
+    function(_openCorporatesJson, callback) {
+      _openCorporatesJson = JSON.parse(_openCorporatesJson);
+
+      var name = "";
+
+      // Attempt to get a canonical name from OpenCorporates
+      if (_openCorporatesJson) {
+        name = _openCorporatesJson.results.company.name;
+      } else {
+        name = json.organisationInformation.name;
+      }
 
       Organisation.create({
-        "slug": _label.split('.')[0],
-        "name": json.organisation.name,
-        "payload": _json
+        "name": name,
+        "registrationNumber": json.organisationInformation.number,
+        "registrationCountry": json.organisationInformation.registrationCountry.toLowerCase(),
+        "payload": JSON.stringify(json)
       }).then(function() {
         callback(null);
       }).catch(function(err) {

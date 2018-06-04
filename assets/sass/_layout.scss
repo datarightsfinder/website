@@ -8,13 +8,18 @@ html, body {
 }
 
 header {
-  background: #bf2026;
+  background: $colour-main;
   width: 100vw;
   height: 50px;
+
+  .columns {
+    height: 50px;
+  }
 
   h1 {
     margin-top: 10px;
     margin-bottom: 10px;
+    line-height: 32px;
 
     a {
       color: #FFF;
@@ -60,7 +65,7 @@ header {
 
 footer {
   margin-top: 10px;
-  background: #EEE;
+  background: $colour-secondary;
   position: relative;
   bottom: 0;
   height: 101px;
