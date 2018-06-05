@@ -63,9 +63,6 @@
   </div>
 </div>
 
-
-
-
 <div class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Data protection register</h2>
@@ -82,10 +79,6 @@
     </p>
   </div>
 </div>
-
-
-
-
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
@@ -112,10 +105,9 @@
     <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
 
     <h3>Notes</h3>
-    <p>{{ result.payload.internationalTransfer.dataProcessingAddendum.notes }}</p>
+    <p>{{ result.payload.internationalTransfer.dataProcessingAddendum.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
-
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
@@ -132,7 +124,7 @@
     </ul>
 
     <h3>Notes</h3>
-    <p>{{ result.payload.thirdParties.notes }}</p>
+    <p>{{ result.payload.thirdParties.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
 
@@ -144,10 +136,9 @@
   </div>
   <div class="column small-12 large-6 data">
     <h3>Notes</h3>
-    <p>{{ result.payload.retentionRules.notes }}</p>
+    <p>{{ result.payload.retentionRules.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
-
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
@@ -164,7 +155,7 @@
     </ul>
 
     <h3>Notes</h3>
-    <p>{{ result.payload.dataTypesCollected.notes }}</p>
+    <p>{{ result.payload.dataTypesCollected.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
 
@@ -183,10 +174,9 @@
     {% endif %}
 
     <h3>Notes</h3>
-    <p>{{ result.payload.automatedDecisionMaking.notes }}</p>
+    <p>{{ result.payload.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
-
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
@@ -203,10 +193,9 @@
     {% endif %}
 
     <h3>Notes</h3>
-    <p>{{ result.payload.complaintInformation.notes }}</p>
+    <p>{{ result.payload.complaintInformation.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
-
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
@@ -227,16 +216,14 @@
     <p>None</p>
     {% endif %}
 
-
     <p>
       <a href="{{ result.payload.securityStandards.url }}" target="_blank">{{ result.payload.securityStandards.url }}</a>
     </p>
 
     <h3>Notes</h3>
-    <p>{{ result.payload.securityStandards.notes }}</p>
+    <p>{{ result.payload.securityStandards.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
-
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
@@ -245,7 +232,6 @@
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-
     {% set lawfulBases = result.payload.lawfulBases %}
 
     <h3>Consent</h3>
@@ -267,11 +253,9 @@
     <p>{{ lawfulBases.legitimateInterests }}</p>
 
     <h3>Notes</h3>
-    <p>{{ lawfulBases.notes }}</p>
-
+    <p>{{ lawfulBases.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
-
 
 <div class="row data-row">
   <div class="column small-12 large-6 description">
@@ -282,54 +266,53 @@
   <div class="column small-12 large-6 data">
     {% set rights = result.payload.rights %}
 
-
     <h3>General</h3>
     {% set contactInfo = rights.general.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.general.notes }}</p>
+    <p>{{ rights.general.notes | striptags(true) | escape | nl2br }}</p>
 
     <h3>Access</h3>
     {% set contactInfo = rights.access.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.access.notes }}</p>
+    <p>{{ rights.access.notes | striptags(true) | escape | nl2br }}</p>
 
     <h3>Rectification</h3>
     {% set contactInfo = rights.rectification.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.rectification.notes }}</p>
+    <p>{{ rights.rectification.notes | striptags(true) | escape | nl2br }}</p>
 
     <h3>Erasure</h3>
     {% set contactInfo = rights.erasure.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.erasure.notes }}</p>
+    <p>{{ rights.erasure.notes | striptags(true) | escape | nl2br }}</p>
 
     <h3>Restrict processing</h3>
     {% set contactInfo = rights.restrictProcessing.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.restrictProcessing.notes }}</p>
+    <p>{{ rights.restrictProcessing.notes | striptags(true) | escape | nl2br }}</p>
 
     <h3>Data portability</h3>
     {% set contactInfo = rights.dataPortability.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.dataPortability.notes }}</p>
+    <p>{{ rights.dataPortability.notes | striptags(true) | escape | nl2br }}</p>
 
     <h3>Object</h3>
     {% set contactInfo = rights.object.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.object.notes }}</p>
+    <p>{{ rights.object.notes | striptags(true) | escape | nl2br }}</p>
 
     <h3>Automated decision making</h3>
     {% set contactInfo = rights.automatedDecisionMaking.contactInfo %}
     {% include 'partials/_contact_info.html' %}
     <h3>Notes</h3>
-    <p>{{ rights.automatedDecisionMaking.notes }}</p>
+    <p>{{ rights.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
 
@@ -340,10 +323,8 @@
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-
     <h3>Notes</h3>
-    <p>{{ result.payload.unusualProcessingPurposes.notes }}</p>
-
+    <p>{{ result.payload.unusualProcessingPurposes.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
 
@@ -354,7 +335,6 @@
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-
     {% set points = result.payload.transparencyRecommendations %}
 
     {% if points.plainLanguage %}
@@ -372,9 +352,6 @@
     {% if points.legibleDesign %}
     <p>Legible design</p>
     {% endif %}
-
   </div>
 </div>
-
-
 {% endblock %}
