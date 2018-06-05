@@ -1,41 +1,41 @@
 $(function() {
-  $("#form1").alpaca({
-    "schemaSource": "/public/schema.json",
-    "optionsSource": "/public/options.json",
-    "postRender": function(form) {
+  $('#form1').alpaca({
+    'schemaSource': '/public/schema.json',
+    'optionsSource': '/public/options.json',
+    'postRender': function(form) {
       setupForm(form);
-    }
+    },
   });
 
   // EVENT HANDLERS
   // Show form sections
-  $("body").on("click", "legend", function(e) {
+  $('body').on('click', 'legend', function(e) {
     e.preventDefault();
 
-    var container = $(this).parent().parent();
+    let container = $(this).parent().parent();
 
-    if (container.attr("data-open") === "true") {
+    if (container.attr('data-open') === 'true') {
       // Close
-      container.attr("data-open", "false");
+      container.attr('data-open', 'false');
 
-      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend, .form-custom-button").hide();
-      $(this).parent().find("legend").eq(0).show();
-    } else if (container.attr("data-open") === "false" || !container.attr("data-open")) {
+      $(this).parent().find('.form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend, .form-custom-button').hide();
+      $(this).parent().find('legend').eq(0).show();
+    } else if (container.attr('data-open') === 'false' || !container.attr('data-open')) {
       // Open
-      container.attr("data-open", "true");
+      container.attr('data-open', 'true');
 
-      $(this).parent().find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend, .form-custom-button").show();
+      $(this).parent().find('.form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, legend, .form-custom-button').show();
     }
   });
 
   // Enable checkbox toggle style
-  $("body").on("click", "input:checkbox, input:radio", function(e) {
-    if ($(this).parent().parent().parent().hasClass("boolean-toggle")) {
+  $('body').on('click', 'input:checkbox, input:radio', function(e) {
+    if ($(this).parent().parent().parent().hasClass('boolean-toggle')) {
       return;
     }
 
-    $(this).parent().parent().parent().find(".radio").removeClass("active");
-    $(this).parent().parent().toggleClass("active");
+    $(this).parent().parent().parent().find('.radio').removeClass('active');
+    $(this).parent().parent().toggleClass('active');
 
     setTimeout(function() {
       saveLocalStorage();
@@ -44,66 +44,66 @@ $(function() {
   });
 
   // Save form JSON to localStorage on keyup event
-  $("body").on("keyup", "input, textarea", function(e) {
+  $('body').on('keyup', 'input, textarea', function(e) {
     saveLocalStorage();
     refreshContributeForm();
   });
 
-  $("body").on("change", "select", function(e) {
+  $('body').on('change', 'select', function(e) {
     saveLocalStorage();
     refreshContributeForm();
   });
 
   // Start again button
-  $("#buttonStartAgain").click(function(e) {
+  $('#buttonStartAgain').click(function(e) {
     e.preventDefault();
 
     resetLocalStorage();
   });
 
   // Contribute buttons
-  $(".contribute-buttons a").click(function(e) {
+  $('.contribute-buttons a').click(function(e) {
     // Ignore if required fills aren't filled out
-    if ($("input[name=organisationInformation_number]").val() === "" || $("select[name=organisationInformation_registrationCountry]").val() === "") {
+    if ($('input[name=organisationInformation_number]').val() === '' || $('select[name=organisationInformation_registrationCountry]').val() === '') {
       e.preventDefault();
       return;
     }
 
     // Remove any visible contribution methods
-    $(".contribute-by").hide();
+    $('.contribute-by').hide();
 
     // Show the selected contribution method
-    if ($(this).text() === "GitHub") {
+    if ($(this).text() === 'GitHub') {
       e.preventDefault();
-      $("#contribute-github").fadeIn(250);
-    } else if ($(this).text() === "Email") {
-      $("#contribute-email").fadeIn(250);
+      $('#contribute-github').fadeIn(250);
+    } else if ($(this).text() === 'Email') {
+      $('#contribute-email').fadeIn(250);
     }
 
     // Change visual button state
-    $(".contribute-buttons a").removeClass("active");
-    $(this).addClass("active");
+    $('.contribute-buttons a').removeClass('active');
+    $(this).addClass('active');
   });
 
   // Boolean toggle
-  $("body").on("click", ".boolean-toggle input:radio", function(e) {
-    var targetCheckbox = $(this).parent().parent().parent()
-                          .find("input:checkbox");
-    var targetCheckboxOn = targetCheckbox.is(":checked");
+  $('body').on('click', '.boolean-toggle input:radio', function(e) {
+    let targetCheckbox = $(this).parent().parent().parent()
+                          .find('input:checkbox');
+    let targetCheckboxOn = targetCheckbox.is(':checked');
 
-    $(this).parent().parent().parent().children().removeClass("active");
-    $(this).parent().parent().addClass("active");
+    $(this).parent().parent().parent().children().removeClass('active');
+    $(this).parent().parent().addClass('active');
 
     $(this).parent().parent().parent().find('input:radio').not(this)
-      .prop("checked", false);
+      .prop('checked', false);
 
-    if ($(this).val() === "true") {
+    if ($(this).val() === 'true') {
       if (!targetCheckboxOn) {
-        targetCheckbox.trigger("click");
+        targetCheckbox.trigger('click');
       }
     } else {
       if (targetCheckboxOn) {
-        targetCheckbox.trigger("click");
+        targetCheckbox.trigger('click');
       }
     }
 
@@ -113,7 +113,7 @@ $(function() {
     }, 200);
   });
 
-  $("body").on("click", "#buttonShowAllRights", function(e) {
+  $('body').on('click', '#buttonShowAllRights', function(e) {
     e.preventDefault();
 
     $('[data-alpaca-field-path="/rights/access"], '
@@ -130,7 +130,7 @@ $(function() {
   // FUNCTIONS
   function setupForm(form) {
     // Repopulate form with JSON from localStorage if exists
-    var payload = localStorage.getItem("payload");
+    let payload = localStorage.getItem('payload');
 
     if (payload) {
       payload = JSON.parse(payload);
@@ -144,22 +144,22 @@ $(function() {
       form.setValue(payload);
 
       // Hide all fields
-      $(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, .form-custom-button").hide();
+      $('.form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, .form-custom-button').hide();
 
       // Show first field
       showFirstField();
 
       // Make legend titles clickable links
-      $("#form1 legend").each(function(i, e) {
+      $('#form1 legend').each(function(i, e) {
         // Ignore anything that isn't a top level legend
         if ($(e).parents().length !== 11) {
           return;
         }
 
-        var text = $(e).text().trim();
+        let text = $(e).text().trim();
 
-        var a = $("<a>");
-        a.attr("href", "#");
+        let a = $('<a>');
+        a.attr('href', '#');
         a.text(text);
 
         $(e).empty().append(a);
@@ -167,13 +167,13 @@ $(function() {
 
       // Radio selectors in Alpaca can't be used with boolean types and enum to
       // create yes/no toggles, so this makes our own using a checkbox
-      var addToggle = [];
+      let addToggle = [];
 
-      $(".checkbox").each(function(i, e) {
+      $('.checkbox').each(function(i, e) {
         // Find where label-less checkboxes are
-        var labelText = $(e).find("label").text().trim();
+        let labelText = $(e).find('label').text().trim();
 
-        if (labelText === "") {
+        if (labelText === '') {
           addToggle.push(e);
         }
       });
@@ -181,29 +181,29 @@ $(function() {
       addToggle.forEach(function(e, i) {
         $(e).hide();
 
-        $(e).parent().addClass("boolean-toggle");
+        $(e).parent().addClass('boolean-toggle');
 
-        var buttonYes = $("<div>");
-        var buttonNo = $("<div>");
-        buttonYes.addClass("alpaca-control").addClass("radio");
-        buttonNo.addClass("alpaca-control").addClass("radio");
+        let buttonYes = $('<div>');
+        let buttonNo = $('<div>');
+        buttonYes.addClass('alpaca-control').addClass('radio');
+        buttonNo.addClass('alpaca-control').addClass('radio');
 
-        var labelYes = $("<label>");
-        var labelNo = $("<label>");
-        labelYes.text("Yes");
-        labelNo.text("No");
+        let labelYes = $('<label>');
+        let labelNo = $('<label>');
+        labelYes.text('Yes');
+        labelNo.text('No');
 
-        var inputYes = $("<input>");
-        var inputNo = $("<input>");
-        inputYes.attr("type", "radio");
-        inputYes.attr("value", "true");
-        inputNo.attr("type", "radio");
-        inputNo.attr("value", "false");
+        let inputYes = $('<input>');
+        let inputNo = $('<input>');
+        inputYes.attr('type', 'radio');
+        inputYes.attr('value', 'true');
+        inputNo.attr('type', 'radio');
+        inputNo.attr('value', 'false');
 
-        if ($(e).find("input").prop("checked")) {
-          inputYes.prop("checked", true);
+        if ($(e).find('input').prop('checked')) {
+          inputYes.prop('checked', true);
         } else {
-          inputNo.prop("checked", true);
+          inputNo.prop('checked', true);
         }
 
         labelYes.prepend(inputYes);
@@ -219,9 +219,9 @@ $(function() {
       // Refresh contribute form
       refreshContributeForm();
 
-      $("#form1 input:radio, #form1 input:checkbox").each(function(i, e) {
-        if ($(e).prop("checked")) {
-          $(e).parent().parent().addClass("active");
+      $('#form1 input:radio, #form1 input:checkbox').each(function(i, e) {
+        if ($(e).prop('checked')) {
+          $(e).parent().parent().addClass('active');
         }
       });
 
@@ -229,27 +229,27 @@ $(function() {
 
       // CUSTOM FORM ELEMENTS
       // Add link to show specific right contact details
-      var showAllRightsLink = $("<a>");
-      showAllRightsLink.addClass("form-custom-button");
-      showAllRightsLink.attr("href", "#");
-      showAllRightsLink.attr("id", "buttonShowAllRights");
-      showAllRightsLink.text("Show fields for each right");
+      let showAllRightsLink = $('<a>');
+      showAllRightsLink.addClass('form-custom-button');
+      showAllRightsLink.attr('href', '#');
+      showAllRightsLink.attr('id', 'buttonShowAllRights');
+      showAllRightsLink.text('Show fields for each right');
 
       $('[data-alpaca-field-name="rights_general"]').append(showAllRightsLink);
     }, 200);
   }
 
   function createTextboxArrayForms() {
-    $(".alpaca-array-toolbar").each(function(i, e) {
-      if ($(e).find("input").length !== 0) {
+    $('.alpaca-array-toolbar').each(function(i, e) {
+      if ($(e).find('input').length !== 0) {
         return;
       }
 
-      var input = $("<input>");
-      input.attr("type", "text");
-      input.attr("id", "array-input-box" + i);
-      input.addClass("array-input-box");
-      input.attr("placeholder", "Enter a value and press return...");
+      let input = $('<input>');
+      input.attr('type', 'text');
+      input.attr('id', 'array-input-box' + i);
+      input.addClass('array-input-box');
+      input.attr('placeholder', 'Enter a value and press return...');
 
       // var a = $("<a>");
       // a.attr("href", "#");
@@ -259,18 +259,18 @@ $(function() {
     });
   }
 
-  $("body").on("keyup", ".array-input-box", function(e) {
+  $('body').on('keyup', '.array-input-box', function(e) {
     // TODO: Fix lag when adding a new item to the array
 
     if (e.keyCode === 13 && $(this).val().length > 0) {
-      var value = $(this).val();
-      var cachedParent = $(this).parent().parent();
-      var cachedId = $(this).attr("id");
+      let value = $(this).val();
+      let cachedParent = $(this).parent().parent();
+      let cachedId = $(this).attr('id');
 
-      $(this).parent().find(".alpaca-array-toolbar-action").trigger("click");
+      $(this).parent().find('.alpaca-array-toolbar-action').trigger('click');
 
       setTimeout(function() {
-        cachedParent.find("input.alpaca-control").last().val(value);
+        cachedParent.find('input.alpaca-control').last().val(value);
         refreshContributeForm();
         saveLocalStorage();
         createTextboxArrayForms();
@@ -280,7 +280,7 @@ $(function() {
     }
   });
 
-  $("body").on("mouseup", ".alpaca-array-actionbar-action", function(e) {
+  $('body').on('mouseup', '.alpaca-array-actionbar-action', function(e) {
     // TODO: Fix lag when removing an item in the array
 
     e.preventDefault();
@@ -293,61 +293,61 @@ $(function() {
   });
 
   // Pressing tab and focusing on section opens it
-  $("body").on("keyup", "#form1", function(e) {
-    if (e.which === 9 && $(document.activeElement).parent().hasClass("alpaca-container-label")) {
-      $(document.activeElement).trigger("click");
+  $('body').on('keyup', '#form1', function(e) {
+    if (e.which === 9 && $(document.activeElement).parent().hasClass('alpaca-container-label')) {
+      $(document.activeElement).trigger('click');
     }
   });
 
   function showFirstField() {
     $('[data-alpaca-container-item-name="organisationInformation"]')
-      .find(".form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, .form-custom-button")
+      .find('.form-group, .alpaca-array-toolbar, .alpaca-helper, .alpaca-array-actionbar, .pull-right, .form-custom-button')
       .show();
 
     $('[data-alpaca-container-item-name="organisationInformation"]')
-      .attr("data-open", "true")
+      .attr('data-open', 'true');
   }
 
   function saveLocalStorage() {
     // Get form contents
-    var payload = $("#form1").alpaca("get").getValue();
+    let payload = $('#form1').alpaca('get').getValue();
 
     // Set "payload" localStorage var with form contents JSON
-    localStorage.setItem("payload", JSON.stringify(payload));
+    localStorage.setItem('payload', JSON.stringify(payload));
   }
 
   function resetLocalStorage() {
-    if (confirm("Are you sure?")) {
-      localStorage.removeItem("payload");
+    if (confirm('Are you sure?')) {
+      localStorage.removeItem('payload');
       location.reload();
     }
   }
 
   function refreshContributeForm() {
     // Skip if required organisation details are missing
-    if ($("input[name=organisationInformation_number]").val() === "" || $("select[name=organisationInformation_registrationCountry]").val() === "") {
+    if ($('input[name=organisationInformation_number]').val() === '' || $('select[name=organisationInformation_registrationCountry]').val() === '') {
       return;
     }
 
     // Get JSON from form
-    var payload = $("#form1").alpaca("get").getValue();
+    let payload = $('#form1').alpaca('get').getValue();
 
     // Enable buttons
-    $(".contribute-buttons a").animate({ "opacity": 1 }, 250);
+    $('.contribute-buttons a').animate({'opacity': 1}, 250);
 
     // Show JSON in text area fields
-    $(".generated-json").val(JSON.stringify(payload, null, 2));
+    $('.generated-json').val(JSON.stringify(payload, null, 2));
 
     // Populate mailto: link for email contributions
-    $(".contribute-buttons a").last().attr("href", "mailto:ian@projectsbyif.com?body=" + JSON.stringify(payload));
+    $('.contribute-buttons a').last().attr('href', 'mailto:ian@projectsbyif.com?body=' + JSON.stringify(payload));
 
     // Populate fields
-    var proposedFilename = $("select[name=organisationInformation_registrationCountry]").val() + $("input[name=organisationInformation_number]").val();
-    var proposedSlug = $("select[name=organisationInformation_registrationCountry]").val() + "/" + $("input[name=organisationInformation_number]").val();
+    let proposedFilename = $('select[name=organisationInformation_registrationCountry]').val() + $('input[name=organisationInformation_number]').val();
+    let proposedSlug = $('select[name=organisationInformation_registrationCountry]').val() + '/' + $('input[name=organisationInformation_number]').val();
 
-    $(".contribute-filename").text(proposedFilename);
+    $('.contribute-filename').text(proposedFilename);
 
-    $(".contribute-url-preview").attr("href", "/organisation" + proposedSlug)
-      .text("https://example.com/organisation/" + proposedSlug);
+    $('.contribute-url-preview').attr('href', '/organisation' + proposedSlug)
+      .text('https://example.com/organisation/' + proposedSlug);
   }
 });
