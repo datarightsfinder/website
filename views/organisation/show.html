@@ -28,26 +28,18 @@
     <div class="columns small-12 large-12">
       <h2>Overview</h2>
       <ul>
-        <li>
-          <span>✅</span>
-          <span>Has a named <a href="#">data protection officer</a></span>
-        </li>
-        <li>
-          <span>✅</span>
-          <span>Uses <a href="#">specific security measures</a> to protect data</span>
-        </li>
-        <li>
-          <span>✅</span>
-          <span>Follows some good practices for writing privacy policies</span>
-        </li>
-        <li>
-          <span>⚠️</span>
-          <span>Collects some special categories of personal data</span>
-        </li>
-        <li>
-          <span>⚠️</span>
-          <span>Uses automated decision making</span>
-        </li>
+        {% for item in extraData.overviewMatrix %}
+          {% if item != false %}
+          <li>
+            {% if item.status == "good" %}
+              <span>✅</span>
+            {% elif item.status == "warning" %}
+              <span>⚠️</span>
+            {% endif %}
+            <span>{{ item.message | safe }}</span>
+          </li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </div>
   </div>
