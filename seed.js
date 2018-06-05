@@ -1,4 +1,5 @@
 // NPM INCLUDES
+const cleanDeep = require('clean-deep');
 const async = require('async');
 const request = require('request');
 const Sequelize = require('sequelize');
@@ -133,6 +134,9 @@ function createEntries(items, parentCallback) {
       } else {
         name = json.organisationInformation.name;
       }
+
+      // Remove empty fields
+      json = cleanDeep(json);
 
       Organisation.create({
         'name': name,
