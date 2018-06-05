@@ -9,8 +9,7 @@ const templates = {
   },
   'dataProtectionOfficerSpecialCategories': {
     'status': 'warning',
-    'message': 'Handles special categories of data but doesn\'t include '
-      + 'details of a Data Protection Officer',
+    'message': 'No details for a data protection officer',
   },
   'dataProtectionRegister': {
     'status': 'good',
