@@ -1,11 +1,11 @@
 class Utils {
   static checkForMissingEnvVars(expectedVars) {
-    const ERROR_TEMPLATE = "⚠️  {{ ERROR }} not defined";
+    const ERROR_TEMPLATE = '⚠️  {{ ERROR }} not defined';
 
-    var errors = [];
-    var hasMissing = false;
+    let errors = [];
+    let hasMissing = false;
 
-    for (var envVar in expectedVars) {
+    for (let envVar in expectedVars) {
       envVar = expectedVars[envVar];
 
       if (!process.env[envVar]) {
@@ -14,9 +14,9 @@ class Utils {
       }
     }
 
-    for (var error in errors) {
+    for (let error in errors) {
       error = errors[error];
-      console.log(ERROR_TEMPLATE.replace("{{ ERROR }}", error));
+      console.log(ERROR_TEMPLATE.replace('{{ ERROR }}', error));
     }
 
     return hasMissing;

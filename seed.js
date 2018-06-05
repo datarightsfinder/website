@@ -8,49 +8,56 @@ const exec = require('child_process').exec;
 const Utils = require('./libs/utils.js');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(["DATABASE_URL"])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
   process.exit();
 }
 
 // If running on Heroku, use SSL with Sequelize
-var isSSLEnabled = false
+let isSSLEnabled = false;
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   isSSLEnabled = true;
 }
 
 // CONFIG
-const URL_REPO_CONTENTS = "https://api.github.com/repos/projectsbyif/org-gdpr-tool-data/contents/";
+const URL_REPO_CONTENTS = 'https://api.github.com/repos/projectsbyif/org-gdpr-tool-data/contents/';
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: "postgres",
+  dialect: 'postgres',
   dialectOptions: {
-    ssl: isSSLEnabled
-  }
+    ssl: isSSLEnabled,
+  },
 });
 
-const Organisation = sequelize.import(__dirname + "/models/organisation.js");
+const Organisation = sequelize.import(__dirname + '/models/organisation.js');
 
 async.waterfall([
   function(callback) {
     // Run Sequelize migrate command
-    var dir = exec("node_modules/.bin/sequelize db:migrate", function(err, stdout, stderr) {
+    let dir = exec('node_modules/.bin/sequelize db:migrate',
+      function(err, stdout, stderr) {
       if (err) {
-        callback("Error: Problem running migration");
+        callback('Error: Problem running migration');
         return;
       }
     });
 
-    dir.on("exit", function (code) {
-      console.log("Migration completed");
+    dir.on('exit', function(code) {
+      console.log('Migration completed');
       callback(null);
     });
   },
   function(callback) {
     // Request list of all files in the org-gdpr-tool-data repository
-    request({ url: URL_REPO_CONTENTS, headers: { 'User-Agent': 'projectsbyif/org-gdpr-tool-website' }}, function(err, res, body) {
+    request({
+        url: URL_REPO_CONTENTS,
+        headers: {
+          'User-Agent': 'projectsbyif/org-gdpr-tool-website',
+        },
+    }, function(err, res, body) {
       if (err) {
-        callback("Problem downloading data repo contents from " + URL_REPO_CONTENTS);
+        callback('Problem downloading data repo contents from '
+          + URL_REPO_CONTENTS);
         return;
       }
 
@@ -62,27 +69,29 @@ async.waterfall([
     _gitContents = JSON.parse(_gitContents);
 
     createEntries(_gitContents, callback);
-  }
+  },
 ], function(err) {
   if (err) {
     console.log(err);
   }
 
-  console.log("Seeding completed.");
+  console.log('Seeding completed.');
 
   process.exit();
 });
 
 function createEntries(items, parentCallback) {
-  var item = items[0];
+  let item = items[0];
 
-  var json;
+  let json;
 
   async.waterfall([
     function(callback) {
       // Skip template.json file
       // TODO: Don't use a conditional for this
-      if (item.name === "template.json" || item.name === "template-new.json" || item.name === "schema-readme.md") {
+      if (item.name === 'template.json' ||
+        item.name === 'template-new.json' ||
+        item.name === 'schema-readme.md') {
         callback(true);
         return;
       }
@@ -90,7 +99,7 @@ function createEntries(items, parentCallback) {
       // Get the JSON data file
       request(item.download_url, function(err, res, body) {
         if (err) {
-          callback("Error: Problem download JSON file " + item.download_url);
+          callback('Error: Problem download JSON file ' + item.download_url);
           return;
         }
 
@@ -115,7 +124,7 @@ function createEntries(items, parentCallback) {
     function(_openCorporatesJson, callback) {
       _openCorporatesJson = JSON.parse(_openCorporatesJson);
 
-      var name = "";
+      let name = '';
 
       // Attempt to get a canonical name from OpenCorporates
       if (_openCorporatesJson) {
@@ -125,16 +134,17 @@ function createEntries(items, parentCallback) {
       }
 
       Organisation.create({
-        "name": name,
-        "registrationNumber": json.organisationInformation.number,
-        "registrationCountry": json.organisationInformation.registrationCountry.toLowerCase(),
-        "payload": JSON.stringify(json)
+        'name': name,
+        'registrationNumber': json.organisationInformation.number,
+        'registrationCountry': json.organisationInformation.registrationCountry
+                                  .toLowerCase(),
+        'payload': JSON.stringify(json),
       }).then(function() {
         callback(null);
       }).catch(function(err) {
         callback(err);
       });
-    }
+    },
   ], function(err) {
     if (err) {
       console.log(err);

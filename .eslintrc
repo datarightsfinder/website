@@ -1,0 +1,16 @@
+{
+  "extends": "eslint-config-google",
+  "parserOptions": {
+     "ecmaVersion": 6,
+     "comma-dangle": ["error", "never"],
+  },
+  "rules": {
+    "require-jsdoc": [2, {
+      require: {
+        FunctionDeclaration: false,
+        MethodDefinition: false,
+        ClassDeclaration: false,
+      }
+    }]
+  }
+}
