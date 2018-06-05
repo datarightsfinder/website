@@ -386,7 +386,7 @@
               "type": "string",
               "title": "Model clauses type",
               "enum": [
-                "form", "setting", "assumed"
+                "form", "setting", "assumed", "none"
               ]
             },
             "url": {
@@ -397,17 +397,17 @@
               "examples": [
                 ""
               ]
-            },
-            "notes": {
-              "$id": "/properties/internationalTransfer/properties/dataProcessingAddendum/properties/notes",
-              "type": "string",
-              "title": "Notes",
-              "default": "",
-              "examples": [
-                ""
-              ]
             }
           }
+        },
+        "notes": {
+          "$id": "/properties/internationalTransfer/properties/notes",
+          "type": "string",
+          "title": "Notes",
+          "default": "",
+          "examples": [
+            ""
+          ]
         }
       }
     },

@@ -308,14 +308,15 @@
               "optionLabels": [
                 "Sign and return a form",
                 "Change a setting",
-                "Part of Terms of Service"
+                "Part of Terms of Service",
+                "None"
               ],
               "hideNone": true
-            },
-            "notes": {
-              "type": "textarea"
             }
           }
+        },
+        "notes": {
+          "type": "textarea"
         }
       }
     },
