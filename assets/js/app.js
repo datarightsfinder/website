@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 $(function() {
   $("#form1").alpaca({
     "schemaSource": "/public/schema.json",
