@@ -111,7 +111,7 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return nothing when there are special categories some dpo '
+    it('should return nothing when there are special categories and some dpo '
       + 'details are present', function() {
       // Arrange
       let testInput = {
@@ -133,7 +133,7 @@ describe('overviewMatrix()', function() {
       );
 
       // Assert
-      result.should.deep.equals(testResult);
+      result.should.not.deep.equals(testResult);
     });
 
     it('should return nothing when there are are no categories', function() {

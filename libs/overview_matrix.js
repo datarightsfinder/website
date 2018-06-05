@@ -101,10 +101,7 @@ function dataProtectionOfficerPresent(payload) {
   let message = templates.dataProtectionOfficerPresent;
 
   try {
-    let contactInfo = payload.dataProtectionOfficer.contactInfo;
-
-    if (contactInfo.url || contactInfo.postalAddress ||
-      contactInfo.emailAddress || contactInfo.telephoneNumber) {
+    if (payload.dataProtectionOfficer.contactInfo) {
       return message;
     } else {
       return false;
@@ -132,11 +129,8 @@ function dataProtectionOfficerSpecialCategories(payload) {
   }
 
   try {
-    if (contactInfo.url || contactInfo.postalAddress ||
-      contactInfo.emailAddress || contactInfo.telephoneNumber) {
+    if (payload.dataProtectionOfficer.contactInfo) {
       return false;
-    } else {
-      return message;
     }
   } catch (e) {
     return message;
