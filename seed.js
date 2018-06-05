@@ -97,7 +97,8 @@ function createEntries(items, parentCallback) {
       }
 
       // Get the JSON data file
-      request(item.download_url, function(err, res, body) {
+      let timestamp = Math.round((new Date()).getTime() / 1000);
+      request(`${item.download_url}?${timestamp}`, function(err, res, body) {
         if (err) {
           callback('Error: Problem download JSON file ' + item.download_url);
           return;
