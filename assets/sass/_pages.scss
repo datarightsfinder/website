@@ -51,12 +51,12 @@
   }
 
   .data-row {
-    .description {
+    border-bottom: #{$colour-seperator} 1px solid;
 
+    .description {
     }
 
     .data {
-
       h3 {
         text-transform: uppercase;
         font-size: 0.8em;
@@ -70,11 +70,18 @@
         color: #212121;
         padding: 5px 8px;
         margin-right: 10px;
-
       }
     }
-
-
   }
 
+  .rights-selector {
+
+    &.active {
+      background: red;
+    }
+  }
+
+  .single-right {
+    display: none;
+  }
 }

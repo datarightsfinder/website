@@ -5,7 +5,6 @@
 {% block body_class %}organisation{% endblock %}
 
 {% block header %}
-
 {% endblock %}
 
 {% block content %}
@@ -17,7 +16,7 @@
         <a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}">
           <span class="emoji-flag">{{ extraData.emojiFlag }}</span>
           {{ result.registrationNumber }}
-        </a><a href="{{ result.payload.organisationUrls[0] }}">Website</a><a href="{{ result.payload.privacyNoticeUrl.url }}">Privacy notice</a>
+        </a>{% if result.payload.organisationUrls %}<a href="{{ result.payload.organisationUrls[0] }}">Website</a>{% endif %}{% if result.payload.privacyNoticeUrl %}<a href="{{ result.payload.privacyNoticeUrl.url }}">Privacy notice</a>{% endif %}
       </p>
     </div>
   </div>
@@ -45,187 +44,253 @@
   </div>
 </div>
 
-<div class="row data-row">
+<div id="dataProtectionOfficer" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Data Protection Officer</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3>Name</h3>
-    <p>{{ result.payload.dataProtectionOfficer.name }}</p>
-
-    <h3>Role</h3>
-    <p>{{ result.payload.dataProtectionOfficer.role }}</p>
-
-    {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
+    {% if result.payload.dataProtectionOfficer %}
+      {% if result.payload.dataProtectionOfficer.name %}
+        <h3>Name</h3>
+        <p>{{ result.payload.dataProtectionOfficer.name }}</p>
+      {% endif %}
+      {% if result.payload.dataProtectionOfficer.role %}
+        <h3>Role</h3>
+        <p>{{ result.payload.dataProtectionOfficer.role }}</p>
+      {% endif %}
+      {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
+      {% include 'partials/_contact_info.html' %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="dataProtectionRegister" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Data protection register</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3>Identifier</h3>
-    <p>{{ result.payload.dataProtectionRegister.identifier }}</p>
+    {% if result.payload.dataProtectionRegister %}
+      {% if result.payload.dataProtectionRegister.identifier %}
+        <h3>Identifier</h3>
+        <p>{{ result.payload.dataProtectionRegister.identifier }}</p>
+      {% endif %}
 
-    <h3>URL</h3>
-    <p>
-      <a href="{{ result.payload.dataProtectionRegister.url }}" target="_blank">{{ result.payload.dataProtectionRegister.url }}</a>
-    </p>
+      {% if result.payload.dataProtectionRegister.url %}
+        <h3>URL</h3>
+        <p>
+          <a href="{{ result.payload.dataProtectionRegister.url }}" target="_blank">{{ result.payload.dataProtectionRegister.url }}</a>
+        </p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="internationalTransfer" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>International transfer</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3>US–EU Privacy Shield URL</h3>
-    <p>
-      <a href="#">{{ result.payload.internationalTransfer.privacyShieldUrl }}</a>
-    </p>
+    {% if result.payload.internationalTransfer %}
+      {% if result.payload.internationalTransfer.privacyShieldUrl %}
+      <h3>US–EU Privacy Shield</h3>
+      <p>
+        <a href="#">{{ result.payload.internationalTransfer.privacyShieldUrl }}</a>
+      </p>
+      {% endif %}
 
-    <h3>Data processing addendum</h3>
-    {% set addendumType = result.payload.internationalTransfer.dataProcessingAddendum.type %}
-    {% if addendumType == "form" %}
-    <p>Form</p>
-    {% elif addendumType == "setting" %}
-    <p>Setting</p>
-    {% elif addendumType == "assumed" %}
-    <p>Assumed</p>
+      {% if result.payload.internationalTransfer.dataProcessingAddendum %}
+        <h3>Data processing addendum</h3>
+        {% set addendumType = result.payload.internationalTransfer.dataProcessingAddendum.type %}
+        {% if addendumType == "form" %}
+          <p>This organisation requires people to send a form to enter into a data processing agreement.</p>
+        {% elif addendumType == "setting" %}
+          <p>This organisation requires people to change a setting to enter into a data processing agreement.</p>
+        {% elif addendumType == "assumed" %}
+          <p>This organisation has written GDPR compatible clauses into their Terms of Service.</p>
+        {% elif addendumType == "none" %}
+          <p>This organisation has no method of entering into GDPR compatible clauses.</p>
+        {% endif %}
+
+        <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
+      {% endif %}
+
+      {% if result.payload.internationalTransfer.notes %}
+        <h3>Notes</h3>
+        <p>{{ result.payload.internationalTransfer.notes | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
     {% endif %}
-
-    <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
-
-    <h3>Notes</h3>
-    <p>{{ result.payload.internationalTransfer.dataProcessingAddendum.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
 
-<div class="row data-row">
+<div id="thirdParties" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Third parties</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3>List</h3>
-    <ul>
-      {% for item in result.payload.thirdParties.list %}
-      <li><p>{{ item }}</p></li>
-      {% endfor %}
-    </ul>
+    {% if result.payload.thirdParties %}
+      {% if result.payload.thirdParties.list %}
+        <h3>List</h3>
+        <ul>
+          {% for item in result.payload.thirdParties.list %}
+          <li><p>{{ item }}</p></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
 
-    <h3>Notes</h3>
-    <p>{{ result.payload.thirdParties.notes | striptags(true) | escape | nl2br }}</p>
+      {% if result.payload.thirdParties.notes %}
+        <h3>Notes</h3>
+        <p>{{ result.payload.thirdParties.notes | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="retentionRules" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Retention rules</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3>Notes</h3>
-    <p>{{ result.payload.retentionRules.notes | striptags(true) | escape | nl2br }}</p>
+    {% if result.payload.retentionRules.notes %}
+      <h3>Notes</h3>
+      <p>{{ result.payload.retentionRules.notes | striptags(true) | escape | nl2br }}</p>
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="dataCategoriesCollected" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Data categories collected</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3>List</h3>
-    <ul>
-      {% for item in result.payload.dataTypesCollected.list %}
-      <li><p>{{ item | replace("_", " ") | capitalize }}{{ item | highlightSpecialCategory }}</p></li>
-      {% endfor %}
-    </ul>
+    {% if result.payload.dataTypesCollected %}
+      {% if result.payload.dataTypesCollected.list %}
+      <h3>List</h3>
+      <ul>
+        {% for item in result.payload.dataTypesCollected.list %}
+        {% set flag = item | highlightSpecialCategory %}
+        <li><p>{{ item | replace("_", " ") | capitalize }}{% if flag == "true" %}<span>⚠️</span>{% endif %}</p></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-    <h3>Notes</h3>
-    <p>{{ result.payload.dataTypesCollected.notes | striptags(true) | escape | nl2br }}</p>
+      {% if result.payload.dataTypesCollected.notes %}
+        <h3>Notes</h3>
+        <p>{{ result.payload.dataTypesCollected.notes | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="automatedDecisionMaking" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Automated decision making</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3></h3>
-    {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
-    <p>Uses automated decision making</p>
-    {% else %}
-    <p>No automated decision making</p>
-    {% endif %}
+    {% if result.payload.automatedDecisionMaking %}
+      {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
+        <p>This organisation uses automated decision making.</p>
+      {% else %}
+        <p>This organisation does not use automated decision making.</p>
+      {% endif %}
 
-    <h3>Notes</h3>
-    <p>{{ result.payload.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
+      {% if result.payload.automatedDecisionMaking.notes %}
+        <h3>Notes</h3>
+        <p>{{ result.payload.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="complaintInformation" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Complaint information</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3></h3>
-    {% if result.payload.complaintInformation.present %}
-    <p>Has complaint information</p>
-    {% else %}
-    <p>No complaint information</p>
-    {% endif %}
+    {% if result.payload.complaintInformation %}
+      {% if result.payload.complaintInformation.present %}
+        <p>This organisation has information about how to make a complaint in their privacy policy.</p>
+      {% else %}
+        <p>This organisation does not have information about how to make a complaint in their privacy policy.</p>
+      {% endif %}
 
-    <h3>Notes</h3>
-    <p>{{ result.payload.complaintInformation.notes | striptags(true) | escape | nl2br }}</p>
+      {% if result.payload.complaintInformation.notes %}
+        <h3>Notes</h3>
+        <p>{{ result.payload.complaintInformation.notes | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="securityStandards" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Security standards</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3></h3>
+    {% if result.payload.securityStandards %}
+      {% set specificity = result.payload.securityStandards.specificity %}
 
-    {% set specificity = result.payload.securityStandards.specificity %}
+      {% if specificity %}
+        {% if specificity == "specific" %}
+          <p>This organisation states specific information about how they secure data.</p>
+        {% elif specificity == "general" %}
+          <p>This organisation states general information about how they secure data.</p>
+        {% elif specificity == "none" %}
+          <p>This organisation states no information about how they secure data.</p>
+        {% endif %}
+      {% endif %}
 
-    {% if specificity == "specific" %}
-    <p>Specific</p>
-    {% elif specificity == "general" %}
-    <p>General</p>
-    {% elif specificity == "none" %}
-    <p>None</p>
+      {% if result.payload.securityStandards.url %}
+        <h3>Security standards URL</h3>
+        <p>
+          <a href="{{ result.payload.securityStandards.url }}" target="_blank">{{ result.payload.securityStandards.url }}</a>
+        </p>
+      {% endif %}
+
+      {% if result.payload.securityStandards.notes %}
+        <h3>Notes</h3>
+        <p>{{ result.payload.securityStandards.notes | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
     {% endif %}
-
-    <p>
-      <a href="{{ result.payload.securityStandards.url }}" target="_blank">{{ result.payload.securityStandards.url }}</a>
-    </p>
-
-    <h3>Notes</h3>
-    <p>{{ result.payload.securityStandards.notes | striptags(true) | escape | nl2br }}</p>
   </div>
 </div>
 
-<div class="row data-row">
+<div id="lawfulBases" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Lawful bases</h2>
     <p>Description</p>
@@ -234,30 +299,48 @@
   <div class="column small-12 large-6 data">
     {% set lawfulBases = result.payload.lawfulBases %}
 
-    <h3>Consent</h3>
-    <p>{{ lawfulBases.consent }}</p>
+    {% if lawfulBases %}
+      {% if lawfulBases.consent %}
+        <h3>Consent</h3>
+        <p>{{ lawfulBases.consent | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
 
-    <h3>Contract</h3>
-    <p>{{ lawfulBases.contract }}</p>
+      {% if lawfulBases.contract %}
+        <h3>Contract</h3>
+        <p>{{ lawfulBases.contract | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
 
-    <h3>Legal obligation</h3>
-    <p>{{ lawfulBases.legalObligation }}</p>
+      {% if lawfulBases.legalObligation %}
+        <h3>Legal obligation</h3>
+        <p>{{ lawfulBases.legalObligation | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
 
-    <h3>Vital interests</h3>
-    <p>{{ lawfulBases.vitalInterests }}</p>
+      {% if lawfulBases.vitalInterests %}
+        <h3>Vital interests</h3>
+        <p>{{ lawfulBases.vitalInterests | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
 
-    <h3>Public task</h3>
-    <p>{{ lawfulBases.publicTask }}</p>
+      {% if lawfulBases.publicTask %}
+        <h3>Public task</h3>
+        <p>{{ lawfulBases.publicTask | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
 
-    <h3>Legitimate interests</h3>
-    <p>{{ lawfulBases.legitimateInterests }}</p>
+      {% if lawfulBases.legitimateInterests %}
+        <h3>Legitimate interests</h3>
+        <p>{{ lawfulBases.legitimateInterests | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
 
-    <h3>Notes</h3>
-    <p>{{ lawfulBases.notes | striptags(true) | escape | nl2br }}</p>
+      {% if lawfulBases.notes %}
+        <h3>Notes</h3>
+        <p>{{ lawfulBases.notes | striptags(true) | escape | nl2br }}</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="rights" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Rights</h2>
     <p>Description</p>
@@ -266,69 +349,149 @@
   <div class="column small-12 large-6 data">
     {% set rights = result.payload.rights %}
 
-    <h3>General</h3>
-    {% set contactInfo = rights.general.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.general.notes | striptags(true) | escape | nl2br }}</p>
+    {% if rights %}
+      {% if rights.general %}
+        <h3>General</h3>
+        {% set contactInfo = rights.general.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
 
-    <h3>Access</h3>
-    {% set contactInfo = rights.access.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.access.notes | striptags(true) | escape | nl2br }}</p>
+        {% if rights.general.notes %}
+          <h3>Notes</h3>
+          <p>{{ rights.general.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      {% endif %}
 
-    <h3>Rectification</h3>
-    {% set contactInfo = rights.rectification.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.rectification.notes | striptags(true) | escape | nl2br }}</p>
+      <h3>Specific rights</h3>
+      <p>
+      {% if rights.access %}
+        <a href="#" class="rights-selector">Access</a>
+      {% endif %}
+      {% if rights.rectification %}
+        <a href="#" class="rights-selector">Rectification</a>
+      {% endif %}
+      {% if rights.erasure %}
+        <a href="#" class="rights-selector">Erasure</a>
+      {% endif %}
+      {% if rights.restrictProcessing %}
+        <a href="#" class="rights-selector">Restrict processing</a>
+      {% endif %}
+      {% if rights.dataPortability %}
+        <a href="#" class="rights-selector">Data portability</a>
+      {% endif %}
+      {% if rights.object %}
+        <a href="#" class="rights-selector">Object</a>
+      {% endif %}
+      {% if rights.automatedDecisionMaking %}
+        <a href="#" class="rights-selector">Automated decision making</a>
+      {% endif %}
+      </p>
 
-    <h3>Erasure</h3>
-    {% set contactInfo = rights.erasure.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.erasure.notes | striptags(true) | escape | nl2br }}</p>
+      {% if rights.access %}
+      <div class="single-right" id="single-right-access">
+        {% set contactInfo = rights.access.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
 
-    <h3>Restrict processing</h3>
-    {% set contactInfo = rights.restrictProcessing.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.restrictProcessing.notes | striptags(true) | escape | nl2br }}</p>
+        {% if rights.access.notes %}
+          <h3>Notes</h3>
+          <p>{{ rights.access.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
 
-    <h3>Data portability</h3>
-    {% set contactInfo = rights.dataPortability.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.dataPortability.notes | striptags(true) | escape | nl2br }}</p>
+      {% if rights.rectification %}
+      <div class="single-right" id="single-right-rectification">
+        {% set contactInfo = rights.rectification.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
 
-    <h3>Object</h3>
-    {% set contactInfo = rights.object.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.object.notes | striptags(true) | escape | nl2br }}</p>
+        {% if rights.rectification.notes %}
+          <h3>Notes</h3>
+          <p>{{ rights.rectification.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
 
-    <h3>Automated decision making</h3>
-    {% set contactInfo = rights.automatedDecisionMaking.contactInfo %}
-    {% include 'partials/_contact_info.html' %}
-    <h3>Notes</h3>
-    <p>{{ rights.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
+      {% if rights.erasure %}
+      <div class="single-right" id="single-right-erasure">
+        {% set contactInfo = rights.erasure.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
+
+        {% if rights.erasure.notes %}
+          <h3>Notes</h3>
+          <p>{{ rights.erasure.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if rights.restrictProcessing %}
+      <div class="single-right" id="single-right-restrict-processing">
+        {% set contactInfo = rights.restrictProcessing.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
+
+        {% if rights.restrictProcessing.notes %}
+          <h3>Notes</h3>
+          <p>{{ rights.restrictProcessing.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if rights.dataPortability %}
+      <div class="single-right" id="single-right-data-portability">
+        {% set contactInfo = rights.dataPortability.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
+
+        {% if rights.dataPortability.notes %}
+        <h3>Notes</h3>
+        <p>{{ rights.dataPortability.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if rights.object %}
+      <div class="single-right" id="single-right-object">
+        {% set contactInfo = rights.object.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
+
+        {% if rights.object.notes %}
+        <h3>Notes</h3>
+        <p>{{ rights.object.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if rights.automatedDecisionMaking %}
+      <div class="single-right" id="single-right-automated-decision-making">
+        {% set contactInfo = rights.automatedDecisionMaking.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
+
+        {% if rights.automatedDecisionMaking.notes %}
+          <h3>Notes</h3>
+          <p>{{ rights.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="unusualProcessingPurposes" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Processing purposes</h2>
     <p>Description</p>
     <p><a href="#">Link to ICO website</a></p>
   </div>
   <div class="column small-12 large-6 data">
-    <h3>Notes</h3>
-    <p>{{ result.payload.unusualProcessingPurposes.notes | striptags(true) | escape | nl2br }}</p>
+    {% if result.payload.unusualProcessingPurposes %}
+      <h3>Notes</h3>
+      <p>{{ result.payload.unusualProcessingPurposes.notes | striptags(true) | escape | nl2br }}</p>
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
 </div>
 
-<div class="row data-row">
+<div id="transparencyRecommendations" class="row data-row">
   <div class="column small-12 large-6 description">
     <h2>Transparency recommendations</h2>
     <p>Description</p>
@@ -337,21 +500,40 @@
   <div class="column small-12 large-6 data">
     {% set points = result.payload.transparencyRecommendations %}
 
-    {% if points.plainLanguage %}
-    <p>Plain language</p>
-    {% endif %}
+    {% if points %}
+      {% if points.plainLanguage %}
+        <p>✅ Plain language</p>
+      {% else %}
+        <p>❌ Plain language</p>
+      {% endif %}
 
-    {% if points.definiteLanguage %}
-    <p>Definite language</p>
-    {% endif %}
+      {% if points.definiteLanguage %}
+        <p>✅ Definite language</p>
+      {% else %}
+        <p>❌ Definite language</p>
+      {% endif %}
 
-    {% if points.easyToFind %}
-    <p>Easy to find</p>
-    {% endif %}
+      {% if points.easyToFind %}
+        <p>✅ Easy to find</p>
+      {% else %}
+        <p>❌ Definite language</p>
+      {% endif %}
 
-    {% if points.legibleDesign %}
-    <p>Legible design</p>
+      {% if points.legibleDesign %}
+        <p>✅ Legible design</p>
+      {% else %}
+        <p>❌ Definite language</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
     {% endif %}
+  </div>
+</div>
+
+<div id="actions" class="row">
+  <div class="column large-12 small-12">
+    <p><a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/projectsbyif/odr-test/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json">View on GitHub</a> &bull; <a href="mailto:{{ settings.contact_email }}?subject=Report%20a%20problem%20-%20{{ result.name }}">Report a problem</a></p>
+    <p>Last updated {{ extraData.friendlyDate }} at {{ extraData.friendlyTime }}</p>
   </div>
 </div>
 {% endblock %}

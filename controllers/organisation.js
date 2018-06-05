@@ -3,6 +3,7 @@ const router = express.Router();
 const yaml = require('yamljs');
 const Sequelize = require('sequelize');
 const emojiFlag = require('emoji-flag');
+const moment = require('moment');
 const overviewMatrix = require('../libs/overview_matrix');
 
 const settings = yaml.load('settings.yaml');
@@ -26,7 +27,9 @@ router.get('/:country/:number', function(req, res, next) {
       let extraData = {
         'emojiFlag': emojiFlag(_result.payload.organisationInformation
           .registrationCountry.split('_')[0].toUpperCase()),
-          'overviewMatrix': overviewMatrix.generate(_result.payload),
+        'overviewMatrix': overviewMatrix.generate(_result.payload),
+        'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
+        'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),
       };
 
       res.render('organisation/show.html', {
