@@ -53,13 +53,11 @@ let indexRouter = require('./controllers/home');
 let searchRouter = require('./controllers/search');
 let organisationRouter = require('./controllers/organisation');
 let webhookRouter = require('./controllers/webhook');
-let generatorRouter = require('./controllers/generator');
 
 app.use('/', indexRouter);
 app.use('/search', searchRouter);
 app.use('/organisation', organisationRouter);
 app.use('/webhook', webhookRouter);
-app.use('/generator', generatorRouter);
 
 // START SERVER
 http.listen(app.get('port'), function() {
