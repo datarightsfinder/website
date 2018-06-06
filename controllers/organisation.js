@@ -92,17 +92,20 @@ function isECAdequacyDecisionCountry(country) {
 
 function createExtraDataTable(payload) {
   delete payload['organisationInformation'];
+  delete payload['organisationUrls'];
   delete payload['privacyNoticeUrl'];
-  delete payload['dataTypesCollected'];
+  delete payload['dataProtectionOfficer'];
   delete payload['dataProtectionRegister'];
   delete payload['internationalTransfer'];
   delete payload['thirdParties'];
   delete payload['retentionRules'];
+  delete payload['dataTypesCollected'];
   delete payload['automatedDecisionMaking'];
   delete payload['complaintInformation'];
   delete payload['securityStandards'];
   delete payload['lawfulBases'];
   delete payload['rights'];
+  delete payload['unusualProcessingPurposes'];
   delete payload['transparencyRecommendations'];
 
   if (Object.keys(payload).length === 0) {
