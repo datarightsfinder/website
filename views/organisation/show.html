@@ -22,19 +22,14 @@
   </div>
 </div>
 
-<div class="overview">
+<div id="summary" class="summary">
   <div class="row">
     <div class="columns small-12 large-12">
-      <h2>Overview</h2>
+      <h2>Summary</h2>
       <ul>
         {% for item in meta.overviewMatrix %}
           {% if item != false %}
           <li>
-            {% if item.status == "good" %}
-              <span>✅</span>
-            {% elif item.status == "warning" %}
-              <span>⚠️</span>
-            {% endif %}
             <span>{{ item.message | safe }}</span>
           </li>
           {% endif %}
@@ -105,15 +100,15 @@
       <h3>Location</h3>
       {% endif %}
       {% if meta.isEEACountry %}
-      <p>✅ This organisation is based in an EEA country</p>
+      <p>This organisation is based in an EEA country</p>
       {% endif %}
       {% if meta.isECAdequacyDecisionCountry %}
-      <p>✅ This organisation is based in a country that provides adequate data protection for GDPR</p>
+      <p>This organisation is based in a country that provides adequate data protection for GDPR</p>
       {% endif %}
 
       {% if result.payload.internationalTransfer.privacyShieldUrl %}
       <h3>US–EU Privacy Shield Framework</h3>
-      <p>✅ This organisation is self-certified</p>
+      <p>This organisation is self-certified</p>
       <p>
         <a href="#">{{ result.payload.internationalTransfer.privacyShieldUrl }}</a>
       </p>
@@ -123,13 +118,13 @@
         <h3>Data processing addendum</h3>
         {% set addendumType = result.payload.internationalTransfer.dataProcessingAddendum.type %}
         {% if addendumType == "form" %}
-          <p>✅ This organisation requires a form to be returned to enter tint a data processing addendum</p>
+          <p>This organisation requires a form to be returned to enter tint a data processing addendum</p>
         {% elif addendumType == "setting" %}
-          <p>✅ This organisation requires a setting to be changed to enter into a data processing addendum</p>
+          <p>This organisation requires a setting to be changed to enter into a data processing addendum</p>
         {% elif addendumType == "assumed" %}
-          <p>✅ This organisation provides adequate protection through its Terms of Service</p>
+          <p>This organisation provides adequate protection through its Terms of Service</p>
         {% elif addendumType == "none" %}
-          <p>⚠️ This organisation doesn’t offer a data processing addendum</p>
+          <p>This organisation doesn’t offer a data processing addendum</p>
         {% endif %}
 
         {% if result.payload.internationalTransfer.dataProcessingAddendum.url %}
@@ -223,9 +218,9 @@
   <div class="columns small-12 large-6 data">
     {% if result.payload.automatedDecisionMaking %}
       {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
-        <p class="bold">⚠️ This organisation uses automated decision making</p>
+        <p class="bold">This organisation uses automated decision making</p>
       {% else %}
-        <p class="bold">✅ This organisation does not use automated decision making</p>
+        <p class="bold">This organisation does not use automated decision making</p>
       {% endif %}
 
       {% if result.payload.automatedDecisionMaking.notes %}
@@ -246,9 +241,9 @@
   <div class="columns small-12 large-6 data">
     {% if result.payload.complaintInformation %}
       {% if result.payload.complaintInformation.present %}
-        <p class="bold">✅ This organisation gives details about making a complaint in their privacy policy</p>
+        <p class="bold">This organisation gives details about making a complaint in their privacy policy</p>
       {% else %}
-        <p class="bold">⚠️ This organisation does not give details about making a complaint in their privacy policy</p>
+        <p class="bold">This organisation does not give details about making a complaint in their privacy policy</p>
       {% endif %}
 
       {% if result.payload.complaintInformation.notes %}
@@ -272,11 +267,11 @@
 
       {% if specificity %}
         {% if specificity == "specific" %}
-          <p class="bold">✅ This organisation provides a specific description of how they secure data</p>
+          <p class="bold">This organisation provides a specific description of how they secure data</p>
         {% elif specificity == "general" %}
-          <p class="bold">✅ This organisation provides a general description of how they secure data</p>
+          <p class="bold">This organisation provides a general description of how they secure data</p>
         {% elif specificity == "none" %}
-          <p class="bold">⚠️ This organisation does not mention how they secure data</p>
+          <p class="bold">This organisation does not mention how they secure data</p>
         {% endif %}
       {% endif %}
 
