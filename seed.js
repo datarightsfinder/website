@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // CONFIG
-const URL_REPO_CONTENTS = 'https://api.github.com/repos/projectsbyif/org-gdpr-tool-data/contents/';
+const URL_REPO_CONTENTS = 'https://api.github.com/repos/projectsbyif/odr-test/contents/';
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
