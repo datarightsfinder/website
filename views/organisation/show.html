@@ -14,7 +14,7 @@
       <h1>{{ result.name }}</h1>
       <p class="banner-buttons">
         <a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}" target="_blank">
-          <span class="emoji-flag">{{ extraData.emojiFlag }}</span>
+          <span class="emoji-flag">{{ meta.emojiFlag }}</span>
           {{ result.registrationNumber }}
         </a>{% if result.payload.organisationUrls %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">Website</a>{% endif %}{% if result.payload.privacyNoticeUrl %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">Privacy notice</a>{% endif %}
       </p>
@@ -27,7 +27,7 @@
     <div class="columns small-12 large-12">
       <h2>Overview</h2>
       <ul>
-        {% for item in extraData.overviewMatrix %}
+        {% for item in meta.overviewMatrix %}
           {% if item != false %}
           <li>
             {% if item.status == "good" %}
@@ -101,13 +101,13 @@
   </div>
   <div class="columns small-12 large-6 data">
     {% if result.payload.internationalTransfer %}
-      {% if extraData.isEEACountry or extraData.isECAdequacyDecisionCountry %}
+      {% if meta.isEEACountry or meta.isECAdequacyDecisionCountry %}
       <h3>Location</h3>
       {% endif %}
-      {% if extraData.isEEACountry %}
+      {% if meta.isEEACountry %}
       <p>✅ This organisation is based in an EEA country</p>
       {% endif %}
-      {% if extraData.isECAdequacyDecisionCountry %}
+      {% if meta.isECAdequacyDecisionCountry %}
       <p>✅ This organisation is based in a country that provides adequate data protection for GDPR</p>
       {% endif %}
 
@@ -133,7 +133,7 @@
         {% endif %}
 
         {% if result.payload.internationalTransfer.dataProcessingAddendum.url %}
-          <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
+          <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank" style="margin-top: 1.2rem;">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
         {% endif %}
       {% endif %}
 
@@ -537,10 +537,18 @@
   </div>
 </div>
 
+{% if extraData %}
+<div id="transparencyRecommendations" class="row extra-data-table">
+  <div class="columns small-12 large-12">
+    {{ extraData | safe }}
+  </div>
+</div>
+{% endif %}
+
 <div id="actions" class="row">
   <div class="columns large-12 small-12">
     <p><a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/projectsbyif/odr-test/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json">View on GitHub</a> &bull; <a href="mailto:{{ settings.contact_email }}?subject=Report%20a%20problem%20-%20{{ result.name }}">Report a problem</a></p>
-    <p>Last updated {{ extraData.friendlyDate }} at {{ extraData.friendlyTime }}</p>
+    <p>Last updated {{ meta.friendlyDate }} at {{ meta.friendlyTime }}</p>
   </div>
 </div>
 {% endblock %}

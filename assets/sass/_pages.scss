@@ -202,4 +202,28 @@
       margin: 0 !important;
     }
   }
+
+  .extra-data-table {
+    text-align: left;
+
+    table {
+      width: 100%;
+      padding: 0.2rem;
+      border: #CCC 1px solid;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    th {
+      width: 33.333%;
+      padding: 0.2rem 0.6rem;
+    }
+
+    td {
+      width: 66.666%;
+      padding: 0.2rem;
+    }
+  }
 }

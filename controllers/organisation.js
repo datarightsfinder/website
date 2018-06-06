@@ -6,6 +6,7 @@ const emojiFlag = require('emoji-flag');
 const moment = require('moment');
 const overviewMatrix = require('../libs/overview_matrix');
 const constants = require('../libs/constants');
+const tableify = require('tableify');
 
 const settings = yaml.load('settings.yaml');
 
@@ -25,7 +26,7 @@ router.get('/:country/:number', function(req, res, next) {
     .then(function(_result) {
       _result.payload = JSON.parse(_result.payload);
 
-      let extraData = {
+      let meta = {
         'emojiFlag': emojiFlag(_result.payload.organisationInformation
           .registrationCountry.split('_')[0].toUpperCase()),
         'overviewMatrix': overviewMatrix.generate(_result.payload),
@@ -35,9 +36,12 @@ router.get('/:country/:number', function(req, res, next) {
         'isECAdequacyDecisionCountry': isECAdequacyDecisionCountry(_result.registrationCountry),
       };
 
+      let extraData = createExtraDataTable(_result.payload);
+
       res.render('organisation/show.html', {
         settings: settings,
         result: _result,
+        meta: meta,
         extraData: extraData,
       });
   }).catch(function(err) {
@@ -84,6 +88,28 @@ function isECAdequacyDecisionCountry(country) {
   } else {
     return false;
   }
+}
+
+function createExtraDataTable(payload) {
+  delete payload['organisationInformation'];
+  delete payload['privacyNoticeUrl'];
+  delete payload['dataTypesCollected'];
+  delete payload['dataProtectionRegister'];
+  delete payload['internationalTransfer'];
+  delete payload['thirdParties'];
+  delete payload['retentionRules'];
+  delete payload['automatedDecisionMaking'];
+  delete payload['complaintInformation'];
+  delete payload['securityStandards'];
+  delete payload['lawfulBases'];
+  delete payload['rights'];
+  delete payload['transparencyRecommendations'];
+
+  if (Object.keys(payload).length === 0) {
+    return null;
+  }
+
+  return tableify(payload);
 }
 
 module.exports = router;

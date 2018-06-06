@@ -36,6 +36,7 @@
     "request": "^2.87.0",
     "sequelize": "^4.37.10",
     "sequelize-cli": "^4.0.0",
+    "tableify": "^1.1.0",
     "yamljs": "^0.3.0"
   },
   "author": "",
