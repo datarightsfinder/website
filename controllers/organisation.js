@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
 const Sequelize = require('sequelize');
-const emojiFlag = require('emoji-flag');
 const moment = require('moment');
 const overviewMatrix = require('../libs/overview_matrix');
 const constants = require('../libs/constants');
@@ -27,8 +26,6 @@ router.get('/:country/:number', function(req, res, next) {
       _result.payload = JSON.parse(_result.payload);
 
       let meta = {
-        'emojiFlag': emojiFlag(_result.payload.organisationInformation
-          .registrationCountry.split('_')[0].toUpperCase()),
         'overviewMatrix': overviewMatrix.generate(_result.payload),
         'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
         'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),

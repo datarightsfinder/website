@@ -17,6 +17,14 @@ header {
   width: 100vw;
   height: 50px;
 
+  .columns {
+    height: 50px;
+
+    @include media(desktop) {
+      height: 60px;
+    }
+  }
+
   @include media(desktop) {
     height: 60px;
   }
@@ -33,6 +41,23 @@ header {
     a {
       color: #FFF;
     }
+  }
+
+  #search-about {
+    display: none;
+
+    @include media(desktop) {
+      display: block;
+    }
+  }
+
+  .about {
+    display: block;
+    float: right;
+    text-decoration: none;
+    color: #FFF;
+    margin-right: 30px;
+    line-height: 60px;
   }
 }
 
@@ -55,6 +80,7 @@ header {
   h2 {
     margin-top: 1.2rem;
     margin-bottom: 1.2rem;
+    font-size: 1.5rem;
 
     @include media(desktop) {
       margin-top: 2rem;
@@ -86,25 +112,13 @@ footer {
   background: $colour-secondary;
   position: relative;
   bottom: 0;
-  height: 101px;
 
-  @include media(desktop) {
-    height: 64px;
-    margin-top: 2rem;
+  .licence {
+    opacity: 0.6;
+
   }
 
-  p {
-    @include media(desktop) {
-      float: left;
-    }
-  }
 
-  .links {
-    @include media(desktop) {
-      float: right;
-      text-align: right;
-    }
-  }
 }
 
 .latest-organisations {
@@ -149,6 +163,21 @@ form.search {
     background-size: 55% 55%;
     float: left;
   }
+
+  &.small-search {
+    float: right;
+    margin-top: 11px;
+
+    input {
+      width: 250px;
+      height: 40px;
+    }
+
+    button {
+      width: 40px;
+      height: 40px;
+    }
+  }
 }
 
 .logos {
@@ -167,6 +196,26 @@ form.search {
     &:last-of-type {
       img {
         margin-right: 0;
+      }
+    }
+  }
+}
+
+.index {
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      padding: 0.5rem 0;
+      border-bottom: #CCC 1px solid;
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
+
+      a {
+        text-decoration: none;
       }
     }
   }

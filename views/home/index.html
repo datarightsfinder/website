@@ -16,21 +16,15 @@
 
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
-    <h3>About</h3>
-    <p>The <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/">General Data Protection Regulation</a> gives people new rights to see and control how data about them is used by organisations.</p>
-    <p>{{ settings.title }} collects information people need to use these rights, helping them easily find the links and contact details that are found in privacy notices.</p>
-    <p>Developers can also use information from {{ settings.title }} to build new services that help people exercise their new rights.</p>
+    <h3>List of organisations</h3>
 
-    <h3>Contribute</h3>
-    <p>You can add or change information <a href="https://github.com/projectsbyif/open-data-rights-data">on GitHub</a>.</p>
-
-    <div class="logos">
-      <a href="https://projectsbyif.com"><img src="/public/images/logo_if.svg" alt="IF logo" />
-      <a href="https://openrightsgroup.org"><img src="/public/images/logo_org.svg" alt="Open Rights Group logo" /></a>
-      <a href="https://ico.org.uk"><img src="/public/images/logo_ico.svg" alt="Information Commissioner's Office logo" /></a>
-    </div>
-
-    <p>{{ settings.title }} is a collaboration between <a href="https://projectsbyif.com">IF</a> and <a href="https://www.openrightsgroup.org/">Open Rights Group</a> and is funded by the <a href="https://ico.org.uk">Information Commissioner&apos;s Office</a>.</p>
+    <ul class="index">
+      {% for item in organisations %}
+      <li>
+        <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
 </div>
 {% endblock %}

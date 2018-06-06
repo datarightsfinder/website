@@ -50,11 +50,13 @@ nunjucksEnv.express(app);
 
 // ROUTES
 let indexRouter = require('./controllers/home');
+let aboutRouter = require('./controllers/about');
 let searchRouter = require('./controllers/search');
 let organisationRouter = require('./controllers/organisation');
 let webhookRouter = require('./controllers/webhook');
 
 app.use('/', indexRouter);
+app.use('/about', aboutRouter);
 app.use('/search', searchRouter);
 app.use('/organisation', organisationRouter);
 app.use('/webhook', webhookRouter);

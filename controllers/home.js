@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
       settings: settings,
       payload: _all,
       organisation_count: _all.length,
-      last_five: _all.slice(Math.max(_all.length - 5, 1)),
+      organisations: _all,
     });
   }).catch(function() {
     res.render('home/index.html', {settings: settings, organisations: []});

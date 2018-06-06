@@ -1,5 +1,7 @@
 {% extends "layouts/main.html" %}
 
+{% set smallSearch = true %}
+
 {% block page_title %}{{ result.name }} – {{ settings.title }}{% endblock %}
 
 {% block body_class %}organisation{% endblock %}
@@ -13,10 +15,14 @@
     <div class="columns small-12 large-12">
       <h1>{{ result.name }}</h1>
       <p class="banner-buttons">
-        <a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}" target="_blank">
-          <span class="emoji-flag">{{ meta.emojiFlag }}</span>
-          {{ result.registrationNumber }}
-        </a>{% if result.payload.organisationUrls %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">Website</a>{% endif %}{% if result.payload.privacyNoticeUrl %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">Privacy notice</a>{% endif %}
+        <span>Based in {{ result.registrationCountry }}</span>
+        {% if result.payload.organisationUrls[0] %}
+        <span><a href="{{ result.payload.organisationUrls[0] }}" target="_blank">Website</a></span>
+        {% endif %}
+        {% if result.payload.privacyNoticeUrl.url %}
+        <span><a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">Privacy notice</a></span>
+        {% endif %}
+        <span><a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}" target="_blank">View on OpenCorporates</a></span>
       </p>
     </div>
   </div>
@@ -96,16 +102,6 @@
   </div>
   <div class="columns small-12 large-6 data">
     {% if result.payload.internationalTransfer %}
-      {% if meta.isEEACountry or meta.isECAdequacyDecisionCountry %}
-      <h3>Location</h3>
-      {% endif %}
-      {% if meta.isEEACountry %}
-      <p>This organisation is based in an EEA country</p>
-      {% endif %}
-      {% if meta.isECAdequacyDecisionCountry %}
-      <p>This organisation is based in a country that provides adequate data protection for GDPR</p>
-      {% endif %}
-
       {% if result.payload.internationalTransfer.privacyShieldUrl %}
       <h3>US–EU Privacy Shield Framework</h3>
       <p>This organisation is self-certified</p>
@@ -542,8 +538,7 @@
 
 <div id="actions" class="row">
   <div class="columns large-12 small-12">
-    <p><a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/projectsbyif/odr-test/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json">View on GitHub</a> &bull; <a href="mailto:{{ settings.contact_email }}?subject=Report%20a%20problem%20-%20{{ result.name }}">Report a problem</a></p>
-    <p>Last updated {{ meta.friendlyDate }} at {{ meta.friendlyTime }}</p>
+    <p>Last updated {{ meta.friendlyDate }} at {{ meta.friendlyTime }} &bull; <a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/projectsbyif/odr-test/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json">View on GitHub</a></p>
   </div>
 </div>
 {% endblock %}

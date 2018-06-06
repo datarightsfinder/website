@@ -14,20 +14,21 @@
     .banner-buttons {
       margin-bottom: 1rem;
       overflow: auto;
+      color: #FFF;
 
       @include media(desktop) {
         margin-bottom: 1.1rem;
       }
 
+
       a {
-        text-decoration: none;
-        border: #FFF 2px solid;
-        border-radius: 6px;
         color: #FFF;
-        padding: 5px 8px;
+        border-bottom: #FFF 1px solid;
+        text-decoration: none;
+      }
+
+      span {
         margin-right: 10px;
-        margin-bottom: 10px;
-        float: left;
       }
     }
   }
@@ -116,10 +117,14 @@
         color: #666;
       }
 
+      a {
+        text-decoration: none;
+        border-bottom: #666 1px solid;
+      }
+
       p {
         @include media(desktop) {
           width: 66.666%;
-          font-size: 0.9em;
         }
       }
     }
@@ -155,15 +160,8 @@
       }
 
       a {
+        border-bottom: #000 1px solid;
         text-decoration: none;
-        border: #212121 2px solid;
-        border-radius: 6px;
-        color: #212121;
-        padding: 5px 8px;
-        margin-right: 10px;
-        display: inline-block;
-        word-wrap: break-word;
-        max-width: 100%;
       }
     }
   }

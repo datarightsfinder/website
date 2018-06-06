@@ -18,7 +18,6 @@
     "bower": "^1.8.4",
     "clean-deep": "^3.0.2",
     "dotenv": "^6.0.0",
-    "emoji-flag": "^1.1.0",
     "express": "^4.15.2",
     "express-validator": "^5.1.2",
     "gulp": "^4.0.0",
