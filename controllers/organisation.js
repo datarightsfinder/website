@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const emojiFlag = require('emoji-flag');
 const moment = require('moment');
 const overviewMatrix = require('../libs/overview_matrix');
+const constants = require('../libs/constants');
 
 const settings = yaml.load('settings.yaml');
 
@@ -30,6 +31,8 @@ router.get('/:country/:number', function(req, res, next) {
         'overviewMatrix': overviewMatrix.generate(_result.payload),
         'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
         'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),
+        'isEEACountry': isEEACountry(_result.registrationCountry),
+        'isECAdequacyDecisionCountry': isECAdequacyDecisionCountry(_result.registrationCountry),
       };
 
       res.render('organisation/show.html', {
@@ -62,5 +65,25 @@ router.get('/:country/:number.json', function(req, res, next) {
 router.get('/', function(req, res, next) {
   res.redirect('/');
 });
+
+function isEEACountry(country) {
+  country = country.split('_')[0].toLowerCase();
+
+  if (constants.getEEACountries().indexOf(country) !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isECAdequacyDecisionCountry(country) {
+  country = country.split('_')[0].toLowerCase();
+
+  if (constants.getECAdequacyDecisionCountries().indexOf(country) !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 module.exports = router;

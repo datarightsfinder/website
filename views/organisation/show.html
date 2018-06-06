@@ -13,10 +13,10 @@
     <div class="columns small-12 large-12">
       <h1>{{ result.name }}</h1>
       <p class="banner-buttons">
-        <a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}">
+        <a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}" target="_blank">
           <span class="emoji-flag">{{ extraData.emojiFlag }}</span>
           {{ result.registrationNumber }}
-        </a>{% if result.payload.organisationUrls %}<a href="{{ result.payload.organisationUrls[0] }}">Website</a>{% endif %}{% if result.payload.privacyNoticeUrl %}<a href="{{ result.payload.privacyNoticeUrl.url }}">Privacy notice</a>{% endif %}
+        </a>{% if result.payload.organisationUrls %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">Website</a>{% endif %}{% if result.payload.privacyNoticeUrl %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">Privacy notice</a>{% endif %}
       </p>
     </div>
   </div>
@@ -45,12 +45,11 @@
 </div>
 
 <div id="dataProtectionOfficer" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Data Protection Officer</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations that use special categories of data, are public bodies, or do large scale processing must appoint a <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-officers/" target="_blank">Data Protection Officer</a>.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.dataProtectionOfficer %}
       {% if result.payload.dataProtectionOfficer.name %}
         <h3>Name</h3>
@@ -69,12 +68,11 @@
 </div>
 
 <div id="dataProtectionRegister" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Data protection register</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Some countries maintain a public register of organisations that process data.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.dataProtectionRegister %}
       {% if result.payload.dataProtectionRegister.identifier %}
         <h3>Identifier</h3>
@@ -94,15 +92,28 @@
 </div>
 
 <div id="internationalTransfer" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>International transfer</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Personal data <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/international-transfers/" target="_blank">must be protected</a> by adequate safeguards when transferred outside the European Economic Area (EEA).</p>
+    <p>Some US-based organisations do this by self-certifying with the <a href="https://www.privacyshield.gov/welcome" target="_blank">Privacy Shield Framework</a>.</p>
+    <p>Others use data processing addendums that add <a href="https://ec.europa.eu/info/law/law-topic/data-protection/data-transfers-outside-eu/model-contracts-transfer-personal-data-third-countries_en" target="_blank">adequate protections</a> to existing contracts.</p>
+    <p>The data protection laws of some non-EEA countries has been <a href="https://ec.europa.eu/info/law/law-topic/data-protection/data-transfers-outside-eu/adequacy-protection-personal-data-non-eu-countries_en" target="_blank">judged as adequate</a> by the European Commission.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.internationalTransfer %}
+      {% if extraData.isEEACountry or extraData.isECAdequacyDecisionCountry %}
+      <h3>Location</h3>
+      {% endif %}
+      {% if extraData.isEEACountry %}
+      <p>✅ This organisation is based in an EEA country</p>
+      {% endif %}
+      {% if extraData.isECAdequacyDecisionCountry %}
+      <p>✅ This organisation is based in a country that provides adequate data protection for GDPR</p>
+      {% endif %}
+
       {% if result.payload.internationalTransfer.privacyShieldUrl %}
-      <h3>US–EU Privacy Shield</h3>
+      <h3>US–EU Privacy Shield Framework</h3>
+      <p>✅ This organisation is self-certified</p>
       <p>
         <a href="#">{{ result.payload.internationalTransfer.privacyShieldUrl }}</a>
       </p>
@@ -112,16 +123,18 @@
         <h3>Data processing addendum</h3>
         {% set addendumType = result.payload.internationalTransfer.dataProcessingAddendum.type %}
         {% if addendumType == "form" %}
-          <p>This organisation requires people to send a form to enter into a data processing agreement.</p>
+          <p>✅ This organisation requires a form to be returned to enter tint a data processing addendum</p>
         {% elif addendumType == "setting" %}
-          <p>This organisation requires people to change a setting to enter into a data processing agreement.</p>
+          <p>✅ This organisation requires a setting to be changed to enter into a data processing addendum</p>
         {% elif addendumType == "assumed" %}
-          <p>This organisation has written GDPR compatible clauses into their Terms of Service.</p>
+          <p>✅ This organisation provides adequate protection through its Terms of Service</p>
         {% elif addendumType == "none" %}
-          <p>This organisation has no method of entering into GDPR compatible clauses.</p>
+          <p>⚠️ This organisation doesn’t offer a data processing addendum</p>
         {% endif %}
 
-        <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
+        {% if result.payload.internationalTransfer.dataProcessingAddendum.url %}
+          <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
+        {% endif %}
       {% endif %}
 
       {% if result.payload.internationalTransfer.notes %}
@@ -135,15 +148,14 @@
 </div>
 
 <div id="thirdParties" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Third parties</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about other parties that personal data is shared with.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.thirdParties %}
       {% if result.payload.thirdParties.list %}
-        <h3>List</h3>
+        <h3>From privacy notice</h3>
         <ul>
           {% for item in result.payload.thirdParties.list %}
           <li><p>{{ item }}</p></li>
@@ -162,14 +174,13 @@
 </div>
 
 <div id="retentionRules" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Retention rules</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how long data is kept.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.retentionRules.notes %}
-      <h3>Notes</h3>
+      <h3>From privacy notice</h3>
       <p>{{ result.payload.retentionRules.notes | striptags(true) | escape | nl2br }}</p>
     {% else %}
       {% include 'partials/_section_missing.html' %}
@@ -178,19 +189,18 @@
 </div>
 
 <div id="dataCategoriesCollected" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Data categories collected</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about what categories of data are stored and processed.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.dataTypesCollected %}
       {% if result.payload.dataTypesCollected.list %}
-      <h3>List</h3>
+      <h3>From privacy notice</h3>
       <ul>
         {% for item in result.payload.dataTypesCollected.list %}
         {% set flag = item | highlightSpecialCategory %}
-        <li><p>{{ item | replace("_", " ") | capitalize }}{% if flag == "true" %}<span>⚠️</span>{% endif %}</p></li>
+        <li><p>{{ item | replace("_", " ") | capitalize }}{% if flag == "true" %}<span> ⚠️</span>{% endif %}</p></li>
         {% endfor %}
       </ul>
       {% endif %}
@@ -206,17 +216,16 @@
 </div>
 
 <div id="automatedDecisionMaking" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Automated decision making</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how data is used to make decisions without human involvement.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.automatedDecisionMaking %}
       {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
-        <p>This organisation uses automated decision making.</p>
+        <p class="bold">⚠️ This organisation uses automated decision making</p>
       {% else %}
-        <p>This organisation does not use automated decision making.</p>
+        <p class="bold">✅ This organisation does not use automated decision making</p>
       {% endif %}
 
       {% if result.payload.automatedDecisionMaking.notes %}
@@ -230,17 +239,16 @@
 </div>
 
 <div id="complaintInformation" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Complaint information</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how to make a complaint with a data protection authority.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.complaintInformation %}
       {% if result.payload.complaintInformation.present %}
-        <p>This organisation has information about how to make a complaint in their privacy policy.</p>
+        <p class="bold">✅ This organisation gives details about making a complaint in their privacy policy</p>
       {% else %}
-        <p>This organisation does not have information about how to make a complaint in their privacy policy.</p>
+        <p class="bold">⚠️ This organisation does not give details about making a complaint in their privacy policy</p>
       {% endif %}
 
       {% if result.payload.complaintInformation.notes %}
@@ -254,22 +262,21 @@
 </div>
 
 <div id="securityStandards" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Security standards</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/security/"target="_blank">must ensure</a> that data is stored and processed securely.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.securityStandards %}
       {% set specificity = result.payload.securityStandards.specificity %}
 
       {% if specificity %}
         {% if specificity == "specific" %}
-          <p>This organisation states specific information about how they secure data.</p>
+          <p class="bold">✅ This organisation provides a specific description of how they secure data</p>
         {% elif specificity == "general" %}
-          <p>This organisation states general information about how they secure data.</p>
+          <p class="bold">✅ This organisation provides a general description of how they secure data</p>
         {% elif specificity == "none" %}
-          <p>This organisation states no information about how they secure data.</p>
+          <p class="bold">⚠️ This organisation does not mention how they secure data</p>
         {% endif %}
       {% endif %}
 
@@ -291,12 +298,11 @@
 </div>
 
 <div id="lawfulBases" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Lawful bases</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/lawful-basis-for-processing/" target="_blank">must justify collection and use of data</a> under six lawful bases and provide information about their decisions</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% set lawfulBases = result.payload.lawfulBases %}
 
     {% if lawfulBases %}
@@ -340,18 +346,16 @@
   </div>
 </div>
 
-<div id="rights" class="row data-row">
-  <div class="column small-12 large-6 description">
-    <h2>Rights</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+<div id="individualRights" class="row data-row">
+  <div class="columns small-12 large-6 description">
+    <h2>Individual rights</h2>
+    <p>Organisations must provide information about the <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">new individual rights</a> under GDPR.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% set rights = result.payload.rights %}
 
     {% if rights %}
       {% if rights.general %}
-        <h3>General</h3>
         {% set contactInfo = rights.general.contactInfo %}
         {% include 'partials/_contact_info.html' %}
 
@@ -361,7 +365,10 @@
         {% endif %}
       {% endif %}
 
+      {% if rights.access or rights.rectification or rights.erasure or rights.restrictProcessing or rights.dataPortability or rights.object or rights.automatedDecisionMaking %}
       <h3>Specific rights</h3>
+      {% endif %}
+
       <p>
       {% if rights.access %}
         <a href="#" class="rights-selector">Access</a>
@@ -476,12 +483,11 @@
 </div>
 
 <div id="unusualProcessingPurposes" class="row data-row">
-  <div class="column small-12 large-6 description">
-    <h2>Processing purposes</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+  <div class="columns small-12 large-6 description">
+    <h2>Unusual processing purposes</h2>
+    <p>Organisations must provide information about <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">what they do</a> with data. This section highlights less common uses of data.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% if result.payload.unusualProcessingPurposes %}
       <h3>Notes</h3>
       <p>{{ result.payload.unusualProcessingPurposes.notes | striptags(true) | escape | nl2br }}</p>
@@ -492,15 +498,16 @@
 </div>
 
 <div id="transparencyRecommendations" class="row data-row">
-  <div class="column small-12 large-6 description">
+  <div class="columns small-12 large-6 description">
     <h2>Transparency recommendations</h2>
-    <p>Description</p>
-    <p><a href="#">Link to ICO website</a></p>
+    <p>Organisations are required to provide privacy information <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">in a transparent way</a>. The Article 29 Working Party <a href="http://ec.europa.eu/newsroom/article29/item-detail.cfm?item_id=622227" target="_blank">has provided recommendations</a> on how to do this.</p>
   </div>
-  <div class="column small-12 large-6 data">
+  <div class="columns small-12 large-6 data">
     {% set points = result.payload.transparencyRecommendations %}
 
     {% if points %}
+      <h3>Criteria</h3>
+
       {% if points.plainLanguage %}
         <p>✅ Plain language</p>
       {% else %}
@@ -516,13 +523,13 @@
       {% if points.easyToFind %}
         <p>✅ Easy to find</p>
       {% else %}
-        <p>❌ Definite language</p>
+        <p>❌ Easy to find</p>
       {% endif %}
 
       {% if points.legibleDesign %}
         <p>✅ Legible design</p>
       {% else %}
-        <p>❌ Definite language</p>
+        <p>❌ Legible design</p>
       {% endif %}
     {% else %}
       {% include 'partials/_section_missing.html' %}
@@ -531,7 +538,7 @@
 </div>
 
 <div id="actions" class="row">
-  <div class="column large-12 small-12">
+  <div class="columns large-12 small-12">
     <p><a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/projectsbyif/odr-test/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json">View on GitHub</a> &bull; <a href="mailto:{{ settings.contact_email }}?subject=Report%20a%20problem%20-%20{{ result.name }}">Report a problem</a></p>
     <p>Last updated {{ extraData.friendlyDate }} at {{ extraData.friendlyTime }}</p>
   </div>

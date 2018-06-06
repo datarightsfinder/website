@@ -3,13 +3,20 @@
     background: $colour-main;
     color: #FFF;
 
-    .banner-buttons {
-      margin-bottom: 35px;
+    h1 {
+      margin: 1rem 0;
 
-      .emoji-flag {
-        font-size: 1.4em;
-        position: relative;
-        top: 4px;
+      @include media(desktop) {
+        margin: 1.25rem 0;
+      }
+    }
+
+    .banner-buttons {
+      margin-bottom: 1rem;
+      overflow: auto;
+
+      @include media(desktop) {
+        margin-bottom: 1.1rem;
       }
 
       a {
@@ -19,6 +26,8 @@
         color: #FFF;
         padding: 5px 8px;
         margin-right: 10px;
+        margin-bottom: 10px;
+        float: left;
       }
     }
   }
@@ -26,24 +35,61 @@
   .overview {
     background: $colour-secondary;
 
+    @include media(desktop) {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      margin-top: 1rem;
+
+      @include media(desktop) {
+        margin-top: 2rem;
+      }
+    }
+
     ul {
       list-style-type: none;
       padding-left: 0;
-      margin-bottom: 35px;
+      margin-bottom: 1rem;
+
+      @include media(desktop) {
+        margin-bottom: 2.4rem;
+      }
 
       li {
-        margin-bottom: 20px;
+        overflow: auto;
+        margin-bottom: 1rem;
+
+        @include media(desktop) {
+          margin-bottom: 1.3rem;
+        }
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
 
         span {
-          font-size: 1.4em;
+          @include media(desktop) {
+            font-size: 1.35rem;
+          }
+
+          a {
+            border-bottom: #CCC 1px solid;
+            text-decoration: none;
+          }
 
           &:first-of-type {
             margin-right: 20px;
-            position: relative;
-            top: 2px;
+            width: 20px;
+            display: block;
+            float: left;
+            padding-top: 2px;
           }
 
           &:last-of-type {
+            width: calc(100% - 20px - 20px);
+            display: block;
+            float: left;
           }
         }
       }
@@ -52,15 +98,60 @@
 
   .data-row {
     border-bottom: #{$colour-seperator} 1px solid;
+    padding: 1rem 0 1.2rem 0;
+
+    @include media(desktop) {
+      padding: 2rem 0 2rem 0;
+    }
 
     .description {
+      margin-bottom: 3rem;
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 0.2rem;
+      }
+
+      p, a {
+        color: #666;
+      }
+
+      p {
+        @include media(desktop) {
+          width: 66.666%;
+          font-size: 0.9em;
+        }
+      }
     }
 
     .data {
+      p {
+        width: 100%;
+        overflow: hidden;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      ul {
+        margin-top: 0;
+        margin-bottom: 0;
+
+        li p {
+          margin-bottom: 0.2rem;
+        }
+      }
+
       h3 {
         text-transform: uppercase;
         font-size: 0.8em;
-        letter-spacing: 0px;
+        margin-bottom: 0.5rem;
+        margin-top: 2rem;
+
+        &:first-of-type {
+          margin-top: 0 !important;
+        }
       }
 
       a {
@@ -70,18 +161,45 @@
         color: #212121;
         padding: 5px 8px;
         margin-right: 10px;
+        display: inline-block;
+        word-wrap: break-word;
+        max-width: 100%;
       }
     }
   }
 
   .rights-selector {
+    margin-bottom: 10px;
 
     &.active {
-      background: red;
+      background: #212121;
+      color: #FFF !important;
     }
   }
 
   .single-right {
     display: none;
+  }
+
+  #actions {
+    margin-top: 1rem;
+
+    @include media(desktop) {
+      margin-top: 2rem;
+    }
+  }
+
+  .update-needed {
+    .bold {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    a {
+      border: none !important;
+      text-decoration: underline !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
   }
 }

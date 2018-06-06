@@ -4,65 +4,67 @@ const constants = require('../libs/constants');
 const templates = {
   'dataProtectionOfficerPresent': {
     'status': 'good',
-    'message': 'Has details for <a href="#dataProtectionOfficer">'
-      + 'Data Protection Officer</a>',
+    'message': 'Provides contact details for their '
+      + '<a href="#dataProtectionOfficer">Data Protection Officer</a>',
   },
   'dataProtectionOfficerSpecialCategories': {
     'status': 'warning',
-    'message': 'No details for a data protection officer',
+    'message': 'Missing contact details for their '
+      + '<a href="#dataProtectionOfficer">Data Protection Officer</a>',
   },
   'dataProtectionRegister': {
     'status': 'good',
-    'message': 'Has an entry on a <a href="#dataProtectionRegister">data '
-      + 'protection register</a>',
+    'message': 'Registered with a <a href="#dataProtectionRegister">data '
+      + 'protection authority</a>',
   },
   'internationalTransferPrivacyShield': {
     'status': 'good',
-    'message': 'Is self-certified under the US–EU Privacy Shield Framework',
+    'message': 'Self-certified under the <a href="#internationalTransfer">'
+      + 'US–EU Privacy Shield Framework</a>',
   },
   'internationalTransferAddendum': {
     'status': 'good',
-    'message': 'Has a <a href="#dataProcessingAddendum">data processing '
+    'message': 'Offers a <a href="#internationalTransfer">data processing '
       + 'addendum</a>',
   },
   'internationalTransferAdequacyDecision': {
     'status': 'good',
-    'message': 'Registered in a country with <a href="https://ec.europa.eu/'
-      + 'info/law/law-topic/data-protection/data-transfers-outside-eu/'
-      + 'adequacy-protection-personal-data-non-eu-countries_en" '
-      + 'target="_blank">adequate data protections</a>',
+    'message': 'Based in a country that provides '
+      + '<a href="#internationalTransfer">adequate data protection</a>',
   },
   'internationalTransferWarning': {
     'status': 'warning',
-    'message': 'Has no international data transfer protections',
+    'message': 'No clear <a href="#internationalTransfer">international data '
+      + 'transfer</a> protections',
   },
   'specialCategoriesWarning': {
     'status': 'warning',
-    'message': 'Collects special category data',
+    'message': 'Collects <a href="#dataCategoriesCollected">special category</a> data',
   },
   'automatedDecisionMakingWarning': {
     'status': 'warning',
-    'message': 'Uses automated decision making',
+    'message': 'Uses <a href="#automatedDecisionMaking">automated decision making</a>',
   },
   'complaintInformationWarning': {
     'status': 'warning',
-    'message': 'Doesn\'t include contact details for making a complaint',
+    'message': 'Does not give information about <a href="#complaintInformation"'
+      + '>making a complaint</a>',
   },
   'securityStandardsSpecificity': {
     'status': 'good',
-    'message': 'Mentions specific data security measures',
+    'message': 'Mentions specific <a href="#securityStandards">data security standards</a>',
   },
   'individualRightsWarning': {
     'status': 'warning',
-    'message': 'No information about exercising individual rights',
+    'message': 'Does not give information about <a href="#individualRights">individual rights</a>',
   },
   'transparencyRecommendationsWarning': {
     'status': 'warning',
-    'message': 'Follows no recommendations for transparency',
+    'message': 'Does not <a href="#transparencyRecommendations">follow recommendations</a> for transparent privacy notices',
   },
   'transparencyRecommendationsAllGood': {
     'status': 'good',
-    'message': 'Follows recommendations for transparency',
+    'message': '<a href="#transparencyRecommendations">Follows recommendations</a> for transparent privacy notices',
   },
 };
 
