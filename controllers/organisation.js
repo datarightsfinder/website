@@ -91,6 +91,8 @@ function isECAdequacyDecisionCountry(country) {
 }
 
 function createExtraDataTable(payload) {
+  payload = Object.assign({}, payload);
+
   delete payload['organisationInformation'];
   delete payload['organisationUrls'];
   delete payload['privacyNoticeUrl'];
