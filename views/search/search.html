@@ -22,8 +22,7 @@
         <h3><a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}">{{ result.name }}</a></h3>
       {% endfor %}
     {% else %}
-      <p>No organisations found</p>
-      {% include "partials/_latest_organisations.html" %}
+      <p>No results found</p>
       <p><a href="#">Contribute</a></p>
     {% endif %}
   </div>
