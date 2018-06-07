@@ -7,6 +7,7 @@ const overviewMatrix = require('../libs/overview_matrix');
 const constants = require('../libs/constants');
 const tableify = require('tableify');
 
+const countries = require('../countries.json');
 const settings = yaml.load('settings.yaml');
 
 // SEQUELIZE
@@ -26,6 +27,7 @@ router.get('/:country/:number', function(req, res, next) {
       _result.payload = JSON.parse(_result.payload);
 
       let meta = {
+        'fullCountryName': countries[_result.registrationCountry.toLowerCase()],
         'overviewMatrix': overviewMatrix.generate(_result.payload),
         'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
         'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),

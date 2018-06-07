@@ -15,7 +15,7 @@
     <div class="columns small-12 large-12">
       <h1>{{ result.name }}</h1>
       <p class="banner-buttons">
-        <span>Based in {{ result.registrationCountry }}</span>
+        <span>Based in {{ meta.fullCountryName }}</span>
         {% if result.payload.organisationUrls[0] %}
         <span><a href="{{ result.payload.organisationUrls[0] }}" target="_blank">Website</a></span>
         {% endif %}
