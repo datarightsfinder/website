@@ -19,6 +19,7 @@
         {% if result.payload.organisationUrls[0] %}
         <span><a href="{{ result.payload.organisationUrls[0] }}" target="_blank">Website</a></span>
         {% endif %}
+        <br />
         {% if result.payload.privacyNoticeUrl.url %}
         <span><a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">Privacy notice</a></span>
         {% endif %}
@@ -28,14 +29,20 @@
   </div>
 </div>
 
+{% if meta.overviewMatrix.length > 0 %}
 <div id="summary" class="summary">
   <div class="row">
     <div class="columns small-12 large-12">
-      <h2>Summary</h2>
+      <h2>Privacy notice at a glance</h2>
       <ul>
         {% for item in meta.overviewMatrix %}
           {% if item != false %}
           <li>
+            {% if item.status == "good" %}
+            <span class="good">+</span>
+            {% elif item.status == "warning" %}
+            <span class="warning">–</span>
+            {% endif %}
             <span>{{ item.message | safe }}</span>
           </li>
           {% endif %}
@@ -44,292 +51,27 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 <div id="dataProtectionOfficer" class="row data-row">
-  <div class="columns small-12 large-6 description">
+  <div class="columns small-12 large-6 end">
     <h2>Data Protection Officer</h2>
-    <p>Organisations that use special categories of data, are public bodies, or do large scale processing must appoint a <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-officers/" target="_blank">Data Protection Officer</a>.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
+    <p class="description">Organisations that use special categories of data, are public bodies, or do large scale processing must appoint a <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-officers/" target="_blank">Data Protection Officer</a>.</p>
+
     {% if result.payload.dataProtectionOfficer %}
-      {% if result.payload.dataProtectionOfficer.name %}
-        <h3>Name</h3>
-        <p>{{ result.payload.dataProtectionOfficer.name }}</p>
-      {% endif %}
-      {% if result.payload.dataProtectionOfficer.role %}
-        <h3>Role</h3>
-        <p>{{ result.payload.dataProtectionOfficer.role }}</p>
-      {% endif %}
-      {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
-      {% include 'partials/_contact_info.html' %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="dataProtectionRegister" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Data protection register</h2>
-    <p>Some countries maintain a public register of organisations that process data.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.dataProtectionRegister %}
-      {% if result.payload.dataProtectionRegister.identifier %}
-        <h3>Identifier</h3>
-        <p>{{ result.payload.dataProtectionRegister.identifier }}</p>
-      {% endif %}
-
-      {% if result.payload.dataProtectionRegister.url %}
-        <h3>URL</h3>
-        <p>
-          <a href="{{ result.payload.dataProtectionRegister.url }}" target="_blank">{{ result.payload.dataProtectionRegister.url }}</a>
-        </p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="internationalTransfer" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>International transfer</h2>
-    <p>Personal data <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/international-transfers/" target="_blank">must be protected</a> by adequate safeguards when transferred outside the European Economic Area (EEA).</p>
-    <p>Some US-based organisations do this by self-certifying with the <a href="https://www.privacyshield.gov/welcome" target="_blank">Privacy Shield Framework</a>.</p>
-    <p>Others use data processing addendums that add <a href="https://ec.europa.eu/info/law/law-topic/data-protection/data-transfers-outside-eu/model-contracts-transfer-personal-data-third-countries_en" target="_blank">adequate protections</a> to existing contracts.</p>
-    <p>The data protection laws of some non-EEA countries has been <a href="https://ec.europa.eu/info/law/law-topic/data-protection/data-transfers-outside-eu/adequacy-protection-personal-data-non-eu-countries_en" target="_blank">judged as adequate</a> by the European Commission.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.internationalTransfer %}
-      {% if result.payload.internationalTransfer.privacyShieldUrl %}
-      <h3>US–EU Privacy Shield Framework</h3>
-      <p>This organisation is self-certified</p>
-      <p>
-        <a href="#">{{ result.payload.internationalTransfer.privacyShieldUrl }}</a>
-      </p>
-      {% endif %}
-
-      {% if result.payload.internationalTransfer.dataProcessingAddendum %}
-        <h3>Data processing addendum</h3>
-        {% set addendumType = result.payload.internationalTransfer.dataProcessingAddendum.type %}
-        {% if addendumType == "form" %}
-          <p>This organisation requires a form to be returned to enter tint a data processing addendum</p>
-        {% elif addendumType == "setting" %}
-          <p>This organisation requires a setting to be changed to enter into a data processing addendum</p>
-        {% elif addendumType == "assumed" %}
-          <p>This organisation provides adequate protection through its Terms of Service</p>
-        {% elif addendumType == "none" %}
-          <p>This organisation doesn’t offer a data processing addendum</p>
+      {% if result.payload.dataProtectionOfficer.present == "present" %}
+        {% if result.payload.dataProtectionOfficer.name %}
+          <h3>Name</h3>
+          <p>{{ result.payload.dataProtectionOfficer.name }}</p>
         {% endif %}
-
-        {% if result.payload.internationalTransfer.dataProcessingAddendum.url %}
-          <a href="{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}" target="_blank" style="margin-top: 1.2rem;">{{ result.payload.internationalTransfer.dataProcessingAddendum.url }}</a>
+        {% if result.payload.dataProtectionOfficer.role %}
+          <h3>Role</h3>
+          <p>{{ result.payload.dataProtectionOfficer.role }}</p>
         {% endif %}
-      {% endif %}
-
-      {% if result.payload.internationalTransfer.notes %}
-        <h3>Notes</h3>
-        <p>{{ result.payload.internationalTransfer.notes | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="thirdParties" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Third parties</h2>
-    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about other parties that personal data is shared with.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.thirdParties %}
-      {% if result.payload.thirdParties.list %}
-        <h3>From privacy notice</h3>
-        <ul>
-          {% for item in result.payload.thirdParties.list %}
-          <li><p>{{ item }}</p></li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-
-      {% if result.payload.thirdParties.notes %}
-        <h3>Notes</h3>
-        <p>{{ result.payload.thirdParties.notes | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="retentionRules" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Retention rules</h2>
-    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how long data is kept.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.retentionRules.notes %}
-      <h3>From privacy notice</h3>
-      <p>{{ result.payload.retentionRules.notes | striptags(true) | escape | nl2br }}</p>
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="dataCategoriesCollected" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Data categories collected</h2>
-    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about what categories of data are stored and processed.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.dataTypesCollected %}
-      {% if result.payload.dataTypesCollected.list %}
-      <h3>From privacy notice</h3>
-      <ul>
-        {% for item in result.payload.dataTypesCollected.list %}
-        {% set flag = item | highlightSpecialCategory %}
-        <li><p>{{ item | replace("_", " ") | capitalize }}{% if flag == "true" %}<span> ⚠️</span>{% endif %}</p></li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      {% if result.payload.dataTypesCollected.notes %}
-        <h3>Notes</h3>
-        <p>{{ result.payload.dataTypesCollected.notes | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="automatedDecisionMaking" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Automated decision making</h2>
-    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how data is used to make decisions without human involvement.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.automatedDecisionMaking %}
-      {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
-        <p class="bold">This organisation uses automated decision making</p>
+        {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
+        {% include 'partials/_contact_info.html' %}
       {% else %}
-        <p class="bold">This organisation does not use automated decision making</p>
-      {% endif %}
-
-      {% if result.payload.automatedDecisionMaking.notes %}
-        <h3>Notes</h3>
-        <p>{{ result.payload.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="complaintInformation" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Complaint information</h2>
-    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how to make a complaint with a data protection authority.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.complaintInformation %}
-      {% if result.payload.complaintInformation.present %}
-        <p class="bold">This organisation gives details about making a complaint in their privacy policy</p>
-      {% else %}
-        <p class="bold">This organisation does not give details about making a complaint in their privacy policy</p>
-      {% endif %}
-
-      {% if result.payload.complaintInformation.notes %}
-        <h3>Notes</h3>
-        <p>{{ result.payload.complaintInformation.notes | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="securityStandards" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Security standards</h2>
-    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/security/"target="_blank">must ensure</a> that data is stored and processed securely.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% if result.payload.securityStandards %}
-      {% set specificity = result.payload.securityStandards.specificity %}
-
-      {% if specificity %}
-        {% if specificity == "specific" %}
-          <p class="bold">This organisation provides a specific description of how they secure data</p>
-        {% elif specificity == "general" %}
-          <p class="bold">This organisation provides a general description of how they secure data</p>
-        {% elif specificity == "none" %}
-          <p class="bold">This organisation does not mention how they secure data</p>
-        {% endif %}
-      {% endif %}
-
-      {% if result.payload.securityStandards.url %}
-        <h3>Security standards URL</h3>
-        <p>
-          <a href="{{ result.payload.securityStandards.url }}" target="_blank">{{ result.payload.securityStandards.url }}</a>
-        </p>
-      {% endif %}
-
-      {% if result.payload.securityStandards.notes %}
-        <h3>Notes</h3>
-        <p>{{ result.payload.securityStandards.notes | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="lawfulBases" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Lawful bases</h2>
-    <p>Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/lawful-basis-for-processing/" target="_blank">must justify collection and use of data</a> under six lawful bases and provide information about their decisions</p>
-  </div>
-  <div class="columns small-12 large-6 data">
-    {% set lawfulBases = result.payload.lawfulBases %}
-
-    {% if lawfulBases %}
-      {% if lawfulBases.consent %}
-        <h3>Consent</h3>
-        <p>{{ lawfulBases.consent | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-
-      {% if lawfulBases.contract %}
-        <h3>Contract</h3>
-        <p>{{ lawfulBases.contract | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-
-      {% if lawfulBases.legalObligation %}
-        <h3>Legal obligation</h3>
-        <p>{{ lawfulBases.legalObligation | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-
-      {% if lawfulBases.vitalInterests %}
-        <h3>Vital interests</h3>
-        <p>{{ lawfulBases.vitalInterests | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-
-      {% if lawfulBases.publicTask %}
-        <h3>Public task</h3>
-        <p>{{ lawfulBases.publicTask | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-
-      {% if lawfulBases.legitimateInterests %}
-        <h3>Legitimate interests</h3>
-        <p>{{ lawfulBases.legitimateInterests | striptags(true) | escape | nl2br }}</p>
-      {% endif %}
-
-      {% if lawfulBases.notes %}
-        <h3>Notes</h3>
-        <p>{{ lawfulBases.notes | striptags(true) | escape | nl2br }}</p>
+        <p>This organisation does not appear to have a data protection officer.</p>
       {% endif %}
     {% else %}
       {% include 'partials/_section_missing.html' %}
@@ -338,134 +80,158 @@
 </div>
 
 <div id="individualRights" class="row data-row">
-  <div class="columns small-12 large-6 description">
+  <div class="columns small-12 large-6 end">
     <h2>Individual rights</h2>
-    <p>Organisations must provide information about the <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">new individual rights</a> under GDPR.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
+    <p class="description">Organisations must provide information about the <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">new individual rights</a> under GDPR.</p>
     {% set rights = result.payload.rights %}
 
     {% if rights %}
-      {% if rights.general %}
-        {% set contactInfo = rights.general.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
+      {% if rights.isMissing == true %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% if rights.general %}
+          {% set contactInfo = rights.general.contactInfo %}
+          {% include 'partials/_contact_info.html' %}
 
-        {% if rights.general.notes %}
-          <h3>Notes</h3>
-          <p>{{ rights.general.notes | striptags(true) | escape | nl2br }}</p>
+          {% if rights.general.observations %}
+            <h3>Observations</h3>
+            <p>{{ rights.general.observations | striptags(true) | escape | nl2br }}</p>
+          {% endif %}
+        {% endif %}
+
+        {% if rights.access or rights.rectification or rights.erasure or rights.restrictProcessing or rights.dataPortability or rights.object or rights.automatedDecisionMaking %}
+        <h3>Specific rights</h3>
+
+        <ul class="collapsable">
+          {% if rights.access %}
+            <li>
+              <a href="#" class="toggle">Access</a>
+              <div>
+                {% set contactInfo = rights.access.contactInfo %}
+                {% include 'partials/_contact_info.html' %}
+
+                {% if rights.access.observations %}
+                  <h3>Observations</h3>
+                  <p>{{ rights.access.observations | striptags(true) | escape | nl2br }}</p>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+          {% if rights.rectification %}
+            <li>
+              <a href="#" class="toggle">Rectification</a>
+              <div>
+                {% set contactInfo = rights.rectification.contactInfo %}
+                {% include 'partials/_contact_info.html' %}
+
+                {% if rights.rectification.observations %}
+                  <h3>Observations</h3>
+                  <p>{{ rights.rectification.observations | striptags(true) | escape | nl2br }}</p>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+          {% if rights.erasure %}
+            <li>
+              <a href="#" class="toggle">Erasure</a>
+              <div>
+                {% set contactInfo = rights.erasure.contactInfo %}
+                {% include 'partials/_contact_info.html' %}
+
+                {% if rights.erasure.observations %}
+                  <h3>Observations</h3>
+                  <p>{{ rights.erasure.observations | striptags(true) | escape | nl2br }}</p>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+          {% if rights.restrictProcessing %}
+            <li>
+              <a href="#" class="toggle">Restrict processing</a>
+              <div>
+                {% set contactInfo = rights.restrictProcessing.contactInfo %}
+                {% include 'partials/_contact_info.html' %}
+
+                {% if rights.restrictProcessing.observations %}
+                  <h3>Observations</h3>
+                  <p>{{ rights.restrictProcessing.observations | striptags(true) | escape | nl2br }}</p>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+          {% if rights.dataPortability %}
+            <li>
+              <a href="#" class="toggle">Data portability</a>
+              <div>
+                {% set contactInfo = rights.dataPortability.contactInfo %}
+                {% include 'partials/_contact_info.html' %}
+
+                {% if rights.dataPortability.observations %}
+                <h3>Observations</h3>
+                <p>{{ rights.dataPortability.observations | striptags(true) | escape | nl2br }}</p>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+          {% if rights.object %}
+            <li>
+              <a href="#" class="toggle">Object</a>
+              <div>
+                {% set contactInfo = rights.object.contactInfo %}
+                {% include 'partials/_contact_info.html' %}
+
+                {% if rights.object.observations %}
+                <h3>Observations</h3>
+                <p>{{ rights.object.observations | striptags(true) | escape | nl2br }}</p>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+          {% if rights.automatedDecisionMaking %}
+            <li>
+              <a href="#" class="toggle">Automated decision making</a>
+              <div>
+                {% set contactInfo = rights.automatedDecisionMaking.contactInfo %}
+                {% include 'partials/_contact_info.html' %}
+
+                {% if rights.automatedDecisionMaking.observations %}
+                  <h3>Observations</h3>
+                  <p>{{ rights.automatedDecisionMaking.observations | striptags(true) | escape | nl2br }}</p>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+        </ul>
         {% endif %}
       {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
 
-      {% if rights.access or rights.rectification or rights.erasure or rights.restrictProcessing or rights.dataPortability or rights.object or rights.automatedDecisionMaking %}
-      <h3>Specific rights</h3>
-      {% endif %}
+<div id="dataCategoriesCollected" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Data categories collected</h2>
+    <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about what categories of data are stored and processed.</p>
 
-      <p>
-      {% if rights.access %}
-        <a href="#" class="rights-selector">Access</a>
-      {% endif %}
-      {% if rights.rectification %}
-        <a href="#" class="rights-selector">Rectification</a>
-      {% endif %}
-      {% if rights.erasure %}
-        <a href="#" class="rights-selector">Erasure</a>
-      {% endif %}
-      {% if rights.restrictProcessing %}
-        <a href="#" class="rights-selector">Restrict processing</a>
-      {% endif %}
-      {% if rights.dataPortability %}
-        <a href="#" class="rights-selector">Data portability</a>
-      {% endif %}
-      {% if rights.object %}
-        <a href="#" class="rights-selector">Object</a>
-      {% endif %}
-      {% if rights.automatedDecisionMaking %}
-        <a href="#" class="rights-selector">Automated decision making</a>
-      {% endif %}
-      </p>
-
-      {% if rights.access %}
-      <div class="single-right" id="single-right-access">
-        {% set contactInfo = rights.access.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
-
-        {% if rights.access.notes %}
-          <h3>Notes</h3>
-          <p>{{ rights.access.notes | striptags(true) | escape | nl2br }}</p>
+    {% if result.payload.dataCategoriesCollected %}
+      {% if result.payload.dataCategoriesCollected.isMissing == true %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% if result.payload.dataCategoriesCollected.list %}
+        <ul>
+          {% for item in result.payload.dataCategoriesCollected.list %}
+          {% set flag = item | highlightSpecialCategory %}
+          <li><p>{{ item | replace("_", " ") | capitalize }}{% if flag == "true" %}<span class="special-category"><a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/lawful-basis-for-processing/special-category-data/" target="_blank">Special category</a></span>{% endif %}</p></li>
+          {% endfor %}
+        </ul>
         {% endif %}
-      </div>
-      {% endif %}
 
-      {% if rights.rectification %}
-      <div class="single-right" id="single-right-rectification">
-        {% set contactInfo = rights.rectification.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
-
-        {% if rights.rectification.notes %}
-          <h3>Notes</h3>
-          <p>{{ rights.rectification.notes | striptags(true) | escape | nl2br }}</p>
+        {% if result.payload.dataCategoriesCollected.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.dataCategoriesCollected.observations | striptags(true) | escape | nl2br }}</p>
         {% endif %}
-      </div>
-      {% endif %}
-
-      {% if rights.erasure %}
-      <div class="single-right" id="single-right-erasure">
-        {% set contactInfo = rights.erasure.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
-
-        {% if rights.erasure.notes %}
-          <h3>Notes</h3>
-          <p>{{ rights.erasure.notes | striptags(true) | escape | nl2br }}</p>
-        {% endif %}
-      </div>
-      {% endif %}
-
-      {% if rights.restrictProcessing %}
-      <div class="single-right" id="single-right-restrict-processing">
-        {% set contactInfo = rights.restrictProcessing.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
-
-        {% if rights.restrictProcessing.notes %}
-          <h3>Notes</h3>
-          <p>{{ rights.restrictProcessing.notes | striptags(true) | escape | nl2br }}</p>
-        {% endif %}
-      </div>
-      {% endif %}
-
-      {% if rights.dataPortability %}
-      <div class="single-right" id="single-right-data-portability">
-        {% set contactInfo = rights.dataPortability.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
-
-        {% if rights.dataPortability.notes %}
-        <h3>Notes</h3>
-        <p>{{ rights.dataPortability.notes | striptags(true) | escape | nl2br }}</p>
-        {% endif %}
-      </div>
-      {% endif %}
-
-      {% if rights.object %}
-      <div class="single-right" id="single-right-object">
-        {% set contactInfo = rights.object.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
-
-        {% if rights.object.notes %}
-        <h3>Notes</h3>
-        <p>{{ rights.object.notes | striptags(true) | escape | nl2br }}</p>
-        {% endif %}
-      </div>
-      {% endif %}
-
-      {% if rights.automatedDecisionMaking %}
-      <div class="single-right" id="single-right-automated-decision-making">
-        {% set contactInfo = rights.automatedDecisionMaking.contactInfo %}
-        {% include 'partials/_contact_info.html' %}
-
-        {% if rights.automatedDecisionMaking.notes %}
-          <h3>Notes</h3>
-          <p>{{ rights.automatedDecisionMaking.notes | striptags(true) | escape | nl2br }}</p>
-        {% endif %}
-      </div>
       {% endif %}
     {% else %}
       {% include 'partials/_section_missing.html' %}
@@ -474,54 +240,419 @@
 </div>
 
 <div id="unusualProcessingPurposes" class="row data-row">
-  <div class="columns small-12 large-6 description">
+  <div class="columns small-12 large-6 end">
     <h2>Unusual processing purposes</h2>
-    <p>Organisations must provide information about <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">what they do</a> with data. This section highlights less common uses of data.</p>
-  </div>
-  <div class="columns small-12 large-6 data">
+    <p class="description">Organisations must provide information about <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">what they do</a> with data. This section highlights less common uses of data.</p>
+
     {% if result.payload.unusualProcessingPurposes %}
-      <h3>Notes</h3>
-      <p>{{ result.payload.unusualProcessingPurposes.notes | striptags(true) | escape | nl2br }}</p>
+      {% if result.payload.unusualProcessingPurposes == "present" and result.payload.unusualProcessingPurposes.observations %}
+        <h3>Observations</h3>
+        <p>{{ result.payload.unusualProcessingPurposes.observations | striptags(true) | escape | nl2br }}</p>
+      {% else %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% endif %}
     {% else %}
       {% include 'partials/_section_missing.html' %}
     {% endif %}
   </div>
 </div>
 
-<div id="transparencyRecommendations" class="row data-row">
-  <div class="columns small-12 large-6 description">
-    <h2>Transparency recommendations</h2>
-    <p>Organisations are required to provide privacy information <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">in a transparent way</a>. The Article 29 Working Party <a href="http://ec.europa.eu/newsroom/article29/item-detail.cfm?item_id=622227" target="_blank">has provided recommendations</a> on how to do this.</p>
+<div id="thirdParties" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Third parties</h2>
+    <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about other parties that personal data is shared with.</p>
+
+    {% if result.payload.thirdParties %}
+      {% if result.payload.thirdParties.isMissing == true %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% if result.payload.thirdParties.list %}
+          <h3>List of third parties</h3>
+          <ul>
+            {% for item in result.payload.thirdParties.list %}
+            <li><p>{{ item }}</p></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if result.payload.thirdParties.specificity %}
+          <h3>How specific is this information?</h3>
+          {% if result.payload.thirdParties.specificity == "specific" %}
+            <p>Third parties are listed by name</p>
+          {% elif result.payload.thirdParties.specificity == "general" %}
+            <p>Third parties are listed as groups</p>
+          {% endif %}
+        {% endif %}
+
+        {% if result.payload.thirdParties.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.thirdParties.observations | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
   </div>
-  <div class="columns small-12 large-6 data">
-    {% set points = result.payload.transparencyRecommendations %}
+</div>
+
+<div id="retentionRules" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Retention rules</h2>
+    <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how long data is kept.</p>
+
+    {% if result.payload.retentionRules %}
+      {% if result.payload.retentionRules.isMissing == true %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% if result.payload.retentionRules.summary %}
+          <h3>Summary</h3>
+          <p>{{ result.payload.retentionRules.summary | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+
+        {% if result.payload.retentionRules.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.retentionRules.observations | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+
+        {% if result.payload.retentionRules.specificityCategory or result.payload.retentionRules.specificityTime %}
+          <h3>How specific is this information?</h3>
+          <ul>
+            {% if result.payload.retentionRules.specificityCategory == "specific" %}
+              <li>
+                <p>Retention rules are given for specific categories of data</p>
+              </li>
+            {% elif result.payload.retentionRules.specificityCategory == "general" %}
+              <li>
+                <p>Retention rules are given without mentioning specific categories of data</p>
+              </li>
+            {% endif %}
+
+            {% if result.payload.retentionRules.specificityTime == "specific" %}
+              <li>
+                <p>Specific times are given for how long data is kept</p>
+              </li>
+            {% elif result.payload.retentionRules.specificityTime == "general" %}
+              <li>
+                <p>Unspecific times for how long data is kept</p>
+              </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<div id="lawfulBases" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Lawful bases</h2>
+    <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/lawful-basis-for-processing/" target="_blank">must justify collection and use of data</a> under six lawful bases and provide information about their decisions</p>
+
+    {% set lawfulBases = result.payload.lawfulBases %}
+
+    {% if lawfulBases %}
+      {% if lawfulBases.isMissing == true %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        <ul class="collapsable">
+          {% if lawfulBases.consent %}
+          <li>
+            <a href="#" class="toggle">Consent</a>
+            <div>
+              <p>{{ lawfulBases.consent | striptags(true) | escape | nl2br }}</p>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if lawfulBases.contract %}
+          <li>
+            <a href="#" class="toggle">Contract</a>
+            <div>
+              <p>{{ lawfulBases.contract | striptags(true) | escape | nl2br }}</p>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if lawfulBases.legalObligation %}
+          <li>
+            <a href="#" class="toggle">Legal obligation</a>
+            <div>
+              <p>{{ lawfulBases.legalObligation | striptags(true) | escape | nl2br }}</p>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if lawfulBases.vitalInterests %}
+          <li>
+            <a href="#" class="toggle">Vital interests</a>
+            <div>
+              <p>{{ lawfulBases.vitalInterests | striptags(true) | escape | nl2br }}</p>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if lawfulBases.publicTask %}
+          <li>
+            <a href="#" class="toggle">Public task</a>
+            <div>
+              <p>{{ lawfulBases.publicTask | striptags(true) | escape | nl2br }}</p>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if lawfulBases.legitimateInterests %}
+          <li>
+            <a href="#" class="toggle">Legitimate interests</a>
+            <div>
+              <p>{{ lawfulBases.legitimateInterests | striptags(true) | escape | nl2br }}</p>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+
+        {% if lawfulBases.observations %}
+          <h3>Observations</h3>
+          <p>{{ lawfulBases.observations | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<div id="securityStandards" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Security standards</h2>
+    <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/security/"target="_blank">must ensure</a> that data is stored and processed securely.</p>
+
+    {% if result.payload.securityStandards %}
+      {% if result.payload.securityStandards.present == "not_present" %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% set specificity = result.payload.securityStandards.specificity %}
+
+        {% if result.payload.securityStandards.url %}
+          <h3>Security standards URL</h3>
+          <p>
+            <a href="{{ result.payload.securityStandards.url }}" target="_blank">{{ result.payload.securityStandards.url }}</a>
+          </p>
+        {% endif %}
+
+        {% if result.payload.securityStandards.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.securityStandards.observations | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+
+        {% if specificity %}
+          <h3>How specific is this information?</h3>
+          {% if specificity == "specific" %}
+            <p>This organisation provides specific details about how they secure data</p>
+          {% elif specificity == "general" %}
+            <p>This organisation provides general details about how they secure data</p>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+
+{% if meta.isUS %}
+<div id="privacyShield" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>US-EU Privacy Shield</h2>
+    <p class="description">Some US organisations use the <a href="https://www.privacyshield.gov/welcome" target="_blank">Privacy Shield Framework</a> to provide adequate protections when data leaves the EEA.</p>
+
+    {% if result.payload.privacyShield %}
+      {% if result.payload.privacyShield.present == "not_present" %}
+        <p>This organisation does not appear to be part of the Privacy Shield Framework.</p>
+      {% else %}
+        <h3>URL</h3>
+        <p>
+          <a href="{{ result.payload.privacyShield.url }}" target="_blank">{{ result.payload.privacyShield.url }}</a>
+        </p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<div id="dataProcessingAddendum" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Data processing addendum</h2>
+    <p class="description">Some organisations offer a data processing addendum that gives data adequate protections when it leaves the EEA.</p>
+
+    {% if result.payload.dataProcessingAddendum %}
+      {% if result.payload.dataProcessingAddendum.present == "not_present" %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% if result.payload.dataProcessingAddendum.type %}
+          <h3>Type</h3>
+          {% if result.payload.dataProcessingAddendum.type == "form" %}
+            <p>A data processing addendum is entered into by returning a form</p>
+          {% elif result.payload.dataProcessingAddendum.type == "assumed" %}
+            <p>Adequate protections are provided by this organisations Terms of Service</p>
+          {% elif result.payload.dataProcessingAddendum.type == "setting" %}
+            <p>Users can change a setting to enter into a data processing addendum</p>
+          {% endif %}
+        {% endif %}
+
+        {% if result.payload.dataProcessingAddendum.url %}
+          <h3>URL</h3>
+          <p>
+            <a href="{{ result.payload.dataProcessingAddendum.url }}" target="_blank">{{ result.payload.dataProcessingAddendum.url }}</a>
+          </p>
+        {% endif %}
+
+        {% if result.payload.dataProcessingAddendum.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.dataProcessingAddendum.observations }}</p>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<div id="dataProtectionRegister" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Data protection register</h2>
+    <p class="description">Some countries maintain a public register of organisations that process data.</p>
+
+    {% if result.payload.dataProtectionRegister %}
+      {% if result.payload.dataProtectionRegister.present == "not_present" %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% if result.payload.dataProtectionRegister.identifier %}
+          <h3>Identifier</h3>
+          <p>{{ result.payload.dataProtectionRegister.identifier }}</p>
+        {% endif %}
+
+        {% if result.payload.dataProtectionRegister.url %}
+          <h3>URL</h3>
+          <p>
+            <a href="{{ result.payload.dataProtectionRegister.url }}" target="_blank">{{ result.payload.dataProtectionRegister.url }}</a>
+          </p>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<div id="automatedDecisionMaking" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Automated decision making</h2>
+    <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how data is used to make decisions without human involvement.</p>
+
+    {% if result.payload.automatedDecisionMaking %}
+      {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking == "unknown" %}
+        <p>This privacy notice does not appear to have this information.</p>
+      {% else %}
+        {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
+          <h3>Summary</h3>
+
+          {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking == "present" %}
+            <p>This organisation uses automated decision making</p>
+          {% elif result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking == "not_present" %}
+            <p>This organisation does not use automated decision making</p>
+          {% elif result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking == "unknown" %}
+            <p>It's unclear if this organisation uses automated decision making</p>
+          {% endif %}
+        {% endif %}
+
+        {% if result.payload.automatedDecisionMaking.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.automatedDecisionMaking.observations | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+
+        {% if result.payload.automatedDecisionMaking.specificity %}
+          <h3>How specific is this information?</h3>
+          {% if result.payload.automatedDecisionMaking.specificity == "specific" %}
+            <p>The organisation mentions use of automated decision making for specific purposes</p>
+          {% elif result.payload.automatedDecisionMaking.specificity == "specific" %}
+          <p>The organisation mentions use of automated decision making for general purposes</p>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<div id="complaintInformation" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Complaint information</h2>
+    <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">must give details</a> about how to make a complaint with a data protection authority.</p>
+
+    {% if result.payload.complaintInformation %}
+      {% if result.payload.complaintInformation.present == "present" %}
+        <h3>Summary</h3>
+        <p>This privacy notice contains information about to make a complaint to a data protection regulator</p>
+
+        {% if result.payload.complaintInformation.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.complaintInformation.observations | striptags(true) | escape | nl2br }}</p>
+        {% endif %}
+
+        {% if result.payload.complaintInformation.specificity %}
+          <h3>How specific is this information?</h3>
+
+          {% if result.payload.complaintInformation.specificity == "specific" %}
+            <p>This privacy notice contains specific contact details for a data protection regulator</p>
+          {% elif result.payload.complaintInformation.specificity == "general" %}
+            <p>This privacy notice doesn't contain specific contact details for a data protection regulator</p>
+          {% endif %}
+        {% endif %}
+      {% elif result.payload.complaintInformation.present == "not_present" %}
+        <p>This privacy notice does not contain information about to make a complaint to a data protection regulator.</p>
+      {% endif %}
+    {% else %}
+      {% include 'partials/_section_missing.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<div id="designRecommendations" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Design recommendations</h2>
+    <p class="description">Organisations are required to provide privacy information <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-be-informed/" target="_blank">in a transparent way</a>. The Article 29 Working Party <a href="http://ec.europa.eu/newsroom/article29/item-detail.cfm?item_id=622227" target="_blank">has provided recommendations</a> on how to do this.</p>
+
+    {% set points = result.payload.presentation %}
 
     {% if points %}
-      <h3>Criteria</h3>
+      <h3>Assessment</h3>
 
-      {% if points.plainLanguage %}
-        <p>✅ Plain language</p>
-      {% else %}
-        <p>❌ Plain language</p>
-      {% endif %}
+      <p style="margin-bottom:0.2rem;">This privacy notice:</p>
 
-      {% if points.definiteLanguage %}
-        <p>✅ Definite language</p>
-      {% else %}
-        <p>❌ Definite language</p>
-      {% endif %}
+      <ul>
+        {% if points.plainLanguage %}
+          <li><p>Has language that is easy to understand</p></li>
+        {% else %}
+          <li><p>Has language that is hard to understand</p></li>
+        {% endif %}
 
-      {% if points.easyToFind %}
-        <p>✅ Easy to find</p>
-      {% else %}
-        <p>❌ Easy to find</p>
-      {% endif %}
+        {% if points.easyToFindInside %}
+          <li><p>Is designed in a way that makes it easy to find information</p></li>
+        {% else %}
+          <li><p>Is designed in a way that makes it hard to find information</p></li>
+        {% endif %}
 
-      {% if points.legibleDesign %}
-        <p>✅ Legible design</p>
-      {% else %}
-        <p>❌ Legible design</p>
-      {% endif %}
+        {% if points.easyToFind %}
+          <li><p>Can be easily found on the organisations website</p></li>
+        {% else %}
+          <li><p>Is hard to find on the organisations website</p></li>
+        {% endif %}
+      </ul>
     {% else %}
       {% include 'partials/_section_missing.html' %}
     {% endif %}
@@ -529,8 +660,11 @@
 </div>
 
 {% if extraData %}
-<div id="transparencyRecommendations" class="row extra-data-table">
+<div id="extraData" class="row extra-data-table">
   <div class="columns small-12 large-12">
+    <h2>Extra data</h2>
+    <p class="description">Additional information found in the database for this organisation.</p>
+
     {{ extraData | safe }}
   </div>
 </div>

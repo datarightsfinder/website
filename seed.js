@@ -1,4 +1,5 @@
 // NPM INCLUDES
+const _ = require('lodash');
 const cleanDeep = require('clean-deep');
 const async = require('async');
 const request = require('request');
@@ -33,6 +34,39 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 const Organisation = sequelize.import(__dirname + '/models/organisation.js');
 
 async.waterfall([
+  function(callback) {
+    // Run Sequelize drop command
+    // NOTE: Make sure no-one is accessing the database while this is being run
+    let dir = exec('node_modules/.bin/sequelize db:drop',
+      function(err, stdout, stderr) {
+      if (err) {
+        console.log('Problem running drop');
+        callback(null);
+        // return;
+      }
+    });
+
+    dir.on('exit', function(code) {
+      console.log('Drop completed');
+      callback(null);
+    });
+  },
+  function(callback) {
+    // Run Sequelize create command
+    // NOTE: Make sure no-one is accessing the database while this is being run
+    let dir = exec('node_modules/.bin/sequelize db:create',
+      function(err, stdout, stderr) {
+      if (err) {
+        callback('Error: Problem running create');
+        return;
+      }
+    });
+
+    dir.on('exit', function(code) {
+      console.log('Create completed');
+      callback(null);
+    });
+  },
   function(callback) {
     // Run Sequelize migrate command
     let dir = exec('node_modules/.bin/sequelize db:migrate',
@@ -109,7 +143,10 @@ function createEntries(items, parentCallback) {
       });
     },
     function(_json, callback) {
-      // Write contents of JSON file to database
+      if (!tryParseJSON(_json)) {
+        callback('Can\'t parse this JSON');
+      }
+
       json = JSON.parse(_json);
 
       // Pull organisation information from OpenCorporates if available
@@ -138,6 +175,11 @@ function createEntries(items, parentCallback) {
       // Remove empty fields
       json = cleanDeep(json);
 
+      // Remove any false notPresent flags
+      // json = _.omitBy(json, function(o) {
+      //   return Object.keys(o)[0] === 'isMissing' && o.isMissing === false;
+      // });
+
       Organisation.create({
         'name': name,
         'registrationNumber': json.organisationInformation.number,
@@ -163,4 +205,16 @@ function createEntries(items, parentCallback) {
       parentCallback(null);
     }
   });
+}
+
+function tryParseJSON(jsonString) {
+  try {
+    let o = JSON.parse(jsonString);
+
+    if (o && typeof o === 'object') {
+ return o;
+}
+  } catch (e) { }
+
+  return false;
 }

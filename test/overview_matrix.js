@@ -19,7 +19,7 @@ describe('overviewMatrix()', function() {
       let generate = overviewMatrix.generate(payload);
 
       // Assert
-      generate.should.have.lengthOf(14);
+      generate.should.have.lengthOf(12);
     });
   });
 
@@ -27,19 +27,13 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.dataProtectionOfficerPresent;
 
-    it('should return good when some data protection officer contacts are '
-      + 'present', function() {
+    it('should return message when dpo is present and has some contact details', function() {
       // Arrange
       let testInput = {
         'dataProtectionOfficer': {
-          'name': 'Firstname Lastname',
-          'role': 'Data Protection Officer',
+          'present': 'present',
           'contactInfo': {
-            'url': 'https://projectsbyif.com/dpo',
-            'postalAddress': 'Somerset House, Strand, London, WC2R 1LA, '
-              + 'United Kingdom',
-            'emailAddress': 'hello@projectsbyif.com',
-            'telephoneNumber': '+4402078454600',
+            'url': 'https://projectsbyif.com/dpo'
           },
         },
       };
@@ -51,13 +45,47 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return good when all data protection officer contacts'
-      + ' are missing', function() {
+    it('should return nothing when dpo is present and has no contact details', function() {
+      // Arrange
+      let testInput = {
+        'dataProtectionOfficer': {
+          'present': 'present',
+          'name': 'Firstname Lastname'
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.dataProtectionOfficerPresent(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should return nothing when dpo is not present', function() {
+      // Arrange
+      let testInput = {
+        'dataProtectionOfficer': {
+          'present': 'not_present',
+          'name': 'Firstname Lastname',
+          'contactInfo': {
+            'url': 'https://projectsbyif.com/dpo'
+          }
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.dataProtectionOfficerPresent(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should return nothing when dpo present flag is missing', function() {
       // Arrange
       let testInput = {
         'dataProtectionOfficer': {
           'contactInfo': {
-            'emailAddress': 'dpo@example.com',
+            'url': 'https://example.com',
           },
         },
       };
@@ -66,15 +94,14 @@ describe('overviewMatrix()', function() {
       let result = overviewMatrix.dataProtectionOfficerPresent(testInput);
 
       // Assert
-      result.should.deep.equals(testResult);
+      result.should.not.deep.equals(testResult);
     });
 
-    it('should return nothing when all data protection officer contacts '
-      + 'are missing', function() {
+    it('should return nothing when dpo is missing', function() {
       // Arrange
       let testInput = {
-        'dataProtectionOfficer': {
-          'name': 'Firstname Lastname',
+        'someOtherValue': {
+          'foo': 'bar',
         },
       };
 
@@ -91,11 +118,10 @@ describe('overviewMatrix()', function() {
     let testResult = overviewMatrix.templates
       .dataProtectionOfficerSpecialCategories;
 
-    it('should return warning when there are special categories and dpo '
-      + 'details are missing', function() {
+    it('should return message when there are special categories and dpo is missing', function() {
       // Arrange
       let testInput = {
-        'dataTypesCollected': {
+        'dataCategoriesCollected': {
           'list': [
             'biometrics',
           ],
@@ -111,8 +137,7 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return nothing when there are special categories and some dpo '
-      + 'details are present', function() {
+    it('should return message when there are special categories and dpo flag is missing', function() {
       // Arrange
       let testInput = {
         'dataProtectionOfficer': {
@@ -120,7 +145,80 @@ describe('overviewMatrix()', function() {
             'emailAddress': 'hello@projectsbyif.com',
           },
         },
-        'dataTypesCollected': {
+        'dataCategoriesCollected': {
+          'list': [
+            'biometrics',
+          ],
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.dataProtectionOfficerSpecialCategories(
+        testInput
+      );
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return message when there are special categories and dpo is not present', function() {
+      // Arrange
+      let testInput = {
+        'dataProtectionOfficer': {
+          'present': 'not_present',
+          'contactInfo': {
+            'emailAddress': 'example@example.com',
+          },
+        },
+        'dataCategoriesCollected': {
+          'list': [
+            'biometrics',
+          ],
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.dataProtectionOfficerSpecialCategories(
+        testInput
+      );
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return message when there are special categories and dpo is present without details', function() {
+      // Arrange
+      let testInput = {
+        'dataProtectionOfficer': {
+          'present': 'present',
+          'name': 'Firstname Lastname',
+        },
+        'dataCategoriesCollected': {
+          'list': [
+            'biometrics',
+          ],
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.dataProtectionOfficerSpecialCategories(
+        testInput
+      );
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return nothing when there are special categories and dpo is present with details', function() {
+      // Arrange
+      let testInput = {
+        'dataProtectionOfficer': {
+          'present': 'present',
+          'contactInfo': {
+            'emailAddress': 'hello@projectsbyif.com',
+          },
+        },
+        'dataCategoriesCollected': {
           'list': [
             'biometrics',
           ],
@@ -140,6 +238,7 @@ describe('overviewMatrix()', function() {
       // Arrange
       let testInput = {
         'dataProtectionOfficer': {
+          'present': 'present',
           'contactInfo': {
             'emailAddress': 'hello@projectsbyif.com',
           },
@@ -160,11 +259,11 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.dataProtectionRegister;
 
-    it('should return good when all data protection register details '
-      + 'are present', function() {
+    it('should return message when data protection register is present with details', function() {
       // Arrange
       let testInput = {
         'dataProtectionRegister': {
+          'present': 'present',
           'identifier': 'ZA182519',
           'url': 'https://ico.org.uk/ESDWebPages/Entry/ZA182519',
         },
@@ -177,11 +276,12 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return good when data protection identifier is present',
+    it('should return message when data protection register is present with identifier',
       function() {
       // Arrange
       let testInput = {
         'dataProtectionRegister': {
+          'present': 'present',
           'identifier': 'ZA182519',
         },
       };
@@ -193,10 +293,11 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return good when data protection url is present', function() {
+    it('should return message when data protection register is present with url', function() {
       // Arrange
       let testInput = {
         'dataProtectionRegister': {
+          'present': 'present',
           'url': 'https://ico.org.uk/ESDWebPages/Entry/ZA182519',
         },
       };
@@ -208,11 +309,27 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should nothing when no data protection details', function() {
+    it('should return nothing when register details is missing', function() {
       // Arrange
       let testInput = {
         'someOtherValue': {
           'foo': 'bar',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.dataProtectionRegister(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should return nothing when data protection register is not present', function() {
+      // Arrange
+      let testInput = {
+        'dataProtectionRegister': {
+          'present': 'not_present',
+          'url': 'https://ico.org.uk/ESDWebPages/Entry/ZA182519',
         },
       };
 
@@ -229,20 +346,15 @@ describe('overviewMatrix()', function() {
     let testResult = overviewMatrix.templates
       .internationalTransferPrivacyShield;
 
-    it('should return good when privacy shield url is present when us state',
-      function() {
+    it('should return message when privacy shield url is present when us state', function() {
       // Arrange
       let testInput = {
         'organisationInformation': {
           'registrationCountry': 'us_ca',
         },
-        'internationalTransfer': {
-          'privacyShieldUrl': 'https://www.privacyshield.gov',
-          'dataProcessingAddendum': {
-            'type': 'assumed',
-            'url': 'https://example.com',
-            'notes': 'These are some notes',
-          },
+        'privacyShield': {
+          'present': 'present',
+          'url': 'https://privacyshield.gov',
         },
       };
 
@@ -253,20 +365,15 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return nothing when privacy shield url is present '
-      + 'and not us state', function() {
+    it('should return nothing when privacy shield url is present and not us state', function() {
       // Arrange
       let testInput = {
         'organisationInformation': {
           'registrationCountry': 'gb',
         },
-        'internationalTransfer': {
-          'privacyShieldUrl': 'https://www.privacyshield.gov',
-          'dataProcessingAddendum': {
-            'type': 'assumed',
-            'url': 'https://example.com',
-            'notes': 'These are some notes',
-          },
+        'privacyShield': {
+          'present': 'present',
+          'url': 'https://privacyshield.gov',
         },
       };
 
@@ -277,19 +384,33 @@ describe('overviewMatrix()', function() {
       result.should.not.deep.equals(testResult);
     });
 
-    it('should return nothing when privacy shield url is not present '
-      + 'and in us state', function() {
+    it('should return nothing when privacy shield url is not present and in us state', function() {
       // Arrange
       let testInput = {
         'organisationInformation': {
           'registrationCountry': 'us_ca',
         },
-        'internationalTransfer': {
-          'dataProcessingAddendum': {
-            'type': 'assumed',
-            'url': 'https://example.com',
-            'notes': 'These are some notes',
-          },
+        'privacyShield': {
+          'present': 'not_present',
+          'url': 'https://privacyshield.gov',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.internationalTransferPrivacyShield(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should return nothing when privacy shield url is present and in us state with no present flag', function() {
+      // Arrange
+      let testInput = {
+        'organisationInformation': {
+          'registrationCountry': 'us_ca',
+        },
+        'privacyShield': {
+          'url': 'https://privacyshield.gov',
         },
       };
 
@@ -305,17 +426,15 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.internationalTransferAddendum;
 
-    it('should return good if there is a data processing addendum', function() {
+    it('should return message when data processing addendum is present with details', function() {
       // Arrange
       let testInput = {
-        'internationalTransfer': {
-          'privacyShieldUrl': 'https://example.com',
-          'dataProcessingAddendum': {
-            'type': 'form',
-            'url': 'https://example.com/dpa',
-            'notes': 'These are some notes',
-          },
-        },
+        'dataProcessingAddendum': {
+          'present': 'present',
+          'type': 'setting',
+          'url': 'https://example.com',
+          'notes': 'This is a note',
+        }
       };
 
       // Act
@@ -325,18 +444,16 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return nothing when data processing addendum type is none',
+    it('should return nothing when data processing addendum is not present',
       function() {
       // Arrange
       let testInput = {
-        'internationalTransfer': {
-          'privacyShieldUrl': 'https://example.com',
-          'dataProcessingAddendum': {
-            'type': 'none',
-            'url': 'https://example.com/dpa',
-            'notes': 'These are some notes',
-          },
-        },
+        'dataProcessingAddendum': {
+          'present': 'not_present',
+          'type': 'setting',
+          'url': 'https://example.com',
+          'notes': 'This is a note',
+        }
       };
 
       // Act
@@ -346,16 +463,29 @@ describe('overviewMatrix()', function() {
       result.should.not.deep.equals(testResult);
     });
 
-    it('should return nothing when data processing addendum type is none '
-      + 'but values are present', function() {
+    it('should return nothing when data processing addendum has missing present flag', function() {
       // Arrange
       let testInput = {
-        'internationalTransfer': {
-          'privacyShieldUrl': 'https://example.com',
-          'dataProcessingAddendum': {
-            'url': 'https://example.com/dpa',
-          },
-        },
+        'dataProcessingAddendum': {
+          'type': 'setting',
+          'url': 'https://example.com',
+          'notes': 'This is a note',
+        }
+      };
+
+      // Act
+      let result = overviewMatrix.internationalTransferAddendum(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should return nothing when data processing addendum is missing', function() {
+      // Arrange
+      let testInput = {
+        'someOtherValue': {
+          'foo': 'bar',
+        }
       };
 
       // Act
@@ -438,12 +568,21 @@ describe('overviewMatrix()', function() {
     });
   });
 
+  // describe('internationalTransferEEA()', function() {
+  //   it('should return good when organisation is registered in eea', function() {
+  //
+  //   });
+  //
+  //   it('should return nothing when organisation is registered outside eea', function() {
+  //
+  //   });
+  // });
+
   describe('internationalTransferWarning()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.internationalTransferWarning;
 
-    it('should return warning when country is us and has no privacy '
-      + 'shield and dpa', function() {
+    it('should return message when country is us and is missing privacy shield or addendum', function() {
       // Arrange
       let testInput = {
         'organisationInformation': {
@@ -458,12 +597,96 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return warning when country is non-us / eeu and has no dpa',
-      function() {
+    it('should return message when country is us and privacy shield or addendum is not present', function() {
+      // Arrange
+      let testInput = {
+        'organisationInformation': {
+          'registrationCountry': 'us_de',
+        },
+        'privacyShield': {
+          'present': 'not_present',
+          'url': 'https://privacyshield.gov',
+        },
+        'dataProcessingAddendum': {
+          'present': 'not_present',
+          'type': 'setting',
+          'url': 'https://example.com',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.internationalTransferWarning(testInput);
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return message when country is us and privacy shield or addendum are missing present flags', function() {
+      // Arrange
+      let testInput = {
+        'organisationInformation': {
+          'registrationCountry': 'us_de',
+        },
+        'privacyShield': {
+          'url': 'https://privacyshield.gov',
+        },
+        'dataProcessingAddendum': {
+          'type': 'setting',
+          'url': 'https://example.com',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.internationalTransferWarning(testInput);
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return message when country is non-eea/us and is missing addendum', function() {
       // Arrange
       let testInput = {
         'organisationInformation': {
           'registrationCountry': 'ph',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.internationalTransferWarning(testInput);
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return message when country is non-eea/us and addendum is not present', function() {
+      // Arrange
+      let testInput = {
+        'organisationInformation': {
+          'registrationCountry': 'ph',
+        },
+        'dataProcessingAddendum': {
+          'present': 'not_present',
+          'type': 'setting',
+          'url': 'https://example.com',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.internationalTransferWarning(testInput);
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return message when country is non-eea/us and addendum is missing present flag', function() {
+      // Arrange
+      let testInput = {
+        'organisationInformation': {
+          'registrationCountry': 'ph',
+        },
+        'dataProcessingAddendum': {
+          'type': 'setting',
+          'url': 'https://example.com',
         },
       };
 
@@ -511,8 +734,9 @@ describe('overviewMatrix()', function() {
         'organisationInformation': {
           'registrationCountry': 'us_de',
         },
-        'internationalTransfer': {
-          'privacyShieldUrl': 'https://www.privacyshield.gov/',
+        'privacyShield': {
+          'present': 'present',
+          'url': 'https://www.privacyshield.gov/',
         },
       };
 
@@ -534,10 +758,10 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.specialCategoriesWarning;
 
-    it('should show warning when special categories are collected', function() {
+    it('should show message when special categories are collected', function() {
       // Arrange
       let testInput = {
-        'dataTypesCollected': {
+        'dataCategoriesCollected': {
           'list': [
             'device_information',
             'biometrics',
@@ -554,11 +778,33 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
+    it('should show nothing when special categories are collected and isMissing flag is true', function() {
+      // Arrange
+      let testInput = {
+        'dataCategoriesCollected': {
+          'isMissing': true,
+          'list': [
+            'device_information',
+            'biometrics',
+            'online_activity',
+          ],
+          'notes': 'These are some notes',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.specialCategoriesWarning(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
     it('should show nothing when special categories are not collected',
       function() {
       // Arrange
       let testInput = {
-        'dataTypesCollected': {
+        'dataCategoriesCollected': {
+          'isMissing': true,
           'list': [
             'device_information',
             'location',
@@ -580,12 +826,12 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.automatedDecisionMakingWarning;
 
-    it('should show warning when automated decision making is true',
+    it('should show message when automated decision making is present',
       function() {
       // Arrange
       let testInput = {
         'automatedDecisionMaking': {
-          'usesAutomatedDecisionMaking': true,
+          'usesAutomatedDecisionMaking': 'present',
           'notes': 'These are some notes',
         },
       };
@@ -597,13 +843,45 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should show nothing when automated decison making is false',
+    it('should show nothing when automated decison making is not present',
       function() {
       // Arrange
       let testInput = {
         'automatedDecisionMaking': {
-          'usesAutomatedDecisionMaking': false,
+          'usesAutomatedDecisionMaking': 'not_present',
           'notes': 'These are some notes',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.automatedDecisionMakingWarning(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should show nothing when automated decison making flag is missing',
+      function() {
+      // Arrange
+      let testInput = {
+        'automatedDecisionMaking': {
+          'notes': 'These are some notes',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.automatedDecisionMakingWarning(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should show nothing when automated decison making is missing',
+      function() {
+      // Arrange
+      let testInput = {
+        'someOtherValue': {
+          'foo': 'bar',
         },
       };
 
@@ -619,11 +897,11 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.complaintInformationWarning;
 
-    it('should return warning when complaint information is false', function() {
+    it('should return message when complaint information is not present', function() {
       // Arrange
       let testInput = {
         'complaintInformation': {
-          'present': false,
+          'present': 'not_present',
           'notes': 'These are some notes',
         },
       };
@@ -635,7 +913,7 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return warning when complaint information is missing',
+    it('should return message when complaint information is missing',
       function() {
       // Arrange
       let testInput = {
@@ -651,11 +929,26 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return nothing when complaint information is true', function() {
+    it('should return message when complaint information flag is missing', function() {
       // Arrange
       let testInput = {
         'complaintInformation': {
-          'present': true,
+          'notes': 'These are some notes',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.complaintInformationWarning(testInput);
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
+
+    it('should return nothing when complaint information and flag is present', function() {
+      // Arrange
+      let testInput = {
+        'complaintInformation': {
+          'present': 'present',
           'notes': 'These are some notes',
         },
       };
@@ -672,10 +965,11 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.securityStandardsSpecificity;
 
-    it('should return good when specific security stanards', function() {
+    it('should return message when security standards is present and specific', function() {
       // Arrange
       let testInput = {
         'securityStandards': {
+          'present': 'present',
           'specificity': 'specific',
           'url': 'https://projectsbyif.com/how-if-uses-data',
           'notes': 'These are some notes',
@@ -689,10 +983,11 @@ describe('overviewMatrix()', function() {
       result.should.deep.equals(testResult);
     });
 
-    it('should return nothing when unspecific security standards', function() {
+    it('should return nothing when security standards is present and general', function() {
       // Arrange
       let testInput = {
         'securityStandards': {
+          'present': 'present',
           'specificity': 'general',
           'url': 'https://projectsbyif.com/how-if-uses-data',
           'notes': 'These are some notes',
@@ -710,6 +1005,24 @@ describe('overviewMatrix()', function() {
       // Arrange
       let testInput = {
         'securityStandards': {
+          'present': 'present',
+          'url': 'https://projectsbyif.com/how-if-uses-data',
+          'notes': 'These are some notes',
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.securityStandardsSpecificity(testInput);
+
+      // Assert
+      result.should.not.deep.equals(testResult);
+    });
+
+    it('should return nothing when missing present flag', function() {
+      // Arrange
+      let testInput = {
+        'securityStandards': {
+          'specificity': 'specific',
           'url': 'https://projectsbyif.com/how-if-uses-data',
           'notes': 'These are some notes',
         },
@@ -730,7 +1043,7 @@ describe('overviewMatrix()', function() {
     // Pass result
     let testResult = overviewMatrix.templates.individualRightsWarning;
 
-    it('should return warning when no information about rights is present',
+    it('should return message when rights are missing',
       function() {
       // Arrange
       let testInput = {
@@ -795,96 +1108,35 @@ describe('overviewMatrix()', function() {
       // Assert
       result.should.not.deep.equals(testResult);
     });
+
+    it('should return message when missing flag is set', function() {
+      // Arrange
+      let testInput = {
+        'rights': {
+          'isMissing': true,
+          'general': {
+            'contactInfo': {
+              'url': 'https://projectsbyif.com/test',
+              'postalAddress': 'Somerset House, Strand, London, WC2R 1LA, '
+                + 'United Kingdom',
+              'emailAddress': 'hello@projectsbyif.com',
+              'telephoneNumber': '+4402078454600',
+            },
+            'notes': 'These are some notes\n\nThis is another line',
+          },
+        },
+      };
+
+      // Act
+      let result = overviewMatrix.individualRightsWarning(testInput);
+
+      // Assert
+      result.should.deep.equals(testResult);
+    });
   });
 
   // Processing purposes
   // No tests
-
-  describe('transparencyRecommendationsWarning()', function() {
-    let testResult = overviewMatrix.templates
-      .transparencyRecommendationsWarning;
-
-    it('should show warning when transparency recommendations are all false',
-      function() {
-      // Arrange
-      let testInput = {
-        'transparencyRecommendations': {
-          'plainLanguage': false,
-          'definiteLanguage': false,
-          'easyToFind': false,
-          'legibleDesign': false,
-        },
-      };
-
-      // Act
-      let result = overviewMatrix.transparencyRecommendationsWarning(testInput);
-
-      // Assert
-      result.should.deep.equals(testResult);
-    });
-
-    it('should show nothing when transparency recommendations are '
-      + 'not all false', function() {
-      // Arrange
-      let testInput = {
-        'transparencyRecommendations': {
-          'plainLanguage': true,
-          'definiteLanguage': false,
-          'easyToFind': false,
-          'legibleDesign': false,
-        },
-      };
-
-      // Act
-      let result = overviewMatrix.transparencyRecommendationsWarning(testInput);
-
-      // Assert
-      result.should.not.deep.equals(testResult);
-    });
-  });
-
-  describe('transparencyRecommendationsAllGood()', function() {
-    let testResult = overviewMatrix.templates
-      .transparencyRecommendationsAllGood;
-
-    it('should show good when transparency recommendations are all true',
-      function() {
-      // Arrange
-      let testInput = {
-        'transparencyRecommendations': {
-          'plainLanguage': true,
-          'definiteLanguage': true,
-          'easyToFind': true,
-          'legibleDesign': true,
-        },
-      };
-
-      // Act
-      let result = overviewMatrix.transparencyRecommendationsAllGood(testInput);
-
-      // Assert
-      result.should.deep.equals(testResult);
-    });
-
-    it('should show nothing when transparency recommendations are not all true',
-      function() {
-      // Arrange
-      let testInput = {
-        'transparencyRecommendations': {
-          'plainLanguage': false,
-          'definiteLanguage': true,
-          'easyToFind': true,
-          'legibleDesign': true,
-        },
-      };
-
-      // Act
-      let result = overviewMatrix.transparencyRecommendationsAllGood(testInput);
-
-      // Assert
-      result.should.not.deep.equals(testResult);
-    });
-  });
 
   // TODO: Coverage test
   // describe('coverageTest()', function() {

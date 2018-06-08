@@ -4,38 +4,31 @@ const constants = require('../libs/constants');
 const templates = {
   'dataProtectionOfficerPresent': {
     'status': 'good',
-    'message': 'Provides contact details for their '
-      + '<a href="#dataProtectionOfficer">Data Protection Officer</a>',
+    'message': 'Provides contact details for a <a href="#dataProtectionOfficer">Data Protection Officer</a>',
   },
   'dataProtectionOfficerSpecialCategories': {
     'status': 'warning',
-    'message': 'Missing contact details for their '
-      + '<a href="#dataProtectionOfficer">Data Protection Officer</a>',
+    'message': 'Does not appear to provide contact details for a <a href="#dataProtectionOfficer">Data Protection Officer</a>',
   },
   'dataProtectionRegister': {
     'status': 'good',
-    'message': 'Registered with a <a href="#dataProtectionRegister">data '
-      + 'protection authority</a>',
+    'message': 'Registered with a <a href="#dataProtectionRegister">data protection authority</a>',
   },
   'internationalTransferPrivacyShield': {
     'status': 'good',
-    'message': 'Self-certified under the <a href="#internationalTransfer">'
-      + 'US–EU Privacy Shield Framework</a>',
+    'message': 'Self-certified under the <a href="#privacyShield">US–EU Privacy Shield Framework</a>',
   },
   'internationalTransferAddendum': {
     'status': 'good',
-    'message': 'Offers a <a href="#internationalTransfer">data processing '
-      + 'addendum</a>',
+    'message': 'Offers a <a href="#dataProcessingAddendum">data processing addendum</a>',
   },
   'internationalTransferAdequacyDecision': {
     'status': 'good',
-    'message': 'Based in a country that provides '
-      + '<a href="#internationalTransfer">adequate data protection</a>',
+    'message': 'Based in a country that provides <a href="https://ec.europa.eu/info/law/law-topic/data-protection/data-transfers-outside-eu/adequacy-protection-personal-data-non-eu-countries_en" target="_blank">adequate data protection</a>',
   },
   'internationalTransferWarning': {
     'status': 'warning',
-    'message': 'No clear <a href="#internationalTransfer">international data '
-      + 'transfer</a> protections',
+    'message': 'Does not appear to provide a <a href="#dataProcessingAddendum">data processing addendum</a>',
   },
   'specialCategoriesWarning': {
     'status': 'warning',
@@ -47,8 +40,7 @@ const templates = {
   },
   'complaintInformationWarning': {
     'status': 'warning',
-    'message': 'Does not give information about <a href="#complaintInformation"'
-      + '>making a complaint</a>',
+    'message': 'Does not appear to provide information about <a href="#complaintInformation">how to make a complaint</a>',
   },
   'securityStandardsSpecificity': {
     'status': 'good',
@@ -56,15 +48,7 @@ const templates = {
   },
   'individualRightsWarning': {
     'status': 'warning',
-    'message': 'Does not give information about <a href="#individualRights">individual rights</a>',
-  },
-  'transparencyRecommendationsWarning': {
-    'status': 'warning',
-    'message': 'Does not <a href="#transparencyRecommendations">follow recommendations</a> for transparent privacy notices',
-  },
-  'transparencyRecommendationsAllGood': {
-    'status': 'good',
-    'message': '<a href="#transparencyRecommendations">Follows recommendations</a> for transparent privacy notices',
+    'message': 'Does not appear to provide information about <a href="#individualRights">individual rights</a>',
   },
 };
 
@@ -77,13 +61,11 @@ function generate(payload) {
     internationalTransferAddendum(payload),
     internationalTransferAdequacyDecision(payload),
     internationalTransferWarning(payload),
-    specialCategoriesWarning(payload),
-    automatedDecisionMakingWarning(payload),
+    // specialCategoriesWarning(payload),
+    // automatedDecisionMakingWarning(payload),
     complaintInformationWarning(payload),
     securityStandardsSpecificity(payload),
     individualRightsWarning(payload),
-    transparencyRecommendationsWarning(payload),
-    transparencyRecommendationsAllGood(payload),
   ];
 
   // Sort by status type, then by message
@@ -103,8 +85,16 @@ function dataProtectionOfficerPresent(payload) {
   let message = templates.dataProtectionOfficerPresent;
 
   try {
-    if (payload.dataProtectionOfficer.contactInfo) {
-      return message;
+    if (payload.dataProtectionOfficer.present === 'present') {
+      try {
+        if (payload.dataProtectionOfficer.contactInfo) {
+          return message;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        return false;
+      }
     } else {
       return false;
     }
@@ -120,7 +110,7 @@ function dataProtectionOfficerSpecialCategories(payload) {
   let intersection = [];
 
   try {
-    let categories = payload.dataTypesCollected.list;
+    let categories = payload.dataCategoriesCollected.list;
     intersection = _.intersection(categories, specialCategories);
   } catch (e) {
     return false;
@@ -131,8 +121,18 @@ function dataProtectionOfficerSpecialCategories(payload) {
   }
 
   try {
-    if (payload.dataProtectionOfficer.contactInfo) {
-      return false;
+    if (payload.dataProtectionOfficer.present === 'present') {
+      try {
+        if (payload.dataProtectionOfficer.contactInfo) {
+          return false;
+        } else {
+          return message;
+        }
+      } catch (e) {
+        return message;
+      }
+    } else {
+      return message;
     }
   } catch (e) {
     return message;
@@ -143,16 +143,24 @@ function dataProtectionRegister(payload) {
   let message = templates.dataProtectionRegister;
 
   try {
-    if (payload.dataProtectionRegister.identifier) {
-      return message;
-    }
-  } catch (e) {
-    return false;
-  }
+    if (payload.dataProtectionRegister.present === 'present') {
+      try {
+        if (payload.dataProtectionRegister.identifier) {
+          return message;
+        }
+      } catch (e) {
+        return false;
+      }
 
-  try {
-    if (payload.dataProtectionRegister.url) {
-      return message;
+      try {
+        if (payload.dataProtectionRegister.url) {
+          return message;
+        }
+      } catch (e) {
+        return false;
+      }
+    } else {
+      return false;
     }
   } catch (e) {
     return false;
@@ -174,8 +182,16 @@ function internationalTransferPrivacyShield(payload) {
   }
 
   try {
-    if (payload.internationalTransfer.privacyShieldUrl) {
-      return message;
+    if (payload.privacyShield.present === 'present') {
+      try {
+        if (payload.privacyShield.url) {
+          return message;
+        }
+      } catch (e) {
+        return false;
+      }
+    } else {
+      return false;
     }
   } catch (e) {
     return false;
@@ -188,11 +204,20 @@ function internationalTransferAddendum(payload) {
   let message = templates.internationalTransferAddendum;
 
   try {
-    if (
-      payload.internationalTransfer.dataProcessingAddendum.type === 'form' ||
-      payload.internationalTransfer.dataProcessingAddendum.type === 'assumed'
-    ) {
-      return message;
+    if (payload.dataProcessingAddendum.present === 'present') {
+      try {
+        if (
+          payload.dataProcessingAddendum.type === 'form' ||
+          payload.dataProcessingAddendum.type === 'assumed' ||
+          payload.dataProcessingAddendum.type === 'setting'
+        ) {
+          return message;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        return false;
+      }
     } else {
       return false;
     }
@@ -234,37 +259,66 @@ function internationalTransferWarning(payload) {
     return false;
   }
 
+  if (countryCode === 'us') {
+    try {
+      if (payload.privacyShield.present === 'present') {
+        try {
+          if (payload.privacyShield.url) {
+            return false;
+          } else {
+            return message;
+          }
+        } catch (e) {
+          return message;
+        }
+      } else {
+        return message;
+      }
+    } catch (e) {
+      return message;
+    }
+  }
+
   try {
-    if (
-      countryCode === 'us' &&
-      payload.internationalTransfer.privacyShieldUrl
-    ) {
-      return false;
+    if (dataProcessingAddendum.present === 'present') {
+      try {
+        if (
+          payload.dataProcessingAddendum.type === 'form' ||
+          payload.dataProcessingAddendum.type === 'assumed' ||
+          payload.dataProcessingAddendum.type === 'setting'
+        ) {
+          return false;
+        } else {
+          return message;
+        }
+      } catch (e) {
+        return message;
+      }
+    } else {
+      return message;
     }
   } catch (e) {
     return message;
   }
 
-  try {
-    if (
-      payload.internationalTransfer.dataProcessingAddendum.type === 'assumed' ||
-      payload.internationalTransfer.dataProcessingAddendum.type === 'form'
-    ) {
-      return false;
-    }
-  } catch (e) {
-    return message;
-  }
+  return message;
 }
 
 function specialCategoriesWarning(payload) {
   let message = templates.specialCategoriesWarning;
 
+  try {
+    if (payload.dataCategoriesCollected.isMissing) {
+      return false;
+    }
+  } catch (e) {
+  }
+
   let specialCategories = constants.getSpecialCategories();
   let intersection = [];
 
   try {
-    let categories = payload.dataTypesCollected.list;
+    let categories = payload.dataCategoriesCollected.list;
     intersection = _.intersection(categories, specialCategories);
 
     if (intersection.length > 0) {
@@ -281,7 +335,7 @@ function automatedDecisionMakingWarning(payload) {
   let message = templates.automatedDecisionMakingWarning;
 
   try {
-    if (payload.automatedDecisionMaking.usesAutomatedDecisionMaking) {
+    if (payload.automatedDecisionMaking.usesAutomatedDecisionMaking === 'present') {
       return message;
     } else {
       return false;
@@ -295,7 +349,7 @@ function complaintInformationWarning(payload) {
   let message = templates.complaintInformationWarning;
 
   try {
-    if (payload.complaintInformation.present) {
+    if (payload.complaintInformation.present === 'present') {
       return false;
     } else {
       return message;
@@ -309,8 +363,16 @@ function securityStandardsSpecificity(payload) {
   let message = templates.securityStandardsSpecificity;
 
   try {
-    if (payload.securityStandards.specificity === 'specific') {
-      return message;
+    if (payload.securityStandards.present === 'present') {
+      try {
+        if (payload.securityStandards.specificity === 'specific') {
+          return message;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        return false;
+      }
     } else {
       return false;
     }
@@ -323,6 +385,15 @@ function individualRightsWarning(payload) {
   let message = templates.individualRightsWarning;
 
   let missingRightsCounter = 0;
+
+  try {
+    if (payload.rights.isMissing === true) {
+      return message;
+    }
+  } catch (e) {
+
+  }
+
 
   try {
     if (payload.rights.access.contactInfo) {
@@ -391,44 +462,6 @@ function individualRightsWarning(payload) {
   }
 }
 
-function transparencyRecommendationsWarning(payload) {
-  let message = templates.transparencyRecommendationsWarning;
-
-  try {
-    if (
-      !payload.transparencyRecommendations.plainLanguage &&
-      !payload.transparencyRecommendations.definiteLanguage &&
-      !payload.transparencyRecommendations.easyToFind &&
-      !payload.transparencyRecommendations.legibleDesign
-    ) {
-      return message;
-    } else {
-      return false;
-    }
-  } catch (e) {
-    return false;
-  }
-}
-
-function transparencyRecommendationsAllGood(payload) {
-  let message = templates.transparencyRecommendationsAllGood;
-
-  try {
-    if (
-      payload.transparencyRecommendations.plainLanguage &&
-      payload.transparencyRecommendations.definiteLanguage &&
-      payload.transparencyRecommendations.easyToFind &&
-      payload.transparencyRecommendations.legibleDesign
-    ) {
-      return message;
-    } else {
-      return false;
-    }
-  } catch (e) {
-    return false;
-  }
-}
-
 module.exports = {
   generate,
   dataProtectionOfficerPresent,
@@ -443,7 +476,5 @@ module.exports = {
   complaintInformationWarning,
   securityStandardsSpecificity,
   individualRightsWarning,
-  transparencyRecommendationsWarning,
-  transparencyRecommendationsAllGood,
   templates,
 };

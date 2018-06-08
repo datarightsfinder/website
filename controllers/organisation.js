@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
@@ -28,11 +29,14 @@ router.get('/:country/:number', function(req, res, next) {
 
       let meta = {
         'fullCountryName': countries[_result.registrationCountry.toLowerCase()],
-        'overviewMatrix': overviewMatrix.generate(_result.payload),
+        'overviewMatrix': _.filter(overviewMatrix.generate(_result.payload), function(o) {
+          return o != false;
+        }),
         'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
         'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),
         'isEEACountry': isEEACountry(_result.registrationCountry),
         'isECAdequacyDecisionCountry': isECAdequacyDecisionCountry(_result.registrationCountry),
+        'isUS': isUS(_result.registrationCountry)
       };
 
       let extraData = createExtraDataTable(_result.payload);
@@ -97,23 +101,34 @@ function createExtraDataTable(payload) {
   delete payload['privacyNoticeUrl'];
   delete payload['dataProtectionOfficer'];
   delete payload['dataProtectionRegister'];
-  delete payload['internationalTransfer'];
+  delete payload['privacyShield'];
+  delete payload['dataProcessingAddendum'];
   delete payload['thirdParties'];
   delete payload['retentionRules'];
-  delete payload['dataTypesCollected'];
+  delete payload['dataCategoriesCollected'];
   delete payload['automatedDecisionMaking'];
   delete payload['complaintInformation'];
   delete payload['securityStandards'];
   delete payload['lawfulBases'];
   delete payload['rights'];
   delete payload['unusualProcessingPurposes'];
-  delete payload['transparencyRecommendations'];
+  delete payload['presentation'];
 
   if (Object.keys(payload).length === 0) {
     return null;
   }
 
   return tableify(payload);
+}
+
+function isUS(registrationCountry) {
+  registrationCountry = registrationCountry.split('_')[0];
+
+  if (registrationCountry === 'us') {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 module.exports = router;

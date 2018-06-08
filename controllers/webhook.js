@@ -57,22 +57,31 @@ function handleChanges(action, diff, parentCallback) {
   async.waterfall([
     function(callback) {
       if (action === 'update') {
-        request({url: 'https://api.github.com/repos/projectsbyif/org-gdpr-tool-data/contents/' + thisDiff, headers: {'User-Agent': 'projectsbyif/org-gdpr-tool-website'}}, function(err, res, body) {
+        let timestamp = Math.round((new Date()).getTime() / 1000);
+
+        request({url: `https://raw.githubusercontent.com/projectsbyif/odr-test/master/${thisDiff}?${timestamp}`, headers: {'User-Agent': 'projectsbyif/org-gdpr-tool-website'}}, function(err, res, body) {
           if (err) {
             callback('Error: Can\'t get ' + thisDiff + ' from GitHub');
           }
 
           console.log('Getting ' + thisDiff);
+          console.log(body);
 
-          let json = JSON.parse(body);
-          let contentBase64 = json.content.replace(/\s/g, '');
-          let content = Buffer.from(contentBase64, 'base64').toString('ascii');
-
-          if (tryParseJSON(content)) {
-            callback(null, content);
+          if (tryParseJSON(body)) {
+            callback(null, body);
           } else {
-            callback('Error: Invalid JSON file ' + thisDiff);
+            callback('Can\'t parse this JSON');
           }
+
+          // let json = JSON.parse(body);
+          // let contentBase64 = json.content.replace(/\s/g, '');
+          // let content = Buffer.from(contentBase64, 'base64').toString('ascii');
+          //
+          // if (tryParseJSON(content)) {
+          //
+          // } else {
+          //   callback('Error: Invalid JSON file ' + thisDiff);
+          // }
         });
       } else if (action === 'remove') {
         callback(null);
@@ -82,21 +91,64 @@ function handleChanges(action, diff, parentCallback) {
       if (action === 'update') {
         let json = JSON.parse(_json);
 
-        upsert({
-            'name': json.organisation.name,
-            'slug': thisDiff.split('.')[0],
-            'payload': _json,
-          }, callback);
+        // Organisation.create({
+        //   'name': name,
+        //   'registrationNumber': json.organisationInformation.number,
+        //   'registrationCountry': json.organisationInformation.registrationCountry
+        //                             .toLowerCase(),
+        //   'payload': JSON.stringify(json),
+
+        // Pull organisation information from OpenCorporates if available
+        request(`https://api.opencorporates.com/companies/` +
+          `${json.organisationInformation.registrationCountry.toLowerCase()}/` +
+          `${json.organisationInformation.number}`, function(err, res, body) {
+
+          if (res.statusCode === 404) {
+            upsert({
+                'name': json.organisationInformation.name,
+                'registrationNumber': json.organisationInformation.number,
+                'registrationCountry': json.organisationInformation.registrationCountry,
+                'payload': _json,
+              }, callback);
+          } else {
+            body = JSON.parse(body);
+
+            upsert({
+                'name': body.results.company.name,
+                'registrationNumber': json.organisationInformation.number,
+                'registrationCountry': json.organisationInformation.registrationCountry,
+                'payload': _json,
+              }, callback);
+          }
+        });
       } else if (action === 'remove') {
+        console.log(thisDiff);
+
+        thisDiff = thisDiff.replace('.json', '');
+
+        let registrationNumber = '';
+        let registrationCountry = '';
+
+        if (thisDiff.includes('us_') || thisDiff.includes('ca_') || thisDiff.includes('ae_')) {
+          registrationCountry = thisDiff.substring(0, 5).toLowerCase();
+          registrationNumber = thisDiff.substring(5);
+        } else {
+          registrationCountry = thisDiff.substring(0, 2).toLowerCase();
+          registrationNumber = thisDiff.substring(2);
+        }
+
+        console.log(registrationNumber, registrationCountry);
+
         Organisation.findOne({
           where: {
-            slug: thisDiff.split('.')[0],
+            registrationNumber: registrationNumber,
+            registrationCountry: registrationCountry,
           },
         }).then(function(obj) {
           obj.destroy().then(function() {
-            callback(null);
+            // callback(null);
           }).catch(function() {
-            callback(null);
+            // callback(null);
           });
         });
       }
@@ -178,8 +230,14 @@ function createDiff(payload) {
 }
 
 function upsert(values, parentCallback) {
-  Organisation.findOne({where: {'slug': values.slug}}).then(function(obj) {
+  console.log(values);
+
+  Organisation.findOne({where: {
+    'registrationNumber': values.registrationNumber,
+    'registrationCountry': values.registrationCountry,
+  }}).then(function(obj) {
     if (obj) {
+      console.log("updating");
       // Update
       obj.update(values).then(function() {
         parentCallback(null);

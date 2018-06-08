@@ -52,21 +52,25 @@ header {
   }
 
   .about {
-    display: block;
-    float: right;
     text-decoration: none;
     color: #FFF;
-    margin-right: 30px;
-    line-height: 60px;
+    //margin-left: 30px;
+    float: right;
+    font-weight: normal;
+
+    @include media(desktop) {
+      float: none;
+      margin-left: 20px;
+    }
   }
 }
 
 .content {
   overflow: auto;
-  min-height: calc(100% - 124px);
+  min-height: calc(100% - 252px);
 
   @include media(desktop) {
-    min-height: calc(100% - 146px);
+    min-height: calc(100% - 178px);
   }
 
   p {
@@ -76,34 +80,35 @@ header {
 
 .home-search-wrapper {
   background: #EEE;
+  padding: 1rem 0 1.5rem 0;
+
+  @include media(desktop) {
+    padding: 2rem 0 2.5rem 0;
+    margin-bottom: 0.4rem;
+  }
 
   h2 {
-    margin-top: 1.2rem;
-    margin-bottom: 1.2rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 0;
 
     @include media(desktop) {
-      margin-top: 2rem;
-      margin-bottom: 1.4rem;
+      font-size: 2rem;
     }
   }
 
-  p {
-    margin-top: 1.2rem;
-    margin-bottom: 1.6rem !important;
-
-    @include media(desktop) {
-      margin-top: 1.4rem;
-      margin-bottom: 2rem !important;
-    }
-  }
+  // p {
+  //   margin-top: 1.2rem;
+  //   margin-bottom: 1.6rem !important;
+  //
+  //   @include media(desktop) {
+  //     margin-top: 1.4rem;
+  //     margin-bottom: 2rem !important;
+  //   }
+  // }
 
   form {
-    margin-bottom: 1.8rem;
-
-    @include media(desktop) {
-      margin-bottom: 2.8rem;
-    }
+    margin-bottom: 0 !important;
   }
 }
 
@@ -139,6 +144,7 @@ footer {
 
 form.search {
   overflow: auto;
+  margin-bottom: 1.4rem;
 
   input {
     height: 50px;
@@ -156,12 +162,16 @@ form.search {
     text-indent: -9999px;
     margin: 0;
     padding: 0;
-    background-color: #212121;
+    background-color: #444;
     background-image: url('/public/images/search.svg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 55% 55%;
     float: left;
+
+    &:active {
+      background-color: #{$colour-main};
+    }
   }
 
   &.small-search {
@@ -202,21 +212,24 @@ form.search {
 }
 
 .index {
-  ul {
-    list-style-type: none;
-    padding-left: 0;
 
-    li {
-      padding: 0.5rem 0;
-      border-bottom: #CCC 1px solid;
+}
 
-      &:last-of-type {
-        border-bottom: 0;
-      }
+.organisation-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
 
-      a {
-        text-decoration: none;
-      }
+  li {
+    padding: 0.5rem 0;
+    border-bottom: #CCC 1px solid;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    a {
+      text-decoration: none;
     }
   }
 }

@@ -7,23 +7,26 @@
 {% block body_class %}search_page{% endblock %}
 
 {% block header %}
-
 {% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
-    <h2>Search</h2>
+    <h2>Search results</h2>
 
     {% include "partials/_search.html" %}
 
     {% if results.length > 0 %}
-      {% for result in results %}
-        <h3><a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}">{{ result.name }}</a></h3>
-      {% endfor %}
+      <ul class="organisation-list">
+        {% for result in results %}
+        <li>
+          <a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}">{{ result.name }}</a>
+        </li>
+        {% endfor %}
+      </ul>
     {% else %}
-      <p>No results found</p>
-      <p><a href="#">Contribute</a></p>
+      <p class="bold">No results found</p>
+      <p>Help us expand our database by contributing information about this organisations privacy notice on <a href="https://github.com/projectsbyif/open-data-rights-data" target="_blank">GitHub</a>.</p>
     {% endif %}
   </div>
 </div>
