@@ -40,8 +40,8 @@
         </div>
         <div class="columns small-4 large-6">
           <a href="/about" class="about">About</a>
-          <a href="#" class="mobile-search">Search</a>
           {% ifAsync smallSearch %}
+            <a href="#" class="mobile-search">Search</a>
             {% include "partials/_search.html" %}
           {% endif %}
         </div>
