@@ -3,218 +3,110 @@ const _ = require('lodash');
 const cleanDeep = require('clean-deep');
 const async = require('async');
 const request = require('request');
-const Sequelize = require('sequelize');
-const exec = require('child_process').exec;
+const yaml = require('yamljs');
+const execSync = require('child_process').execSync;
 
 // LOCAL IMPORTS
 const Utils = require('./libs/utils.js');
+const sync = require('./libs/sync');
+const settings = yaml.load('settings.yaml');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'NODE_ENV'])) {
   process.exit();
 }
 
-// If running on Heroku, use SSL with Sequelize
-let isSSLEnabled = false;
+// SEQUELIZE
+const Sequelize = require('sequelize');
+const sequelizeConfig = require('./config/config.js');
 
-if (process.env.NODE_ENV === 'production') {
-  isSSLEnabled = true;
+let sequelize;
+
+if (process.env.NODE_ENV === 'test') {
+  sequelize = new Sequelize({
+    storage: sequelizeConfig[process.env.NODE_ENV].storage,
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
+} else {
+  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
 }
 
-// CONFIG
-const URL_REPO_CONTENTS = 'https://api.github.com/repos/projectsbyif/odr-test/contents/';
-
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: isSSLEnabled,
-  },
-});
-
-const Organisation = sequelize.import(__dirname + '/models/organisation.js');
+const Organisation = sequelize.import('./models/organisation.js');
 
 async.waterfall([
   function(callback) {
-    // Run Sequelize drop command
-    // NOTE: Make sure no-one is accessing the database while this is being run
-    let dir = exec('node_modules/.bin/sequelize db:drop',
-      function(err, stdout, stderr) {
-      if (err) {
-        console.log('Problem running drop');
-        callback(null);
-        // return;
-      }
-    });
+    // Create database
+    try {
+      console.log('-> Creating database');
+      execSync('./node_modules/.bin/sequelize db:create');
+    } catch (e) {
+      console.log('--> Failed to create database (probably exists)');
+    }
 
-    dir.on('exit', function(code) {
-      console.log('Drop completed');
-      callback(null);
+    // Run migrations
+    try {
+      console.log('-> Running migrations');
+      execSync('./node_modules/.bin/sequelize db:migrate');
+    } catch (e) {
+      console.log('--> Failed to run database migrations');
+    }
+
+    // Remove any existing entries
+    Organisation.destroy({
+      where: {},
+      truncate: true,
+    }).then(function() {
+      callback();
     });
   },
   function(callback) {
-    // Run Sequelize create command
-    // NOTE: Make sure no-one is accessing the database while this is being run
-    let dir = exec('node_modules/.bin/sequelize db:create',
-      function(err, stdout, stderr) {
-      if (err) {
-        callback('Error: Problem running create');
-        return;
-      }
-    });
+    let url = `https://api.github.com/repos/${settings.repository_path}/contents/`;
 
-    dir.on('exit', function(code) {
-      console.log('Create completed');
-      callback(null);
-    });
-  },
-  function(callback) {
-    // Run Sequelize migrate command
-    let dir = exec('node_modules/.bin/sequelize db:migrate',
-      function(err, stdout, stderr) {
-      if (err) {
-        callback('Error: Problem running migration');
-        return;
-      }
-    });
+    console.log(`-> Getting list of files from ${url}`);
 
-    dir.on('exit', function(code) {
-      console.log('Migration completed');
-      callback(null);
-    });
-  },
-  function(callback) {
-    // Request list of all files in the org-gdpr-tool-data repository
+    // Request list of all files in the data repository
     request({
-        url: URL_REPO_CONTENTS,
-        headers: {
-          'User-Agent': 'projectsbyif/org-gdpr-tool-website',
-        },
+      url: url,
+      headers: {
+        'User-Agent': settings.user_agent,
+      },
     }, function(err, res, body) {
       if (err) {
-        callback('Problem downloading data repo contents from '
-          + URL_REPO_CONTENTS);
-        return;
+        callback(`--> Problem getting files from ${url}`);
+      }
+
+      if (res.statusCode !== 200) {
+        callback(`--> Problem getting files from ${url}`);
       }
 
       callback(null, body);
     });
   },
-  function(_gitContents, callback) {
-    // Recursively run createEntries function on each file
-    _gitContents = JSON.parse(_gitContents);
+  function(_contents, callback) {
+    _contents = JSON.parse(_contents);
 
-    createEntries(_gitContents, callback);
+    let files = [];
+
+    // Turn response into list of files
+    _contents.forEach(function(item) {
+      if (item.name.includes('.json')) {
+        files.push(item.name);
+      }
+    });
+
+    sync.handleModified(files, callback);
   },
-], function(err) {
-  if (err) {
-    console.log(err);
-  }
-
-  console.log('Seeding completed.');
-
-  process.exit();
-});
-
-function createEntries(items, parentCallback) {
-  let item = items[0];
-
-  let json;
-
-  async.waterfall([
-    function(callback) {
-      // Skip template.json file
-      // TODO: Don't use a conditional for this
-      if (item.name === 'template.json' ||
-        item.name === 'template-new.json' ||
-        item.name === 'schema-readme.md') {
-        callback(true);
-        return;
-      }
-
-      // Get the JSON data file
-      let timestamp = Math.round((new Date()).getTime() / 1000);
-      request(`${item.download_url}?${timestamp}`, function(err, res, body) {
-        if (err) {
-          callback('Error: Problem download JSON file ' + item.download_url);
-          return;
-        }
-
-        callback(null, body);
-      });
-    },
-    function(_json, callback) {
-      if (!tryParseJSON(_json)) {
-        callback('Can\'t parse this JSON');
-      }
-
-      json = JSON.parse(_json);
-
-      // Pull organisation information from OpenCorporates if available
-      request(`https://api.opencorporates.com/companies/` +
-        `${json.organisationInformation.registrationCountry.toLowerCase()}/` +
-        `${json.organisationInformation.number}`, function(err, res, body) {
-        if (res.statusCode === 404) {
-          callback(null, null);
-        } else {
-          callback(null, body);
-        }
-      });
-    },
-    function(_openCorporatesJson, callback) {
-      _openCorporatesJson = JSON.parse(_openCorporatesJson);
-
-      let name = '';
-
-      // Attempt to get a canonical name from OpenCorporates
-      if (_openCorporatesJson) {
-        name = _openCorporatesJson.results.company.name;
-      } else {
-        name = json.organisationInformation.name;
-      }
-
-      // Remove empty fields
-      json = cleanDeep(json);
-
-      // Remove any false notPresent flags
-      // json = _.omitBy(json, function(o) {
-      //   return Object.keys(o)[0] === 'isMissing' && o.isMissing === false;
-      // });
-
-      Organisation.create({
-        'name': name,
-        'registrationNumber': json.organisationInformation.number,
-        'registrationCountry': json.organisationInformation.registrationCountry
-                                  .toLowerCase(),
-        'payload': JSON.stringify(json),
-      }).then(function() {
-        callback(null);
-      }).catch(function(err) {
-        callback(err);
-      });
-    },
-  ], function(err) {
+  function(err) {
     if (err) {
       console.log(err);
     }
 
-    items.shift();
+    console.log('Seeding completed.');
 
-    if (items.length > 0) {
-      createEntries(items, parentCallback);
-    } else {
-      parentCallback(null);
-    }
-  });
-}
-
-function tryParseJSON(jsonString) {
-  try {
-    let o = JSON.parse(jsonString);
-
-    if (o && typeof o === 'object') {
- return o;
-}
-  } catch (e) { }
-
-  return false;
-}
+    process.exit();
+  },
+]);

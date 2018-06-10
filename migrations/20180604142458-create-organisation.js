@@ -20,6 +20,9 @@ module.exports = {
       payload: {
         type: Sequelize.JSON,
       },
+      filename: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

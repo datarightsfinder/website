@@ -1,30 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
-const Sequelize = require('sequelize');
 
 let settings = yaml.load('settings.yaml');
 
 // SEQUELIZE
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-});
+const Sequelize = require('sequelize');
+const sequelizeConfig = require('../config/config.js');
+
+let sequelize;
+
+if (process.env.NODE_ENV === 'test') {
+  sequelize = new Sequelize({
+    storage: sequelizeConfig[process.env.NODE_ENV].storage,
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
+} else {
+  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
+}
+
 const Organisation = sequelize.import('../models/organisation.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   Organisation.findAll().then(function(_all) {
-    _all.forEach(function(item, index) {
-      _all[index].payload = JSON.parse(_all[index].payload);
-    });
-
     res.render('home/index.html', {
       settings: settings,
       payload: _all,
       organisation_count: _all.length,
       organisations: _all,
     });
-  }).catch(function() {
+  }).catch(function(err) {
     res.render('home/index.html', {settings: settings, organisations: []});
   });
 });

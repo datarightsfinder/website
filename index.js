@@ -59,7 +59,7 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/search', searchRouter);
 app.use('/organisation', organisationRouter);
-app.use('/webhook', webhookRouter);
+app.use('/webhook', webhookRouter.router);
 
 // START SERVER
 http.listen(app.get('port'), function() {

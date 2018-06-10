@@ -13,11 +13,8 @@ module.exports = {
     },
   },
   test: {
-    url: process.env.DATABASE_URL,
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: isSSLEnabled,
-    },
+    dialect: 'sqlite',
+    storage: 'test/test.db',
   },
   production: {
     url: process.env.DATABASE_URL,

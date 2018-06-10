@@ -44,3 +44,6 @@ public/js/app.js
 
 # dotenv environment variables file
 .env
+
+# Testing
+test/test.db

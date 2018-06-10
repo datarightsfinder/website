@@ -672,7 +672,7 @@
 
 <div id="actions" class="row">
   <div class="columns large-12 small-12">
-    <p>Last updated {{ meta.friendlyDate }} at {{ meta.friendlyTime }} &bull; <a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/projectsbyif/odr-test/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json">View on GitHub</a></p>
+    <p>Last updated {{ meta.friendlyDate }} at {{ meta.friendlyTime }} &bull; <a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/{{ settings.repository_path }}/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json">View on GitHub</a></p>
   </div>
 </div>
 {% endblock %}

@@ -30,21 +30,9 @@ const templates = {
     'status': 'warning',
     'message': 'Does not appear to provide a <a href="#dataProcessingAddendum">data processing addendum</a>',
   },
-  'specialCategoriesWarning': {
-    'status': 'warning',
-    'message': 'Collects <a href="#dataCategoriesCollected">special category</a> data',
-  },
-  'automatedDecisionMakingWarning': {
-    'status': 'warning',
-    'message': 'Uses <a href="#automatedDecisionMaking">automated decision making</a>',
-  },
   'complaintInformationWarning': {
     'status': 'warning',
     'message': 'Does not appear to provide information about <a href="#complaintInformation">how to make a complaint</a>',
-  },
-  'securityStandardsSpecificity': {
-    'status': 'good',
-    'message': 'Mentions specific <a href="#securityStandards">data security standards</a>',
   },
   'individualRightsWarning': {
     'status': 'warning',
@@ -61,10 +49,7 @@ function generate(payload) {
     internationalTransferAddendum(payload),
     internationalTransferAdequacyDecision(payload),
     internationalTransferWarning(payload),
-    // specialCategoriesWarning(payload),
-    // automatedDecisionMakingWarning(payload),
     complaintInformationWarning(payload),
-    securityStandardsSpecificity(payload),
     individualRightsWarning(payload),
   ];
 
@@ -304,47 +289,6 @@ function internationalTransferWarning(payload) {
   return message;
 }
 
-function specialCategoriesWarning(payload) {
-  let message = templates.specialCategoriesWarning;
-
-  try {
-    if (payload.dataCategoriesCollected.isMissing) {
-      return false;
-    }
-  } catch (e) {
-  }
-
-  let specialCategories = constants.getSpecialCategories();
-  let intersection = [];
-
-  try {
-    let categories = payload.dataCategoriesCollected.list;
-    intersection = _.intersection(categories, specialCategories);
-
-    if (intersection.length > 0) {
-      return message;
-    } else {
-      return false;
-    }
-  } catch (e) {
-    return false;
-  }
-}
-
-function automatedDecisionMakingWarning(payload) {
-  let message = templates.automatedDecisionMakingWarning;
-
-  try {
-    if (payload.automatedDecisionMaking.usesAutomatedDecisionMaking === 'present') {
-      return message;
-    } else {
-      return false;
-    }
-  } catch (e) {
-    return false;
-  }
-}
-
 function complaintInformationWarning(payload) {
   let message = templates.complaintInformationWarning;
 
@@ -356,28 +300,6 @@ function complaintInformationWarning(payload) {
     }
   } catch (e) {
     return message;
-  }
-}
-
-function securityStandardsSpecificity(payload) {
-  let message = templates.securityStandardsSpecificity;
-
-  try {
-    if (payload.securityStandards.present === 'present') {
-      try {
-        if (payload.securityStandards.specificity === 'specific') {
-          return message;
-        } else {
-          return false;
-        }
-      } catch (e) {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  } catch (e) {
-    return false;
   }
 }
 
@@ -471,10 +393,7 @@ module.exports = {
   internationalTransferAddendum,
   internationalTransferAdequacyDecision,
   internationalTransferWarning,
-  specialCategoriesWarning,
-  automatedDecisionMakingWarning,
   complaintInformationWarning,
-  securityStandardsSpecificity,
   individualRightsWarning,
   templates,
 };

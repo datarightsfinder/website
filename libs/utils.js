@@ -5,19 +5,16 @@ class Utils {
     let errors = [];
     let hasMissing = false;
 
-    for (let envVar in expectedVars) {
-      envVar = expectedVars[envVar];
-
+    expectedVars.forEach(function(envVar) {
       if (!process.env[envVar]) {
         errors.push(envVar);
         hasMissing = true;
       }
-    }
+    });
 
-    for (let error in errors) {
-      error = errors[error];
+    errors.forEach(function(error) {
       console.log(ERROR_TEMPLATE.replace('{{ ERROR }}', error));
-    }
+    });
 
     return hasMissing;
   }

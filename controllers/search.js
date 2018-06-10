@@ -1,15 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
-const Sequelize = require('sequelize');
 const {check} = require('express-validator/check');
 
 const settings = yaml.load('settings.yaml');
 
 // SEQUELIZE
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-});
+const Sequelize = require('sequelize');
+const sequelizeConfig = require('../config/config.js');
+
+let sequelize;
+
+if (process.env.NODE_ENV === 'test') {
+  sequelize = new Sequelize({
+    storage: sequelizeConfig[process.env.NODE_ENV].storage,
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
+} else {
+  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
+}
+
 const Organisation = sequelize.import('../models/organisation.js');
 
 router.get('/', function(req, res, next) {
@@ -31,20 +45,12 @@ router.get('/:query', function(req, res, next) {
         ilike: '%' + query + '%',
       },
     },
-  }).then(function(results) {
-    Organisation.findAll().then(function(_all) {
-      // let organisations = [];
-
-      _all.forEach(function(item, index) {
-        _all[index].payload = JSON.parse(_all[index].payload);
-      });
-
-      res.render('search/search.html', {
-        settings: settings,
-        query: query,
-        results: results,
-        last_five: _all.slice(Math.max(_all.length - 5, 1)),
-      });
+  }).then(function(_results) {
+    console.log(_results);
+    res.render('search/search.html', {
+      settings: settings,
+      query: query,
+      results: _results,
     });
   });
 });

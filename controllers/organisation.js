@@ -2,7 +2,6 @@ const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
-const Sequelize = require('sequelize');
 const moment = require('moment');
 const overviewMatrix = require('../libs/overview_matrix');
 const constants = require('../libs/constants');
@@ -12,9 +11,24 @@ const countries = require('../countries.json');
 const settings = yaml.load('settings.yaml');
 
 // SEQUELIZE
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-});
+const Sequelize = require('sequelize');
+const sequelizeConfig = require('../config/config.js');
+
+let sequelize;
+
+if (process.env.NODE_ENV === 'test') {
+  sequelize = new Sequelize({
+    storage: sequelizeConfig[process.env.NODE_ENV].storage,
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
+} else {
+  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
+    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
+    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
+  });
+}
+
 const Organisation = sequelize.import('../models/organisation.js');
 
 router.get('/:country/:number', function(req, res, next) {
@@ -23,30 +37,29 @@ router.get('/:country/:number', function(req, res, next) {
       registrationCountry: req.params.country,
       registrationNumber: req.params.number,
     },
-  })
-    .then(function(_result) {
-      _result.payload = JSON.parse(_result.payload);
+  }).then(function(_result) {
+    let meta = {
+      'fullCountryName': countries[_result.registrationCountry.toLowerCase()],
+      'overviewMatrix': _.filter(
+        overviewMatrix.generate(_result.payload), function(o) {
+        return o != false;
+      }),
+      'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
+      'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),
+      'isEEACountry': isEEACountry(_result.registrationCountry),
+      'isECAdequacyDecisionCountry': isECAdequacyDecisionCountry(
+        _result.registrationCountry),
+      'isUS': isUS(_result.registrationCountry),
+    };
 
-      let meta = {
-        'fullCountryName': countries[_result.registrationCountry.toLowerCase()],
-        'overviewMatrix': _.filter(overviewMatrix.generate(_result.payload), function(o) {
-          return o != false;
-        }),
-        'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
-        'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),
-        'isEEACountry': isEEACountry(_result.registrationCountry),
-        'isECAdequacyDecisionCountry': isECAdequacyDecisionCountry(_result.registrationCountry),
-        'isUS': isUS(_result.registrationCountry)
-      };
+    let extraData = createExtraDataTable(_result.payload);
 
-      let extraData = createExtraDataTable(_result.payload);
-
-      res.render('organisation/show.html', {
-        settings: settings,
-        result: _result,
-        meta: meta,
-        extraData: extraData,
-      });
+    res.render('organisation/show.html', {
+      settings: settings,
+      result: _result,
+      meta: meta,
+      extraData: extraData,
+    });
   }).catch(function(err) {
     console.log(err);
     next('route');
@@ -59,14 +72,12 @@ router.get('/:country/:number.json', function(req, res, next) {
       registrationCountry: req.params.country,
       registrationNumber: req.params.number,
     },
-  })
-    .then(function(_result) {
-      res.setHeader('content-type', 'application/json');
-      res.status(200).send(_result.payload);
-    })
-    .catch(function() {
-      next('route');
-    });
+  }).then(function(_result) {
+    res.setHeader('content-type', 'application/json');
+    res.status(200).send(_result.payload);
+  }).catch(function() {
+    next('route');
+  });
 });
 
 router.get('/', function(req, res, next) {

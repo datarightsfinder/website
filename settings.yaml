@@ -16,3 +16,7 @@ use_twitter_meta_tags: false
 facebook_card_image: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/fb-image.png
 twitter_card_image: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/fb-image.png
 twitter_card_handle: @projectsbyif
+
+# GitHub
+repository_path: projectsbyif/odr-test
+user_agent: projectsbyif/org-gdpr-tool-website
