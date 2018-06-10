@@ -88,7 +88,9 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 6. In "Content Type", choose `application/json`
 
-7. Click "Add Webhook"
+7. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
+
+8. Click "Add Webhook"
 
 ### For Heroku installations
 
@@ -98,4 +100,6 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 3. In "Content Type", choose `application/json`
 
-4. Click "Add Webhook"
+4. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
+
+5. Click "Add Webhook"
