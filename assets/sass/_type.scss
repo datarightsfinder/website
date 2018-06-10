@@ -1,0 +1,36 @@
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 16px;
+  color: $colour-text;
+
+  @include media(desktop) {
+    font-size: 18px;
+  }
+}
+
+header {
+  h1 {
+    font-size: 1.1em;
+
+    a {
+      text-decoration: none;
+      color: #212121;
+    }
+  }
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+p {
+  line-height: 1.5;
+}
+
+a {
+  color: #212121;
+}
+
+.bold {
+  font-weight: 700;
+}

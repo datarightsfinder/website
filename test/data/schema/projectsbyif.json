@@ -1,0 +1,75 @@
+{
+  "organisationInformation": {
+    "name": "Projects By IF",
+    "number": "09802689",
+    "registrationCountry": "gb"
+  },
+  "organisationUrls": [
+    "https://projectsbyif.com"
+  ],
+  "privacyNoticeUrl": {
+    "url": "https://projectsbyif.com/how-if-uses-data"
+  },
+  "dataProtectionOfficer": {
+    "present": "not_present",
+    "contactInfo": {}
+  },
+  "dataProtectionRegister": {
+    "present": "not_present"
+  },
+  "privacyShield": {},
+  "dataProcessingAddendum": {
+    "present": "not_present"
+  },
+  "thirdParties": {
+    "isMissing": false,
+    "list": [
+      "Matomo",
+      "Digital Ocean",
+      "Amazon AWS"
+    ],
+    "specificity": "specific"
+  },
+  "retentionRules": {
+    "isMissing": false
+  },
+  "dataCategoriesCollected": {
+    "isMissing": false,
+    "list": []
+  },
+  "automatedDecisionMaking": {},
+  "complaintInformation": {},
+  "securityStandards": {},
+  "lawfulBases": {
+    "isMissing": false
+  },
+  "rights": {
+    "isMissing": false,
+    "general": {
+      "contactInfo": {}
+    },
+    "access": {
+      "contactInfo": {}
+    },
+    "rectification": {
+      "contactInfo": {}
+    },
+    "erasure": {
+      "contactInfo": {}
+    },
+    "restrictProcessing": {
+      "contactInfo": {}
+    },
+    "dataPortability": {
+      "contactInfo": {}
+    },
+    "object": {
+      "contactInfo": {}
+    },
+    "automatedDecisionMaking": {
+      "contactInfo": {}
+    }
+  },
+  "unusualProcessingPurposes": {},
+  "presentation": {}
+}

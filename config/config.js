@@ -1,29 +1,26 @@
-var isSSLEnabled = false;
+let isSSLEnabled = false;
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   isSSLEnabled = true;
 }
 
 module.exports = {
   development: {
     url: process.env.DATABASE_URL,
-    dialect: "postgres",
+    dialect: 'postgres',
     dialectOptions: {
-      ssl: isSSLEnabled
-    }
+      ssl: isSSLEnabled,
+    },
   },
   test: {
-    url: process.env.DATABASE_URL,
-    dialect: "postgres",
-    dialectOptions: {
-      ssl: isSSLEnabled
-    }
+    dialect: 'sqlite',
+    storage: 'test/test.db',
   },
   production: {
     url: process.env.DATABASE_URL,
-    dialect: "postgres",
+    dialect: 'postgres',
     dialectOptions: {
-      ssl: isSSLEnabled
-    }
-  }
+      ssl: isSSLEnabled,
+    },
+  },
 };

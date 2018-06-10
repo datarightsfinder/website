@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
+const {check} = require('express-validator/check');
 
-let settings = yaml.load('settings.yaml');
+const settings = yaml.load('settings.yaml');
 
 // SEQUELIZE
 const Sequelize = require('sequelize');
@@ -25,17 +26,32 @@ if (process.env.NODE_ENV === 'test') {
 
 const Organisation = sequelize.import('../models/organisation.js');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  Organisation.findAll().then(function(_all) {
-    res.render('home/index.html', {
+  res.redirect('/');
+});
+
+router.post('/', [
+  check('query').trim().escape(),
+], function(req, res, next) {
+  res.redirect('/search/' + req.body.query);
+});
+
+router.get('/:query', function(req, res, next) {
+  let query = req.params.query;
+
+  Organisation.findAll({
+    where: {
+      name: {
+        ilike: '%' + query + '%',
+      },
+    },
+  }).then(function(_results) {
+    console.log(_results);
+    res.render('search/search.html', {
       settings: settings,
-      payload: _all,
-      organisation_count: _all.length,
-      organisations: _all,
+      query: query,
+      results: _results,
     });
-  }).catch(function(err) {
-    res.render('home/index.html', {settings: settings, organisations: []});
   });
 });
 

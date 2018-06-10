@@ -7,6 +7,7 @@
     <link rel="icon" id="favicon" href="{{ settings.favicon }}" />
     <link rel="apple-touch-icon-precomposed" href="{{ settings.apple_touch_icon }}" />
     <meta name="description" content="{{ settings.description }}" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
     {% if settings.use_facebook_meta_tags %}
     <meta property="og:title" content="{{ settings.title }}" />
     <meta property="og:url" content="{{ settings.url }}" />
@@ -21,15 +22,46 @@
     <meta name="twitter:description" content="{{ settings.description }}" />
     <meta name="twitter:image" content="{{ settings.twitter_card_image }}" />
     {% endif %}
+    <script src="/public/js/jquery-3.3.1.min.js"></script>
     <script src="/public/js/app.js"></script>
     {% block inline_js %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="/public/css/alpaca.min.css" />
     <link type="text/css" rel="stylesheet" href="/public/css/app.css" />
     {% block inline_css %}{% endblock %}
     {% block head %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
-    {% block header %}{% endblock %}
+    <header>
+      <div class="row">
+        <div class="columns small-12 large-6">
+          <h1>
+            <a href="/">{{ settings.title }}</a>
+            {% ifAsync pageName != "About" %}<a href="/about" class="about">About</a>{% endif %}
+          </h1>
+        </div>
+        <div id="search-about" class="columns small-12 large-6">
+          {% ifAsync smallSearch %}
+            {% include "partials/_search.html" %}
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
     {% block content %}{% endblock %}
-    {% block footer %}{% endblock %}
+    </div>
+
+    <footer>
+      <div class="row">
+        <div class="columns small-12 large-12">
+            <p><span style="font-weight: 600;">The data on this page is crowdsourced and could contain mistakes.</span> Help us <a href="https://github.com/{{ settings.repository_path }}/issues/new" target="_blank">make it better</a> on GitHub.</p>
+
+          <div class="licence">
+            <p>This website is maintained by <a href="https://www.openrightsgroup.org/" target="_blank">Open Rights Group</a> and <a href="https://projectsbyif.com" target="_blank">IF</a>. Data is licenced under the <a href="https://opendatacommons.org/licenses/odbl/1.0/" target="_blank">Open Database Licence</a>.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

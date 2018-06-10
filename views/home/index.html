@@ -1,21 +1,32 @@
 {% extends "layouts/main.html" %}
 
-{% block page_title %}Prototype index{% endblock %}
+{% block page_title %}{{ settings.title }}{% endblock %}
 
 {% block body_class %}index{% endblock %}
 
-{% block header %}
-
-{% endblock %}
-
 {% block content %}
-  <h1>GDPR tool homepage</h1>
+<div class="home-search-wrapper">
+  <div class="row">
+    <div class="columns small-12 large-8 large-offset-2">
+      <h2>{{ settings.description }}</h2>
+      {% include "partials/_search.html" %}
+    </div>
+  </div>
+</div>
 
-  <p>These are all the organisations I know about:</p>
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
+    {% if organisations %}
+    <h3>All organisations</h3>
 
-  <ul>
-    {% for item in payload %}
-      <li><a href="/organisation/{{item.label.split('.')[0]}}">{{item.payload.organisation.name}}</a></li>
-    {% endfor %}
-  </ul>
+    <ul class="organisation-list">
+      {% for item in organisations %}
+      <li>
+        <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
