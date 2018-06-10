@@ -12,7 +12,7 @@ router.get('/incoming', function(req, res) {
 router.post('/incoming', function(req, res) {
   async.waterfall([
     function(callback) {
-      handleIncoming(webhookJson, callback);
+      handleIncoming(req.body, callback);
     },
   ], function() {
     res.status(200).send('200 OK');
