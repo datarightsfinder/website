@@ -8,7 +8,7 @@ const templates = {
   },
   'dataProtectionOfficerSpecialCategories': {
     'status': 'warning',
-    'message': 'Does not appear to provide contact details for a <a href="#dataProtectionOfficer">Data Protection Officer</a>',
+    'message': 'Does not appear to have a <a href="#dataProtectionOfficer">Data Protection Officer</a>',
   },
   'dataProtectionRegister': {
     'status': 'good',
