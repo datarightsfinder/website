@@ -18,5 +18,5 @@ twitter_card_image: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/f
 twitter_card_handle: @projectsbyif
 
 # GitHub
-repository_path: projectsbyif/odr-test
-user_agent: projectsbyif/org-gdpr-tool-website
+repository_path: projectsbyif/open-data-rights-data
+user_agent: projectsbyif/open-data-rights-website
