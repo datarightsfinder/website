@@ -32,17 +32,15 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 
 3. Run `cd org-gdpr-tool-website`
 
-4. Run `cp .env.example .env` to copy the environment variable file
+4. Run `export NODE_ENV=development` and `export DATABASE_URL=<DSN>` where `<DSN>` is a Postgres DSN address like `postgres://ihutc_if@localhost:5432/ihutc_if`.
 
-5. Edit `.env` and paste your DSN address after `DATABASE_URL=`, then save.
+5. Run `npm install` to install dependencies
 
-6. Run `npm install` to install dependencies
+6. Run `gulp` to start the app
 
-7. Run `gulp` to start the app
+7. Go to `http://localhost:3000` in your browser
 
-8. Go to `http://localhost:3000` in your browser
-
-9. Then configure the webhook.
+8. Then configure the webhook.
 
 ### Heroku installation
 
