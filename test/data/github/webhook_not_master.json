@@ -1,0 +1,47 @@
+{
+  "ref": "refs/heads/some-other-branch",
+  "commits": [
+    {
+      "message": "Commit 1",
+      "added": [
+        "gb01234567.json",
+        "us_de76543210.json",
+        "removethis.json"
+      ],
+      "removed": [
+        "gb135790.json"
+      ],
+      "modified": [
+        "dk1234567.json"
+      ]
+    },
+    {
+      "message": "Commit 2",
+      "added": [
+        "ca_nb246801.json"
+      ],
+      "removed": [
+        "removethis.json"
+      ],
+      "modified": [
+        "se2468014.json"
+      ]
+    },
+    {
+      "message": "Merge commit",
+      "added": [
+        "gb01234567.json",
+        "us_de76543210.json",
+        "ca_nb246801.json"
+      ],
+      "removed": [
+        "removethis.json",
+        "gb135790.json"
+      ],
+      "modified": [
+        "dk1234567.json",
+        "se2468014.json"
+      ]
+    }
+  ]
+}
