@@ -33,13 +33,14 @@
   <body class="{% block body_class %}{% endblock %}">
     <header>
       <div class="row">
-        <div class="columns small-12 large-6">
+        <div class="columns small-8 large-6">
           <h1>
-            <a href="/">{{ settings.title }}</a>
-            {% ifAsync pageName != "About" %}<a href="/about" class="about">About</a>{% endif %}
+            <a href="/">{{ settings.title }}<span class="alpha">Alpha</span></a>
           </h1>
         </div>
-        <div id="search-about" class="columns small-12 large-6">
+        <div class="columns small-4 large-6">
+          <a href="/about" class="about">About</a>
+          <a href="#" class="mobile-search">Search</a>
           {% ifAsync smallSearch %}
             {% include "partials/_search.html" %}
           {% endif %}
