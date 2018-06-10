@@ -36,8 +36,12 @@ function processDiffs(_json) {
     'removed': [],
   };
 
-  // Convert JSON string to object
-  let json = JSON.parse(_json);
+  // Make sure JSON is in correct format
+  let json = _json;
+
+  if (typeof _json !== 'object') {
+    json = JSON.parse(json);
+  }
 
   // Reject if commit is not in master branch
   if (json.ref !== 'refs/heads/master') {
