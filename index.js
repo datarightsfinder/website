@@ -15,7 +15,7 @@ require('dotenv').config();
 const Utils = require('./libs/utils.js');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'NODE_ENV'])) {
   process.exit();
 }
 
