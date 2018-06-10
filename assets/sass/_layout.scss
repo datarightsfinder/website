@@ -97,16 +97,6 @@ header {
     }
   }
 
-  // p {
-  //   margin-top: 1.2rem;
-  //   margin-bottom: 1.6rem !important;
-  //
-  //   @include media(desktop) {
-  //     margin-top: 1.4rem;
-  //     margin-bottom: 2rem !important;
-  //   }
-  // }
-
   form {
     margin-bottom: 0 !important;
   }
@@ -120,10 +110,7 @@ footer {
 
   .licence {
     opacity: 0.6;
-
   }
-
-
 }
 
 .latest-organisations {
@@ -209,10 +196,6 @@ form.search {
       }
     }
   }
-}
-
-.index {
-
 }
 
 .organisation-list {
