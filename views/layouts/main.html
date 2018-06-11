@@ -55,11 +55,15 @@
     <footer>
       <div class="row">
         <div class="columns small-12 large-12">
+          {% if pageName == "organisation" %}
             <p><span style="font-weight: 600;">The data on this page is crowdsourced and could contain mistakes.</span> Help us <a href="https://github.com/{{ settings.repository_path }}/issues/new" target="_blank">make it better</a> on GitHub.</p>
+          {% endif %}
 
+          {% if pageName != "About" %}
           <div class="licence">
             <p>This website is maintained by <a href="https://www.openrightsgroup.org/" target="_blank">Open Rights Group</a> and <a href="https://projectsbyif.com" target="_blank">IF</a>. Data is licenced under the <a href="https://opendatacommons.org/licenses/odbl/1.0/" target="_blank">Open Database Licence</a>.</p>
           </div>
+          {% endif %}
         </div>
       </div>
     </footer>

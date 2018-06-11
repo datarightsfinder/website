@@ -82,14 +82,14 @@ header {
 
 .content {
   overflow: auto;
-  min-height: calc(100% - 252px);
+  min-height: calc(100% - 164px);
 
   @include media(tablet) {
-    min-height: calc(100% - 205px);
+    min-height: calc(100% - 116px);
   }
 
   @include media(desktop) {
-    min-height: calc(100% - 178px);
+    min-height: calc(100% - 134px);
   }
 
   p {
@@ -112,7 +112,7 @@ header {
     margin-top: 0;
 
     @include media(desktop) {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
   }
 
@@ -232,7 +232,7 @@ form.search {
     text-decoration: none;
 
     img {
-      height: 60px;
+      height: 50px;
       margin-right: 20px;
     }
 

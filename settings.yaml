@@ -1,10 +1,10 @@
 # About
 title: Open Data Rights
-description: Open data about privacy notices
-url: CHANGEME
+description: Find, understand and use information from privacy notices
+url: https://opendatarights.projectsbyif.com
 licence_name: Open Database License
 licence_url: https://opendatacommons.org/licenses/odbl/1.0/
-contact_email: hello@projectsbyif.com
+contact_email: ian@projectsbyif.com
 
 # Images
 favicon: https://s3-eu-west-1.amazonaws.com/projectsbyif.com/shared/favicon.png
