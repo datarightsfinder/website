@@ -27,7 +27,11 @@ const Organisation = sequelize.import('../models/organisation.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  Organisation.findAll().then(function(_all) {
+  Organisation.findAll({
+    order: [
+      ['name', 'ASC'],
+    ],
+  }).then(function(_all) {
     res.render('home/index.html', {
       settings: settings,
       payload: _all,
