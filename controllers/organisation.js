@@ -9,6 +9,7 @@ const tableify = require('tableify');
 
 const countries = require('../countries.json');
 const settings = yaml.load('settings.yaml');
+const messageTemplates = require('../config/message_templates.js');
 
 // SEQUELIZE
 const Sequelize = require('sequelize');
@@ -59,6 +60,7 @@ router.get('/:country/:number', function(req, res, next) {
       result: _result,
       meta: meta,
       extraData: extraData,
+      messageTemplates: messageTemplates,
     });
   }).catch(function(err) {
     console.log(err);
