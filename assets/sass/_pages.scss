@@ -207,6 +207,11 @@
         }
 
         p {
+          a {
+            border-bottom: #212121 1px solid !important;
+            display: inline;
+          }
+
           &:last-of-type {
             margin-bottom: 0;
           }
