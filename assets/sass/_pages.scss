@@ -216,11 +216,13 @@
     }
 
     .description {
-      color: #666;
+      color: #999;
+      font-size: 1rem;
+      margin-bottom: 2rem;
 
       a {
-        color: #666;
-        border-bottom: #666 1px solid;
+        color: #999;
+        border-bottom: #999 1px solid;
         text-decoration: none;
       }
     }
