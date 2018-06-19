@@ -122,11 +122,13 @@
     }
 
     .description {
-      color: #666;
+      color: #888;
+      font-size: 0.9em;
+      margin-bottom: 2rem;
 
       a {
-        color: #666;
-        border-bottom: #666 1px solid;
+        color: #888;
+        border-bottom: #888 1px solid;
         text-decoration: none;
       }
     }
