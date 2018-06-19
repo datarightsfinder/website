@@ -166,11 +166,15 @@
     <p class="description">Organisations must provide information about <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">what they do</a> with data. This section highlights less common uses of data.</p>
 
     {% if result.payload.unusualProcessingPurposes %}
-      {% if result.payload.unusualProcessingPurposes.present == "present" and result.payload.unusualProcessingPurposes.observations %}
-        <h3>Observations</h3>
-        <p>{{ result.payload.unusualProcessingPurposes.observations | striptags(true) | escape | nl2br }}</p>
+      {% if result.payload.unusualProcessingPurposes.isMissing == true %}
+        <p>This privacy notice does not appear to provide information about processing purposes.</p>
       {% else %}
-        <p>This privacy notice does not appear to have this information.</p>
+        {% if result.payload.unusualProcessingPurposes.present == "present" and result.payload.unusualProcessingPurposes.observations %}
+          <h3>Observations</h3>
+          <p>{{ result.payload.unusualProcessingPurposes.observations | striptags(true) | escape | nl2br }}</p>
+        {% elif result.payload.unusualProcessingPurposes.present == "not_present" %}
+          <p>This privacy notice does not appear to mention any unusual processing purposes.</o>
+        {% endif %}
       {% endif %}
     {% else %}
       {% include 'partials/_section_missing.html' %}
