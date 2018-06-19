@@ -3,36 +3,16 @@ const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
 const moment = require('moment');
+const tableify = require('tableify');
 const overviewMatrix = require('../libs/overview_matrix');
 const constants = require('../libs/constants');
-const tableify = require('tableify');
+const models = require('../models');
 
 const countries = require('../countries.json');
 const settings = yaml.load('settings.yaml');
 
-// SEQUELIZE
-const Sequelize = require('sequelize');
-const sequelizeConfig = require('../config/config.js');
-
-let sequelize;
-
-if (process.env.NODE_ENV === 'test') {
-  sequelize = new Sequelize({
-    storage: sequelizeConfig[process.env.NODE_ENV].storage,
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-} else {
-  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-}
-
-const Organisation = sequelize.import('../models/organisation.js');
-
 router.get('/:country/:number', function(req, res, next) {
-  Organisation.findOne({
+  models.Organisation.findOne({
     where: {
       registrationCountry: req.params.country,
       registrationNumber: req.params.number,
@@ -67,7 +47,7 @@ router.get('/:country/:number', function(req, res, next) {
 });
 
 router.get('/:country/:number.json', function(req, res, next) {
-  Organisation.findOne({
+  models.Organisation.findOne({
     where: {
       registrationCountry: req.params.country,
       registrationNumber: req.params.number,
