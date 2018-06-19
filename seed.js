@@ -1,20 +1,19 @@
 // NPM INCLUDES
-const _ = require('lodash');
-const cleanDeep = require('clean-deep');
 const async = require('async');
 const request = require('request');
 const yaml = require('yamljs');
 const execSync = require('child_process').execSync;
 
-// LOCAL IMPORTS
-const Utils = require('./libs/utils.js');
-const sync = require('./libs/sync');
-const settings = yaml.load('settings.yaml');
-
 // STARTUP CHECKS
+const Utils = require('./libs/utils.js');
+
 if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'NODE_ENV'])) {
   process.exit();
 }
+
+// LOCAL IMPORTS
+const sync = require('./libs/sync');
+const settings = yaml.load('settings.yaml');
 
 // SEQUELIZE
 const Sequelize = require('sequelize');
