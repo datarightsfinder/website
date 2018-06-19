@@ -138,6 +138,15 @@
       border-radius: 5px;
       padding: 0.5rem 1rem;
 
+      img {
+        float: right;
+        height: 22px;
+
+        @include media(desktop) {
+          margin-top: 2px;
+        }
+      }
+
       @include media(desktop) {
         margin-top: 2rem;
       }
