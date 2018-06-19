@@ -66,53 +66,58 @@
             <p><span class="bold">Seeing data</span> they have about me</p>
           </a>
         </li>
-
         <li>
-          <a href="#">
+          <a href="#" data-right="rectification">
+            <p><span class="bold">Changing data</span> they have about me</p>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-right="erasure">
             <p><span class="bold">Deleting data</span> they have about me</p>
           </a>
         </li>
-
         <li>
-          <a href="#">
+          <a href="#" data-right="restrict-processing">
             <p><span class="bold">Limiting what they can do</span> with data about me</p>
           </a>
         </li>
-
         <li>
-          <a href="#">
+          <a href="#" data-right="data-portability">
             <p><span class="bold">Exporting data</span> they have about me</p>
           </a>
         </li>
-
         <li>
-          <a href="#">
+          <a href="#" data-right="object">
             <p><span class="bold">Preventing use of data</span> for particular reasons</p>
           </a>
         </li>
-
         <li>
-          <a href="#">
+          <a href="#" data-right="automated-decision-making">
             <p><span class="bold">Understanding and challenging an automated decision</span> they've made</p>
           </a>
         </li>
-
       </ul>
 
-      <div id="shortcut-access" class="shortcut-info">
-        <h2>See what data Monzo have about me</h2>
-        <p>People can request to see what information an organisation has about them. They usually can't charge for this, and must respond within a month. <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-of-access/">Find out more.</a></p>
+      {% set right = "access" %}
+      {% include 'partials/_shortcut_item.html' %}
 
-        <h3>From their privacy notice</h3>
-        <p>Text from the observations section</p>
+      {% set right = "rectification" %}
+      {% include 'partials/_shortcut_item.html' %}
 
-        <h3>To exercise this right</h3>
-        <p>Send an email to <a href="mailto:help@monzo.com">help@monzo.com</a></p>
+      {% set right = "erasure" %}
+      {% include 'partials/_shortcut_item.html' %}
 
-        <h3>Message template</h3>
-        <textarea style="height: 100px; margin-top: 0.5rem;">Dear Sir/Madam,&#10;Under my GDPR rights, I am asking to see my information.</textarea>
-        <p><a href="#">Copy template to clipboard</a></p>
-      </div>
+      {% set right = "restrict-processing" %}
+      {% include 'partials/_shortcut_item.html' %}
+
+      {% set right = "data-portability" %}
+      {% include 'partials/_shortcut_item.html' %}
+
+      {% set right = "object" %}
+      {% include 'partials/_shortcut_item.html' %}
+
+      {% set right = "automated-decision-making" %}
+      {% include 'partials/_shortcut_item.html' %}
     </div>
   </div>
 </div>

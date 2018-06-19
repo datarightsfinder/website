@@ -1,0 +1,30 @@
+<div id="shortcut-{{ right }}" class="shortcut-info">
+  {% if right == "access" %}
+    <h2>Your right to access</h2>
+    <p>You can <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-of-access/" target="_blank">ask to see</a> what information {{ result.name }} has about you. They usually can’t charge for this, and they must respond to your request within a month.</p>
+  {% elif right == "rectification" %}
+    <h2>Your right to rectification</h2>
+    <p>You can ask {{ result.name }} to <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-rectification/" target="_blank">change inaccurate or incomplete information</a> about you. They must respond to your request within a month. Sometimes your request can be refused.</p>
+  {% elif right == "erasure" %}
+    <h2>Your right to erasure</h2>
+    <p>You can ask that {{ result.name }} <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/" target="_blank">delete information about you</a>. They must respond to your request within a month. Sometimes your request can be refused.</p>
+  {% elif right == "restrict-processing" %}
+    <h2>Your right to restrict processing</h2>
+    <p>You can ask that {{ result.name }} <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-restrict-processing/" target="_blank">only store data about you</a> and not use it. They must respond to your request within a month.</p>
+  {% elif right == "data-portability" %}
+    <h2>Your right to data portability</h2>
+    <p>You can ask {{ result.name }} to <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-data-portability/" target="_blank">move data about you</a> to another service or provide it in a format that can be used by another service.</p>
+  {% elif right == "object" %}
+    <h2>Your right to object</h2>
+    <p>You can ask {{ result.name }} to <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-object/" target="_blank">stop using your data</a> for particular reasons, like marketing. They must respond to your request within a month.</p>
+  {% elif right == "automated-decision-making" %}
+    <h2>Your rights around automated decision making</h2>
+    <p>You can ask {{ result.name }} to give you information about how they use <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/rights-related-to-automated-decision-making-including-profiling/" target="_blank">automated decision making</a>, or ask for a person to review an automated decision.</p>
+  {% endif %}
+
+  <h3>From their privacy notice</h3>
+  <p>Text from the observations section</p>
+
+  <h3>To exercise this right</h3>
+  <p>Send an email to <a href="mailto:help@monzo.com">help@monzo.com</a></p>
+</div>
