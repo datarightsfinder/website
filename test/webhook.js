@@ -4,31 +4,10 @@ const del = require('delete');
 const execSync = require('child_process').execSync;
 const async = require('async');
 const nock = require('nock');
+const models = require('../models');
 
 // IMPORT LIBARARIES TO TEST WITH
 const webhook = require('../controllers/webhook');
-
-// SEQUELIZE
-const Sequelize = require('sequelize');
-const sequelizeConfig = require('../config/config.js');
-
-let sequelize;
-
-if (process.env.NODE_ENV === 'test') {
-  sequelize = new Sequelize({
-    storage: sequelizeConfig[process.env.NODE_ENV].storage,
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-} else {
-  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-}
-
-// MODELS
-const Organisation = sequelize.import('../models/organisation.js');
 
 refreshDatabase();
 
@@ -50,7 +29,7 @@ describe('incoming webhook (create)', function() {
     async.waterfall([
       function(callback) {
         // Reset database
-        Organisation.destroy({
+        models.Organisation.destroy({
           where: {},
           truncate: true,
         }).then(function() {
@@ -64,7 +43,7 @@ describe('incoming webhook (create)', function() {
         webhook.handleIncoming(input, callback);
       },
       function(callback) {
-        Organisation.findOne({
+        models.Organisation.findOne({
           where: {
             filename: 'gb09802689.json',
           },
@@ -108,7 +87,7 @@ describe('incoming webhook (modify)', function() {
     async.waterfall([
       function(callback) {
         // Reset database
-        Organisation.destroy({
+        models.Organisation.destroy({
           where: {},
           truncate: true,
         }).then(function() {
@@ -119,7 +98,7 @@ describe('incoming webhook (modify)', function() {
         // Add an existing entry to the database
         let existingPayload = '{"organisationInformation":{"name":"Projects By IF","number":"09802689","registrationCountry":"gb"},"organisationUrls":["https://projectsbyif.com"],"privacyNoticeUrl":{"url":"https://projectsbyif.com/how-if-uses-data"},"dataProtectionOfficer":{"present":"not_present"},"dataProtectionRegister":{"present":"not_present"},"dataProcessingAddendum":{"present":"not_present"}}';
 
-        Organisation.create({
+        models.Organisation.create({
           name: 'PROJECTS BY IF LTD',
           registrationNumber: '09802689',
           registrationCountry: 'gb',
@@ -136,7 +115,7 @@ describe('incoming webhook (modify)', function() {
         webhook.handleIncoming(input, callback);
       },
       function(callback) {
-        Organisation.findOne({
+        models.Organisation.findOne({
           where: {
             filename: 'gb09802689.json',
           },
@@ -169,7 +148,7 @@ describe('incoming webhook (delete)', function() {
     async.waterfall([
       function(callback) {
         // Reset database
-        Organisation.destroy({
+        models.Organisation.destroy({
           where: {},
           truncate: true,
         }).then(function() {
@@ -180,7 +159,7 @@ describe('incoming webhook (delete)', function() {
         // Add an existing entry to the database
         let existingPayload = '{"organisationInformation":{"name":"Projects By IF","number":"09802689","registrationCountry":"gb"},"organisationUrls":["https://projectsbyif.com"],"privacyNoticeUrl":{"url":"https://projectsbyif.com/how-if-uses-data"},"dataProtectionOfficer":{"present":"not_present"},"dataProtectionRegister":{"present":"not_present"},"dataProcessingAddendum":{"present":"not_present"}}';
 
-        Organisation.create({
+        models.Organisation.create({
           name: 'PROJECTS BY IF LTD',
           registrationNumber: '09802689',
           registrationCountry: 'gb',
@@ -197,7 +176,7 @@ describe('incoming webhook (delete)', function() {
         webhook.handleIncoming(input, callback);
       },
       function(callback) {
-        Organisation.findOne({
+        models.Organisation.findOne({
           where: {
             filename: 'gb09802689.json',
           },

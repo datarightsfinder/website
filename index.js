@@ -13,7 +13,7 @@ const Constants = require('./libs/constants');
 const Utils = require('./libs/utils.js');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'NODE_ENV'])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
   process.exit();
 }
 

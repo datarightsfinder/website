@@ -179,7 +179,7 @@
 
     li {
       border: #CCC 1px solid !important;
-      padding: 0.5rem;
+      padding: 0.5rem 0.7rem;
       border-radius: 5px;
       margin-bottom: 0.5rem;
 
@@ -207,6 +207,11 @@
         }
 
         p {
+          a {
+            border-bottom: #212121 1px solid !important;
+            display: inline;
+          }
+
           &:last-of-type {
             margin-bottom: 0;
           }
