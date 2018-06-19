@@ -9,8 +9,6 @@ const nunjucks = require('nunjucks');
 const helmet = require('helmet');
 const Constants = require('./libs/constants');
 
-require('dotenv').config();
-
 // LOCAL IMPORTS
 const Utils = require('./libs/utils.js');
 

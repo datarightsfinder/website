@@ -42,8 +42,5 @@ bower_components
 public/css/*
 public/js/app.js
 
-# dotenv environment variables file
-.env
-
 # Testing
 test/test.db
