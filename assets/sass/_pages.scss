@@ -59,7 +59,7 @@
       }
     }
 
-    ul {
+    ul.overview-matrix {
       list-style-type: none;
       padding-left: 0;
       margin-bottom: 1rem;
@@ -122,6 +122,86 @@
             display: block;
             float: left;
           }
+        }
+      }
+    }
+  }
+
+  .shortcuts {
+    padding-bottom: 1rem;
+
+    .button-shortcut {
+      display: block;
+      margin-top: 1rem;
+      text-decoration: none;
+      border: #CCC 1px solid;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+
+      @include media(desktop) {
+        margin-top: 2rem;
+      }
+
+      &.active {
+        border-radius: 5px 5px 0px 0px;
+        border-top: #CCC 1px solid;
+        border-right: #CCC 1px solid;
+        border-bottom: none;
+        border-left: #CCC 1px solid;
+      }
+    }
+
+    ul {
+      border: #CCC 1px solid;
+      padding: 0;
+      border-radius: 0px 0px 5px 5px;
+
+      @include media(tablet) {
+        position: absolute;
+        z-index: 9999;
+        background: #FFF;
+        width: 568px;
+      }
+
+      li {
+        list-style-type: none;
+        padding: 0.5rem 1rem;
+        border-bottom: #CCC 1px solid;
+
+        &:last-of-type {
+          border-bottom: 0;
+        }
+
+        a {
+          text-decoration: none;
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .shortcut-info {
+      background: #EEE;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: none;
+
+      h2 {
+        margin-top: 0;
+        font-size: 1rem;
+      }
+
+      h3 {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+      }
+
+      p {
+        &:last-of-type {
+          margin-bottom: 0;
         }
       }
     }
