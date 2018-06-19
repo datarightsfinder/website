@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'test') {
 
 const Organisation = sequelize.import('../models/organisation.js');
 
-router.get('/:country/:number', function(req, res, next) {
+router.get('/organisation/:country/:number', function(req, res, next) {
   Organisation.findOne({
     where: {
       registrationCountry: req.params.country,
@@ -66,7 +66,12 @@ router.get('/:country/:number', function(req, res, next) {
   });
 });
 
-router.get('/:country/:number.json', function(req, res, next) {
+router.get('/organisation/:country/:number.json', function(req, res, next) {
+  res.redirect(`/api/1/organisation/${req.params.country}/`
+      + `${req.params.number}`);
+});
+
+router.get('/api/1/organisation/:country/:number', function(req, res, next) {
   Organisation.findOne({
     where: {
       registrationCountry: req.params.country,

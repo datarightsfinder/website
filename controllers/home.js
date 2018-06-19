@@ -43,4 +43,27 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/api/1/all', function(req, res, next) {
+  Organisation.findAll({
+    order: [
+      ['name', 'ASC'],
+    ],
+  }).then(function(_all) {
+    let all = [];
+
+    _all.forEach(function(elem) {
+      all.push({
+        name: elem.name,
+        url: `${settings.url}/organisation/${elem.registrationCountry}/`
+          + `${elem.registrationNumber}.json`,
+      });
+    });
+
+    res.setHeader('content-type', 'application/json');
+    res.status(200).send({
+      all_organisations: all,
+    });
+  });
+});
+
 module.exports = router;
