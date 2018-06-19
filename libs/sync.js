@@ -133,40 +133,14 @@ function handleModified(files, parentCallback) {
       // Remove empty fields
       json = cleanseJson(json);
 
-      // Try and get name from OpenCorporates
-      let url = `https://api.opencorporates.com/companies/`
-        + `${json.organisationInformation.registrationCountry.toLowerCase()}/`
-        + `${json.organisationInformation.number}`;
-
-      console.log(`---> Getting ${url}`);
-
-      request(url, function(err, res, body) {
-        let name = '';
-
-        if (res.statusCode === 200) {
-          // Company information available on OpenCorporates
-          try {
-            let openCorporates = JSON.parse(body);
-            name = openCorporates.results.company.name;
-            console.log('----> Successfully retreived from OpenCorporates');
-          } catch (e) {
-            name = json.organisationInformation.name;
-            console.log('----> Failed to get info from OpenCorporates');
-          }
-        } else {
-          name = json.organisationInformation.name;
-          console.log('----> Failed to get info from OpenCorporates');
-        }
-
-        upsert({
-          'name': name,
-          'registrationNumber': json.organisationInformation.number,
-          'registrationCountry': json.organisationInformation
-                                      .registrationCountry,
-          'payload': json,
-          'filename': filename,
-        }, callback);
-      });
+      upsert({
+        'name': json.organisationInformation.name,
+        'registrationNumber': json.organisationInformation.number,
+        'registrationCountry': json.organisationInformation
+                                    .registrationCountry,
+        'payload': json,
+        'filename': filename,
+      }, callback);
     },
   ], function(err) {
     if (err) {
