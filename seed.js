@@ -13,7 +13,7 @@ const sync = require('./libs/sync');
 const settings = yaml.load('settings.yaml');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'NODE_ENV'])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
   process.exit();
 }
 
