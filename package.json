@@ -1,7 +1,7 @@
 {
-  "name": "org-gdpr-tool-website",
+  "name": "open-data-rights-website",
   "version": "1.0.0",
-  "description": "",
+  "description": "Find, understand and use information from privacy notices",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -36,8 +36,8 @@
     "tableify": "^1.1.0",
     "yamljs": "^0.3.0"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Open Rights Group / Projects By IF",
+  "license": "MIT",
   "engines": {
     "node": "8.9.4",
     "npm": "6.0.0"
