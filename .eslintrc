@@ -11,6 +11,7 @@
         MethodDefinition: false,
         ClassDeclaration: false,
       }
-    }]
+    }],
+    "new-cap": [0]
   }
 }
