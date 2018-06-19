@@ -111,7 +111,7 @@
     <p class="description">Organisations that use special categories of data, are public bodies, or do large scale processing must appoint a <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-officers/" target="_blank">Data Protection Officer</a>.</p>
 
     {% if result.payload.dataProtectionOfficer %}
-      {% if result.payload.dataProtectionOfficer.present == "present" %}
+      {% if result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.name or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.role or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.contactInfo %}
         {% if result.payload.dataProtectionOfficer.name %}
           <h3>Name</h3>
           <p>{{ result.payload.dataProtectionOfficer.name }}</p>
@@ -166,7 +166,7 @@
     <p class="description">Organisations must provide information about <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">what they do</a> with data. This section highlights less common uses of data.</p>
 
     {% if result.payload.unusualProcessingPurposes %}
-      {% if result.payload.unusualProcessingPurposes == "present" and result.payload.unusualProcessingPurposes.observations %}
+      {% if result.payload.unusualProcessingPurposes.present == "present" and result.payload.unusualProcessingPurposes.observations %}
         <h3>Observations</h3>
         <p>{{ result.payload.unusualProcessingPurposes.observations | striptags(true) | escape | nl2br }}</p>
       {% else %}
