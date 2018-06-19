@@ -15,6 +15,7 @@
   <div class="row">
     <div class="columns small-12 large-12">
       <h1>{{ result.name }}</h1>
+      {% if result.payload.organisationInformation.description %}<p>{{ result.payload.organisationInformation.description }}</p>{% endif %}
       <p class="banner-buttons">
         <span>Based in {{ meta.fullCountryName }}</span>
         {% if result.payload.organisationUrls[0] %}
