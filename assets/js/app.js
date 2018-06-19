@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 $(function() {
   $('.collapsable li div').hide();
 
