@@ -44,6 +44,8 @@ nunjucksEnv.addFilter('highlightSpecialCategory', function(category) {
   }
 });
 
+nunjucksEnv.addGlobal('env', process.env.NODE_ENV);
+
 nunjucksEnv.express(app);
 
 // ROUTES
