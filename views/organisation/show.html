@@ -311,7 +311,9 @@
       {% if result.payload.unusualProcessingPurposes == "present" and result.payload.unusualProcessingPurposes.observations %}
         <h3>Observations</h3>
         <p>{{ result.payload.unusualProcessingPurposes.observations | striptags(true) | escape | nl2br }}</p>
-      {% else %}
+      {% elif result.payload.unusualProcessingPurposes == "unclear" %}
+        <p>It is unclear if this organisation processes data for unusual purposes.</p>
+      {% elif result.payload.unusualProcessingPurposes == "not_present" %}
         <p>This privacy notice does not appear to have this information.</p>
       {% endif %}
     {% else %}
