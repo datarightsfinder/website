@@ -374,7 +374,7 @@ function individualRightsWarning(payload) {
   }
 
   try {
-    if (payload.rights.general.contactInfo) {
+    if (payload.rights.general) {
       return false;
     }
   } catch (e) {
