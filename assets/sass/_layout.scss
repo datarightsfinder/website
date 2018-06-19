@@ -2,6 +2,11 @@ html, body {
   height: 100%;
 }
 
+/* Fix placeholder line-height bug on Safari */
+input {
+  line-height: normal;
+}
+
 .columns {
   padding-left: 1.3rem;
   padding-right: 1.3rem;
