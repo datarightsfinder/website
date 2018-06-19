@@ -31,25 +31,24 @@
 </div>
 
 {% if meta.overviewMatrix.length > 0 %}
-<div id="summary" class="summary">
-  <div class="row">
-    <div class="columns small-12 large-12">
-      <h2>Privacy notice at a glance</h2>
-      <ul>
-        {% for item in meta.overviewMatrix %}
-          {% if item != false %}
-          <li>
-            {% if item.status == "good" %}
-            <span class="good">+</span>
-            {% elif item.status == "warning" %}
-            <span class="warning">–</span>
-            {% endif %}
-            <span>{{ item.message | safe }}</span>
-          </li>
+<div class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Privacy notice at a glance</h2>
+
+    <ul class="at-a-glance">
+      {% for item in meta.overviewMatrix %}
+        {% if item != false %}
+        <li>
+          {% if item.status == "good" %}
+          <span class="good">+</span>
+          {% elif item.status == "warning" %}
+          <span class="warning">–</span>
           {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
+          <span>{{ item.message | safe }}</span>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
   </div>
 </div>
 {% endif %}

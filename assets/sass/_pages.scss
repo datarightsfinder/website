@@ -29,7 +29,6 @@
         margin-bottom: 1.1rem;
       }
 
-
       a {
         color: #FFF;
         border-bottom: #FFF 1px solid;
@@ -48,79 +47,66 @@
     }
   }
 
-  .summary {
-    background: $colour-secondary;
+  .at-a-glance {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1rem;
 
-    h2 {
-      margin-top: 1rem;
-
-      @include media(desktop) {
-        margin-top: 2rem;
-      }
-    }
-
-    ul {
-      list-style-type: none;
-      padding-left: 0;
+    li {
+      overflow: hidden;
       margin-bottom: 1rem;
 
       @include media(desktop) {
-        margin-bottom: 2.4rem;
+        margin-bottom: 1.3rem;
       }
 
-      li {
-        overflow: hidden;
-        margin-bottom: 1rem;
+      &:last-of-type {
+        margin-bottom: 0;
+      }
 
-        @include media(desktop) {
-          margin-bottom: 1.3rem;
+      span {
+        a {
+          border-bottom: #CCC 1px solid;
+          text-decoration: none;
+        }
+
+        &:first-of-type {
+          margin-right: 10px;
+          width: 18px;
+          height: 18px;
+          display: block;
+          float: left;
+          font-size: 1em;
+          text-align: center;
+          line-height: 18px;
+          border-radius: 5px;
+          color: #FFF;
+
+          @include media(desktop) {
+            width: 19px;
+            height: 19px;
+            line-height: 18px;
+          }
+        }
+
+        &.good {
+          background: #21b321;
+        }
+
+        &.warning {
+          background: #f04124;
+          line-height: 16px;
         }
 
         &:last-of-type {
-          margin-bottom: 0;
-        }
+          width: calc(100% - 19px - 10px);
+          display: block;
+          float: left;
+          margin-top: -3px;
 
-        span {
           @include media(desktop) {
-            font-size: 1.35rem;
-
-            &:first-of-type {
-              margin-top: 4px;
-            }
-          }
-
-          a {
-            border-bottom: #CCC 1px solid;
-            text-decoration: none;
-          }
-
-          &:first-of-type {
-            margin-right: 20px;
-            width: 25px;
-            height: 25px;
-            display: block;
-            float: left;
-            padding-top: 2px;
-            font-size: 1.5em;
-            text-align: center;
-            line-height: 20px;
-            border-radius: 5px;
-            color: #FFF;
-          }
-
-          &.good {
-            background: #21b321;
-          }
-
-          &.warning {
-            background: #f04124;
-            line-height: 16px;
-          }
-
-          &:last-of-type {
-            width: calc(100% - 25px - 20px);
-            display: block;
-            float: left;
+            width: calc(100% - 19px - 10px);
+            margin-top: -4px;
           }
         }
       }
