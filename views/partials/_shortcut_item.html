@@ -27,4 +27,24 @@
 
   <h3>To exercise this right</h3>
   <p>Send an email to <a href="mailto:help@monzo.com">help@monzo.com</a></p>
+
+  <h3>Message template</h3>
+
+  {% if right == "access" and messageTemplates.access %}
+    <textarea>{{ messageTemplates.access }}</textarea>
+  {% elif right == "rectification" and messageTemplates.rectification %}
+    <textarea>{{ messageTemplates.rectification }}</textarea>
+  {% elif right == "erasure" and messageTemplates.erasure %}
+    <textarea>{{ messageTemplates.erasure }}</textarea>
+  {% elif right == "restrict-processing" and messageTemplates.restrict_processing %}
+    <textarea>{{ messageTemplates.restrict_processing }}</textarea>
+  {% elif right == "data-portability" and messageTemplates.data_portability %}
+    <textarea>{{ messageTemplates.data_portability }}</textarea>
+  {% elif right == "object" and messageTemplates.object %}
+    <textarea>{{ messageTemplates.object }}</textarea>
+  {% elif right == "automated-decision-making" and messageTemplates.automated_decision_making %}
+    <textarea>{{ messageTemplates.automated_decision_making }}</textarea>
+  {% endif %}
+
+  <p><a href="#">Copy template to clipboard</a></p>
 </div>
