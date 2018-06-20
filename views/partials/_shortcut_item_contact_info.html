@@ -10,8 +10,8 @@
 
   {% if messageTemplates[right] %}
     <p><a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") }}">Email {{ contactInfo.emailAddress }} using this template</a></p>
-    <textarea style="background:rgba(0,0,0,0.01); font-family: monospace;">{{ messageTemplates[right] }}</textarea>
-    <p><a href="#" class="copy-to-clipboard" style="font-size: 0.75em;">Copy template to clipboard</a></p>
+    <textarea>{{ messageTemplates[right] }}</textarea>
+    <p><a href="#" class="copy-to-clipboard">Copy template to clipboard</a></p>
   {% else %}
     <p><a href="mailto:{{ contactInfo.emailAddress }}">{{ contactInfo.emailAddress }}</a></p>
   {% endif %}
