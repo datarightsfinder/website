@@ -132,6 +132,11 @@ footer {
   position: relative;
   bottom: 0;
 
+  a {
+    border-bottom: #{$color-link-underline} 1px solid;
+    text-decoration: none;
+  }
+
   .licence {
     opacity: 0.6;
   }

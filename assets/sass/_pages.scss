@@ -18,6 +18,11 @@
       @include media(desktop) {
         margin: 1.25rem 0;
       }
+
+      a {
+        color: #FFF;
+        text-decoration: none;
+      }
     }
 
     .banner-buttons {
@@ -167,7 +172,7 @@
 
     a {
       text-decoration: none;
-      border-bottom: #212121 1px solid;
+      border-bottom: #{$color-link-underline} 1px solid;
     }
   }
 
@@ -231,6 +236,11 @@
   #actions {
     margin-top: 1rem;
 
+    a {
+      border-bottom: #{$color-link-underline} 1px solid;
+      text-decoration: none;
+    }
+
     @include media(desktop) {
       margin-top: 2rem;
     }
@@ -238,6 +248,9 @@
 
   .update-needed {
     margin-top: 1rem;
+    border: #{$color-grey} 1px dashed;
+    padding: 1rem;
+    color: $color-grey;
 
     .bold {
       font-weight: 600;
@@ -245,8 +258,8 @@
     }
 
     a {
-      border: none !important;
-      text-decoration: underline !important;
+      color: $color-grey;
+      border-bottom: #{$color-link-underline} 1px solid !important;
       padding: 0 !important;
       margin: 0 !important;
     }
@@ -300,5 +313,10 @@
     margin-bottom: 0.2rem;
     margin-top: 1.3rem;
     color: #555;
+  }
+
+  .content p a {
+    border-bottom: #{$color-link-underline} 1px solid;
+    text-decoration: none;
   }
 }
