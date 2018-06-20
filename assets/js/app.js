@@ -16,7 +16,7 @@ $(function() {
   // SHORTCUTS
   $('.shortcuts li .shortcut-info').hide();
 
-  $('.shortcuts li a').click(function(e) {
+  $('.shortcuts li a.toggle').click(function(e) {
     e.preventDefault();
 
     $(this).parent().find('.shortcut-info').toggle();

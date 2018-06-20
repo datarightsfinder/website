@@ -36,7 +36,7 @@
 
     <ul class="shortcuts">
       <li>
-        <a href="#" data-right="access">
+        <a href="#" class="toggle">
           <p>See data they hold about you</p>
           <div></div>
         </a>
@@ -44,7 +44,7 @@
         {% include 'partials/_shortcut_item.html' %}
       </li>
       <li>
-        <a href="#" data-right="rectification">
+        <a href="#" class="toggle">
           <p>Change data they hold about you</p>
           <div></div>
         </a>
@@ -52,7 +52,7 @@
         {% include 'partials/_shortcut_item.html' %}
       </li>
       <li>
-        <a href="#" data-right="erasure">
+        <a href="#" class="toggle">
           <p>Delete data they hold about you</p>
           <div></div>
         </a>
@@ -60,15 +60,15 @@
         {% include 'partials/_shortcut_item.html' %}
       </li>
       <li>
-        <a href="#" data-right="restrict-processing">
+        <a href="#" class="toggle">
           <p>Limit how they use data about you</p>
           <div></div>
         </a>
-        {% set right = "restrict-processing" %}
+        {% set right = "restrictProcessing" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
       <li>
-        <a href="#" data-right="object">
+        <a href="#" class="toggle">
           <p>Stop their use of data about you</p>
           <div></div>
         </a>
@@ -76,19 +76,19 @@
         {% include 'partials/_shortcut_item.html' %}
       </li>
       <li>
-        <a href="#" data-right="data-portability">
+        <a href="#" class="toggle">
           <p>Export data they hold about you</p>
           <div></div>
         </a>
-        {% set right = "data-portability" %}
+        {% set right = "dataPortability" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
       <li>
-        <a href="#" data-right="automated-decision-making">
+        <a href="#" class="toggle">
           <p>Challenge an automated decision</p>
           <div></div>
         </a>
-        {% set right = "automated-decision-making" %}
+        {% set right = "automatedDecisionMaking" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
     </ul>
