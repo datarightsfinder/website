@@ -35,7 +35,6 @@ $(function() {
     document.execCommand('copy');
     $(this).parent().parent().find('textarea').blur();
 
-    $(this).parent().text('Copied');
-    $(this).remove();
+    $(this).text('Copied');
   });
 });
