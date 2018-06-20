@@ -38,6 +38,58 @@
         border-bottom: #{$color-link-underline} 1px solid;
       }
     }
+
+    .shortcuts {
+      padding: 0;
+      margin-bottom: 2.5rem;
+
+      li {
+        list-style-type: none;
+        border: #CCC 1px solid;
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+
+        div {
+          border-top: #CCC 1px solid;
+          padding: 0.5rem 1rem;
+          background: rgba(255, 255, 255, 0.5);
+
+          a {
+            padding: 0;
+            display: inline;
+            width: initial;
+            border-bottom: #212121 1px solid;
+          }
+
+          h3 {
+            text-transform: uppercase;
+            font-size: 0.7em;
+            margin-bottom: 0.2rem;
+            margin-top: 1.3rem;
+            color: #555;
+          }
+
+          textarea {
+            height: 100px;
+          }
+        }
+
+        p {
+          margin-bottom: 0;
+
+          .bold {
+            font-weight: normal !important;
+          }
+        }
+
+        a {
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          display: block;
+          width: 100%;
+        }
+      }
+    }
   }
 
   .data-row {

@@ -27,8 +27,59 @@
 
       <p>It includes information about how you can contact this organisation and explains what data they store and how they use it.</p>
 
-      <!-- <h2>Make a request to...</h2> -->
+      <h2>Make a request to...</h2>
 
+      <ul class="shortcuts">
+        <li>
+          <a href="#" data-right="access" class="toggle">
+            <p>Seeing data they have about me</p>
+          </a>
+          {% set right = "access" %}
+          {% include 'partials/_shortcut_item.html' %}
+        </li>
+        <li>
+          <a href="#" data-right="rectification" class="toggle">
+            <p>Changing data they have about me</p>
+          </a>
+          {% set right = "rectification" %}
+          {% include 'partials/_shortcut_item.html' %}
+        </li>
+        <li>
+          <a href="#" data-right="erasure" class="toggle">
+            <p>Deleting data they have about me</p>
+          </a>
+          {% set right = "erasure" %}
+          {% include 'partials/_shortcut_item.html' %}
+        </li>
+        <li>
+          <a href="#" data-right="restrict-processing" class="toggle">
+            <p>Limiting their use of data about me</p>
+          </a>
+          {% set right = "restrict-processing" %}
+          {% include 'partials/_shortcut_item.html' %}
+        </li>
+        <li>
+          <a href="#" data-right="object" class="toggle">
+            <p>Stopping their use of data about me</p>
+          </a>
+          {% set right = "object" %}
+          {% include 'partials/_shortcut_item.html' %}
+        </li>
+        <li>
+          <a href="#" data-right="data-portability" class="toggle">
+            <p>Exporting data they have about me</p>
+          </a>
+          {% set right = "data-portability" %}
+          {% include 'partials/_shortcut_item.html' %}
+        </li>
+        <li>
+          <a href="#" data-right="automated-decision-making" class="toggle">
+            <p>Understanding and challenging an automated decision</p>
+          </a>
+          {% set right = "automated-decision-making" %}
+          {% include 'partials/_shortcut_item.html' %}
+        </li>
+      </ul>
     </div>
   </div>
 </div>
