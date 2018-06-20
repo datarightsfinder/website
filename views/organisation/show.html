@@ -27,7 +27,7 @@
   <div class="columns small-12 large-6 end">
     <h2>Make a request</h2>
 
-    <ul class="shortcuts">
+    <ul class="collapsable">
       <li>
         <a href="#" class="toggle">
           <p>See data they hold about you</p>
@@ -284,8 +284,11 @@
         <ul class="collapsable">
           {% if lawfulBases.consent %}
           <li>
-            <a href="#" class="toggle">Consent</a>
-            <div>
+            <a href="#" class="toggle">
+              <p>Consent</p>
+              <div></div>
+            </a>
+            <div class="collapsable-content">
               <p>{{ lawfulBases.consent | striptags(true) | escape | nl2br }}</p>
             </div>
           </li>
@@ -293,8 +296,11 @@
 
           {% if lawfulBases.contract %}
           <li>
-            <a href="#" class="toggle">Contract</a>
-            <div>
+            <a href="#" class="toggle">
+              <p>Contract</p>
+              <div></div>
+            </a>
+            <div class="collapsable-content">
               <p>{{ lawfulBases.contract | striptags(true) | escape | nl2br }}</p>
             </div>
           </li>
@@ -302,8 +308,11 @@
 
           {% if lawfulBases.legalObligation %}
           <li>
-            <a href="#" class="toggle">Legal obligation</a>
-            <div>
+            <a href="#" class="toggle">
+              <p>Legal obligation</p>
+              <div></div>
+            </a>
+            <div class="collapsable-content">
               <p>{{ lawfulBases.legalObligation | striptags(true) | escape | nl2br }}</p>
             </div>
           </li>
@@ -311,8 +320,11 @@
 
           {% if lawfulBases.vitalInterests %}
           <li>
-            <a href="#" class="toggle">Vital interests</a>
-            <div>
+            <a href="#" class="toggle">
+              <p>Vital interests</p>
+              <div></div>
+            </a>
+            <div class="collapsable-content">
               <p>{{ lawfulBases.vitalInterests | striptags(true) | escape | nl2br }}</p>
             </div>
           </li>
@@ -320,8 +332,11 @@
 
           {% if lawfulBases.publicTask %}
           <li>
-            <a href="#" class="toggle">Public task</a>
-            <div>
+            <a href="#" class="toggle">
+              <p>Public task</p>
+              <div></div>
+            </a>
+            <div class="collapsable-content">
               <p>{{ lawfulBases.publicTask | striptags(true) | escape | nl2br }}</p>
             </div>
           </li>
@@ -329,8 +344,11 @@
 
           {% if lawfulBases.legitimateInterests %}
           <li>
-            <a href="#" class="toggle">Legitimate interests</a>
-            <div>
+            <a href="#" class="toggle">
+              <p>Legitimate interests</p>
+              <div></div>
+            </a>
+            <div class="collapsable-content">
               <p>{{ lawfulBases.legitimateInterests | striptags(true) | escape | nl2br }}</p>
             </div>
           </li>

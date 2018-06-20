@@ -1,33 +1,27 @@
 $(function() {
-  $('.collapsable li div').hide();
-
-  $('.collapsable .toggle').click(function(e) {
-    e.preventDefault();
-    $(this).parent().find('div').toggle();
-    $(this).parent().toggleClass('active');
-  });
-
+  // MOBILE SEARCH
   $('.mobile-search').click(function(e) {
     e.preventDefault();
 
     $('.small-search').fadeIn(250);
   });
 
-  // SHORTCUTS
-  $('.shortcuts li .shortcut-info').hide();
+  // COLLAPSABLES
+  $('.collapsable-content').hide();
 
-  $('.shortcuts li a.toggle').click(function(e) {
+  $('.collapsable li a.toggle').click(function(e) {
     e.preventDefault();
 
-    $(this).parent().find('.shortcut-info').toggle();
+    $(this).parent().find('.collapsable-content').toggle();
 
-    if ($(this).parent().find('.shortcut-info').is(':visible')) {
+    if ($(this).parent().find('.collapsable-content').is(':visible')) {
       $(this).addClass('bold');
     } else {
       $(this).removeClass('bold');
     }
   });
 
+  // COPY TO CLIPBOARD
   $('.copy-to-clipboard').click(function(e) {
     e.preventDefault();
 

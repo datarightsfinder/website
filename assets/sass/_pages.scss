@@ -23,7 +23,7 @@
     }
   }
 
-  .shortcuts {
+  .collapsable {
     margin-top: 1rem;
     padding: 0;
 
@@ -36,6 +36,8 @@
       a {
         border-bottom: 0;
         position: relative;
+        padding: 0.5rem 1rem;
+        display: block;
 
         &.bold {
           div {
@@ -58,14 +60,10 @@
         }
       }
 
-      .shortcut-info {
+      .collapsable-content {
         background: rgba(0,0,0,0.03);
         border-top: #EEE 1px solid;
         padding: 0.5rem 1rem;
-
-        .copy-to-clipboard {
-          font-size: 0.75em;
-        }
 
         a {
           padding: 0;
@@ -81,30 +79,21 @@
           margin-top: 1.3rem;
           color: #555;
         }
-
-        textarea {
-          margin-top: 1rem;
-          margin-bottom: 0.5rem;
-          height: 100px;
-          background:rgba(0,0,0,0.01);
-          font-family: monospace;
-        }
       }
+    }
+  }
 
-      p {
-        margin-bottom: 0;
+  .shortcut-item {
+    .copy-to-clipboard {
+      font-size: 0.75em;
+    }
 
-        .bold {
-          font-weight: normal !important;
-        }
-      }
-
-      a {
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        display: block;
-        width: 100%;
-      }
+    textarea {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      height: 100px;
+      background:rgba(0,0,0,0.01);
+      font-family: monospace;
     }
   }
 
@@ -148,59 +137,6 @@
     a {
       text-decoration: none;
       border-bottom: #{$color-link-underline} 1px solid;
-    }
-  }
-
-  .collapsable {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-    margin-top: 0.2rem;
-
-    li {
-      border: #CCC 1px solid !important;
-      padding: 0.5rem 0.7rem;
-      border-radius: 5px;
-      margin-bottom: 0.5rem;
-
-      &.active {
-        a {
-          &:first-of-type {
-            color: $colour-main;
-            font-weight: bold;
-          }
-        }
-      }
-
-      a {
-        border-bottom: none;
-        width: 100%;
-        display: inline-block;
-      }
-
-      div {
-        margin-top: 0.75rem;
-
-        a {
-          color: #212121 !important;
-          font-weight: normal !important;
-        }
-
-        p {
-          a {
-            border-bottom: #212121 1px solid !important;
-            display: inline;
-          }
-
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-        }
-
-        h3 {
-          margin-top: 0.5rem;
-        }
-      }
     }
   }
 
