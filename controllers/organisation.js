@@ -6,6 +6,7 @@ const tableify = require('tableify');
 const constants = require('../libs/constants');
 const models = require('../models');
 
+const messageTemplates = require('../config/message_templates.js');
 const countries = require('../countries.json');
 const settings = yaml.load('settings.yaml');
 
@@ -33,6 +34,7 @@ router.get('/organisation/:country/:number', function(req, res, next) {
       result: _result,
       meta: meta,
       extraData: extraData,
+      messageTemplates: messageTemplates,
     });
   }).catch(function(err) {
     console.log(err);
