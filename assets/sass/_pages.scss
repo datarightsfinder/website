@@ -24,33 +24,6 @@
         text-decoration: none;
       }
     }
-
-    .banner-buttons {
-      margin-bottom: 1rem;
-      overflow: auto;
-      color: #FFF;
-
-      @include media(desktop) {
-        margin-bottom: 1.1rem;
-      }
-
-
-      a {
-        color: #FFF;
-        border-bottom: #FFF 1px solid;
-        text-decoration: none;
-      }
-
-      span {
-        margin-right: 10px;
-      }
-    }
-
-    br {
-      @include media(desktop) {
-        display: none;
-      }
-    }
   }
 
   .summary {
