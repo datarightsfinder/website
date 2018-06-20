@@ -11,18 +11,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="banner">
-  <div class="row">
-    <div class="columns small-12 large-12">
-      <h1>{{ result.name }}</h1>
-      {% if result.payload.organisationInformation.description %}<p>{{ result.payload.organisationInformation.description }}</p>{% endif %}
-    </div>
-  </div>
-</div>
-
 <div class="summary">
   <div class="row">
     <div class="columns small-12 large-6">
+      <h1>{{ result.name }}</h1>
+
       <h2 class="headline">The information on this page is from the {% if result.payload.privacyNoticeUrl.url %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">{% endif %}privacy notice{% if result.payload.privacyNoticeUrl.url %}</a>{% endif %} published by {% if result.payload.organisationUrls[0] %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">{% endif%}{{ result.name }}{% if result.payload.organisationUrls[0] %}</a>{% endif %}.</h2>
 
       <p>You can use this page to learn about how this organisation uses personal data and find out how to make a request related to the data they hold about you.</p>
@@ -98,6 +91,11 @@
 <div id="organisationInformation" class="row data-row">
   <div class="columns small-12 large-6 end">
     <h2>Organisation information</h2>
+
+    {% if result.payload.organisationInformation.description %}
+      <h3>Description</h3>
+      <p>{{ result.payload.organisationInformation.description }}</p>
+    {% endif %}
 
     <h3>Registration country</h3>
     <p>{{ meta.fullCountryName }}</p>

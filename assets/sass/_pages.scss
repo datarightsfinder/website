@@ -8,29 +8,10 @@
     }
   }
 
-  .banner {
-    background: $colour-main;
-    color: #FFF;
-
-    h1 {
-      margin: 1rem 0;
-
-      @include media(desktop) {
-        margin: 1.25rem 0;
-      }
-
-      a {
-        color: #FFF;
-        text-decoration: none;
-      }
-    }
-  }
-
   .summary {
     background: $colour-secondary;
 
     @include media(desktop) {
-      padding-top: 1rem;
       padding-bottom: 1rem;
     }
 
