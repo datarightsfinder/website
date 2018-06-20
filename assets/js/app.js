@@ -1,4 +1,18 @@
 $(function() {
+  // MOBILE MENU
+  $('.mobile-menu').click(function(e) {
+    e.preventDefault();
+
+    $('.nav').toggleClass('active');
+    $(this).toggleClass('active');
+
+    if ($('.nav').is(':visible')) {
+      $(this).text('Close');
+    } else {
+      $(this).text('Menu');
+    }
+  });
+
   // MOBILE SEARCH
   $('.mobile-search').click(function(e) {
     e.preventDefault();
