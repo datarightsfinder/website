@@ -5,7 +5,7 @@ const async = require('async');
 const request = require('request');
 const yaml = require('yamljs');
 const execSync = require('child_process').execSync;
-const models = require('../models');
+const models = require('./models');
 
 // LOCAL IMPORTS
 const Utils = require('./libs/utils.js');
