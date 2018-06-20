@@ -141,11 +141,10 @@
     }
 
     .description {
-      color: #666;
+      margin-bottom: 2rem;
 
       a {
-        color: #666;
-        border-bottom: #666 1px solid;
+        border-bottom: #{$color-link-underline} 1px solid;
         text-decoration: none;
       }
     }
