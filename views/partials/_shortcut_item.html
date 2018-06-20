@@ -17,35 +17,16 @@
 
   {% set contactInfo = result.payload.rights[right].contactInfo %}
 
-  {% if contactInfo.url %}
-    <h3>Through their website</h3>
-    <p>
-      <a href="{{ contactInfo.url }}" target="_blank">{{ contactInfo.url }}</a>
-    </p>
-  {% endif %}
-
-  {% if contactInfo.emailAddress %}
-    <h3>By email</h3>
-
-    {% if messageTemplates[right] %}
-      <p><a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") }}">Email {{ contactInfo.emailAddress }} using this template</a></p>
-      <textarea style="background:rgba(0,0,0,0.01); font-family: monospace;">{{ messageTemplates[right] }}</textarea>
-      <p><a href="#" class="copy-to-clipboard" style="font-size: 0.75em;">Copy template to clipboard</a></p>
-    {% else %}
-      <p><a href="mailto:{{ contactInfo.emailAddress }}">{{ contactInfo.emailAddress }}</a></p>
-    {% endif %}
-  {% endif %}
-
-  {% if contactInfo.telephoneNumber %}
-    <h3>By phone</h3>
-    <p>
-      <a href="tel:{{ contactInfo.telephoneNumber }}">{{ contactInfo.telephoneNumber }}</a>
-    </p>
-  {% endif %}
-
-  {% if contactInfo.postalAddress %}
-    <h3>By post</h3>
-    <p>{{ contactInfo.postalAddress }}</p>
+  {% if contactInfo %}
+    {% include 'partials/_shortcut_item_contact_info.html' %}
+  {% elif result.payload.rights.general.contactInfo %}
+    {% set contactInfo = result.payload.rights.general.contactInfo %}
+    {% include 'partials/_shortcut_item_contact_info.html' %}
+  {% elif result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.contactInfo %}
+    {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
+    {% include 'partials/_shortcut_item_contact_info.html' %}
+  {% else %}
+    <p>No info</p>
   {% endif %}
 
   {% if result.payload.rights[right].observations %}
