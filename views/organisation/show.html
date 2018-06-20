@@ -15,16 +15,20 @@
   <div class="row">
     <div class="columns small-12 large-12">
       <h1>{{ result.name }}</h1>
-      <p class="banner-buttons">
-        <span>Based in {{ meta.fullCountryName }}</span>
-        {% if result.payload.organisationUrls[0] %}
-        <span><a href="{{ result.payload.organisationUrls[0] }}" target="_blank">Website</a></span>
-        {% endif %}
-        <br />
-        {% if result.payload.privacyNoticeUrl.url %}
-        <span><a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">Privacy notice</a></span>
-        {% endif %}
-      </p>
+      {% if result.payload.organisationInformation.description %}<p>{{ result.payload.organisationInformation.description }}</p>{% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="summary">
+  <div class="row">
+    <div class="columns small-12 large-6">
+      <p class="headline">The information on this page is from the {% if result.payload.privacyNoticeUrl.url %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">{% endif %}privacy notice{% if result.payload.privacyNoticeUrl.url %}</a>{% endif %} published by {% if result.payload.organisationUrls[0] %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">{% endif%}{{ result.name }}{% if result.payload.organisationUrls[0] %}</a>{% endif %}.</p>
+
+      <p>It includes information about how you can contact this organisation and explains what data they store and how they use it.</p>
+
+      <!-- <h2>Make a request to...</h2> -->
+
     </div>
   </div>
 </div>
@@ -48,137 +52,6 @@
         {% include 'partials/_contact_info.html' %}
       {% else %}
         <p>This organisation does not appear to have a data protection officer.</p>
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
-<div id="individualRights" class="row data-row">
-  <div class="columns small-12 large-6 end">
-    <h2>Individual rights</h2>
-    <p class="description">Organisations must provide information about the <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/" target="_blank">new individual rights</a> under GDPR.</p>
-    {% set rights = result.payload.rights %}
-
-    {% if rights %}
-      {% if rights.isMissing == true %}
-        <p>This privacy notice does not appear to have this information.</p>
-      {% else %}
-        {% if rights.general %}
-          {% set contactInfo = rights.general.contactInfo %}
-          {% include 'partials/_contact_info.html' %}
-
-          {% if rights.general.observations %}
-            <h3>Observations</h3>
-            <p>{{ rights.general.observations | striptags(true) | escape | nl2br }}</p>
-          {% endif %}
-        {% endif %}
-
-        {% if rights.access or rights.rectification or rights.erasure or rights.restrictProcessing or rights.dataPortability or rights.object or rights.automatedDecisionMaking %}
-        <h3>Specific rights</h3>
-
-        <ul class="collapsable">
-          {% if rights.access %}
-            <li>
-              <a href="#" class="toggle">Access</a>
-              <div>
-                {% set contactInfo = rights.access.contactInfo %}
-                {% include 'partials/_contact_info.html' %}
-
-                {% if rights.access.observations %}
-                  <h3>Observations</h3>
-                  <p>{{ rights.access.observations | striptags(true) | escape | nl2br }}</p>
-                {% endif %}
-              </div>
-            </li>
-          {% endif %}
-          {% if rights.rectification %}
-            <li>
-              <a href="#" class="toggle">Rectification</a>
-              <div>
-                {% set contactInfo = rights.rectification.contactInfo %}
-                {% include 'partials/_contact_info.html' %}
-
-                {% if rights.rectification.observations %}
-                  <h3>Observations</h3>
-                  <p>{{ rights.rectification.observations | striptags(true) | escape | nl2br }}</p>
-                {% endif %}
-              </div>
-            </li>
-          {% endif %}
-          {% if rights.erasure %}
-            <li>
-              <a href="#" class="toggle">Erasure</a>
-              <div>
-                {% set contactInfo = rights.erasure.contactInfo %}
-                {% include 'partials/_contact_info.html' %}
-
-                {% if rights.erasure.observations %}
-                  <h3>Observations</h3>
-                  <p>{{ rights.erasure.observations | striptags(true) | escape | nl2br }}</p>
-                {% endif %}
-              </div>
-            </li>
-          {% endif %}
-          {% if rights.restrictProcessing %}
-            <li>
-              <a href="#" class="toggle">Restrict processing</a>
-              <div>
-                {% set contactInfo = rights.restrictProcessing.contactInfo %}
-                {% include 'partials/_contact_info.html' %}
-
-                {% if rights.restrictProcessing.observations %}
-                  <h3>Observations</h3>
-                  <p>{{ rights.restrictProcessing.observations | striptags(true) | escape | nl2br }}</p>
-                {% endif %}
-              </div>
-            </li>
-          {% endif %}
-          {% if rights.dataPortability %}
-            <li>
-              <a href="#" class="toggle">Data portability</a>
-              <div>
-                {% set contactInfo = rights.dataPortability.contactInfo %}
-                {% include 'partials/_contact_info.html' %}
-
-                {% if rights.dataPortability.observations %}
-                <h3>Observations</h3>
-                <p>{{ rights.dataPortability.observations | striptags(true) | escape | nl2br }}</p>
-                {% endif %}
-              </div>
-            </li>
-          {% endif %}
-          {% if rights.object %}
-            <li>
-              <a href="#" class="toggle">Object</a>
-              <div>
-                {% set contactInfo = rights.object.contactInfo %}
-                {% include 'partials/_contact_info.html' %}
-
-                {% if rights.object.observations %}
-                <h3>Observations</h3>
-                <p>{{ rights.object.observations | striptags(true) | escape | nl2br }}</p>
-                {% endif %}
-              </div>
-            </li>
-          {% endif %}
-          {% if rights.automatedDecisionMaking %}
-            <li>
-              <a href="#" class="toggle">Automated decision making</a>
-              <div>
-                {% set contactInfo = rights.automatedDecisionMaking.contactInfo %}
-                {% include 'partials/_contact_info.html' %}
-
-                {% if rights.automatedDecisionMaking.observations %}
-                  <h3>Observations</h3>
-                  <p>{{ rights.automatedDecisionMaking.observations | striptags(true) | escape | nl2br }}</p>
-                {% endif %}
-              </div>
-            </li>
-          {% endif %}
-        </ul>
-        {% endif %}
       {% endif %}
     {% else %}
       {% include 'partials/_section_missing.html' %}
