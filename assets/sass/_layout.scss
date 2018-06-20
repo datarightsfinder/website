@@ -87,14 +87,14 @@ header {
 
 .content {
   overflow: auto;
-  min-height: calc(100% - 164px);
+  min-height: calc(100% - 184px);
 
   @include media(tablet) {
-    min-height: calc(100% - 116px);
+    min-height: calc(100% - 140px);
   }
 
   @include media(desktop) {
-    min-height: calc(100% - 134px);
+    min-height: calc(100% - 160px);
   }
 
   p {
