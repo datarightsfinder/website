@@ -27,26 +27,26 @@
 
       <p>It includes information about how you can contact this organisation and explains what data they store and how they use it.</p>
 
-      <h2>Make a request to...</h2>
+      <h2>Actions</h2>
 
       <ul class="shortcuts">
         <li>
           <a href="#" data-right="access" class="toggle">
-            <p>Seeing data they have about me</p>
+            <p>Request to see the data they hold about you</p>
           </a>
           {% set right = "access" %}
           {% include 'partials/_shortcut_item.html' %}
         </li>
         <li>
           <a href="#" data-right="rectification" class="toggle">
-            <p>Changing data they have about me</p>
+            <p>Change data they hold about you</p>
           </a>
           {% set right = "rectification" %}
           {% include 'partials/_shortcut_item.html' %}
         </li>
         <li>
           <a href="#" data-right="erasure" class="toggle">
-            <p>Deleting data they have about me</p>
+            <p>Delete data they hold about you</p>
           </a>
           {% set right = "erasure" %}
           {% include 'partials/_shortcut_item.html' %}
@@ -81,6 +81,18 @@
         </li>
       </ul>
     </div>
+  </div>
+</div>
+
+<div id="organisationInformation" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Organisation information</h2>
+
+    <h3>Registration country</h3>
+    <p>{{ meta.fullCountryName }}</p>
+
+    <h3>Registration number</h3>
+    <p>{{ result.registrationNumber }}</p>
   </div>
 </div>
 
