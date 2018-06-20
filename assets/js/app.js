@@ -14,15 +14,18 @@ $(function() {
   });
 
   // SHORTCUTS
-  $('.shortcuts ul li div').hide();
+  $('.shortcuts li .shortcut-info').hide();
 
-  $('.shortcuts ul li a.toggle').click(function(e) {
+  $('.shortcuts li a').click(function(e) {
     e.preventDefault();
 
-    $('.shortcuts ul li div').hide();
-    $(this).parent().find('div').show();
-    $('.shortcuts ul li a').removeClass('bold');
-    $(this).addClass('bold');
+    $(this).parent().find('.shortcut-info').toggle();
+
+    if ($(this).parent().find('.shortcut-info').is(':visible')) {
+      $(this).addClass('bold');
+    } else {
+      $(this).removeClass('bold');
+    }
   });
 
   $('.copy-to-clipboard').click(function(e) {

@@ -23,64 +23,75 @@
 <div class="summary">
   <div class="row">
     <div class="columns small-12 large-6">
-      <p class="headline">The information on this page is from the {% if result.payload.privacyNoticeUrl.url %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">{% endif %}privacy notice{% if result.payload.privacyNoticeUrl.url %}</a>{% endif %} published by {% if result.payload.organisationUrls[0] %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">{% endif%}{{ result.name }}{% if result.payload.organisationUrls[0] %}</a>{% endif %}.</p>
+      <h2 class="headline">The information on this page is from the {% if result.payload.privacyNoticeUrl.url %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">{% endif %}privacy notice{% if result.payload.privacyNoticeUrl.url %}</a>{% endif %} published by {% if result.payload.organisationUrls[0] %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">{% endif%}{{ result.name }}{% if result.payload.organisationUrls[0] %}</a>{% endif %}.</h2>
 
-      <p>It includes information about how you can contact this organisation and explains what data they store and how they use it.</p>
-
-      <h2>Actions</h2>
-
-      <ul class="shortcuts">
-        <li>
-          <a href="#" data-right="access" class="toggle">
-            <p>Request to see the data they hold about you</p>
-          </a>
-          {% set right = "access" %}
-          {% include 'partials/_shortcut_item.html' %}
-        </li>
-        <li>
-          <a href="#" data-right="rectification" class="toggle">
-            <p>Change data they hold about you</p>
-          </a>
-          {% set right = "rectification" %}
-          {% include 'partials/_shortcut_item.html' %}
-        </li>
-        <li>
-          <a href="#" data-right="erasure" class="toggle">
-            <p>Delete data they hold about you</p>
-          </a>
-          {% set right = "erasure" %}
-          {% include 'partials/_shortcut_item.html' %}
-        </li>
-        <li>
-          <a href="#" data-right="restrict-processing" class="toggle">
-            <p>Limiting their use of data about me</p>
-          </a>
-          {% set right = "restrict-processing" %}
-          {% include 'partials/_shortcut_item.html' %}
-        </li>
-        <li>
-          <a href="#" data-right="object" class="toggle">
-            <p>Stopping their use of data about me</p>
-          </a>
-          {% set right = "object" %}
-          {% include 'partials/_shortcut_item.html' %}
-        </li>
-        <li>
-          <a href="#" data-right="data-portability" class="toggle">
-            <p>Exporting data they have about me</p>
-          </a>
-          {% set right = "data-portability" %}
-          {% include 'partials/_shortcut_item.html' %}
-        </li>
-        <li>
-          <a href="#" data-right="automated-decision-making" class="toggle">
-            <p>Understanding and challenging an automated decision</p>
-          </a>
-          {% set right = "automated-decision-making" %}
-          {% include 'partials/_shortcut_item.html' %}
-        </li>
-      </ul>
+      <p>You can use this page to learn about how this organisation uses personal data and find out how to make a request related to the data they hold about you.</p>
     </div>
+  </div>
+</div>
+
+<div class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Make a request</h2>
+
+    <ul class="shortcuts">
+      <li>
+        <a href="#" data-right="access">
+          <p>See data they hold about you</p>
+          <div></div>
+        </a>
+        {% set right = "access" %}
+        {% include 'partials/_shortcut_item.html' %}
+      </li>
+      <li>
+        <a href="#" data-right="rectification">
+          <p>Change data they hold about you</p>
+          <div></div>
+        </a>
+        {% set right = "rectification" %}
+        {% include 'partials/_shortcut_item.html' %}
+      </li>
+      <li>
+        <a href="#" data-right="erasure">
+          <p>Delete data they hold about you</p>
+          <div></div>
+        </a>
+        {% set right = "erasure" %}
+        {% include 'partials/_shortcut_item.html' %}
+      </li>
+      <li>
+        <a href="#" data-right="restrict-processing">
+          <p>Limit how they use data about you</p>
+          <div></div>
+        </a>
+        {% set right = "restrict-processing" %}
+        {% include 'partials/_shortcut_item.html' %}
+      </li>
+      <li>
+        <a href="#" data-right="object">
+          <p>Stop their use of data about you</p>
+          <div></div>
+        </a>
+        {% set right = "object" %}
+        {% include 'partials/_shortcut_item.html' %}
+      </li>
+      <li>
+        <a href="#" data-right="data-portability">
+          <p>Export data they hold about you</p>
+          <div></div>
+        </a>
+        {% set right = "data-portability" %}
+        {% include 'partials/_shortcut_item.html' %}
+      </li>
+      <li>
+        <a href="#" data-right="automated-decision-making">
+          <p>Challenge an automated decision</p>
+          <div></div>
+        </a>
+        {% set right = "automated-decision-making" %}
+        {% include 'partials/_shortcut_item.html' %}
+      </li>
+    </ul>
   </div>
 </div>
 

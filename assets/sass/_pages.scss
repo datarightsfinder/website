@@ -28,66 +28,91 @@
 
   .summary {
     background: $colour-secondary;
-    padding-top: 1rem;
+
+    @include media(desktop) {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
 
     .headline {
-      font-size: 1.2em;
-
       a {
         text-decoration: none;
         border-bottom: #{$color-link-underline} 1px solid;
       }
     }
+  }
 
-    .shortcuts {
-      padding: 0;
-      margin-bottom: 2.5rem;
+  .shortcuts {
+    margin-top: 1rem;
+    padding: 0;
 
-      li {
-        list-style-type: none;
-        border: #CCC 1px solid;
-        border-radius: 5px;
-        margin-bottom: 0.5rem;
+    li {
+      list-style-type: none;
+      border: #EEE 1px solid;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+
+      a {
+        border-bottom: 0;
+        position: relative;
+
+        &.bold {
+          div {
+            background-image: url('/public/images/chevron-active.svg');
+          }
+        }
 
         div {
-          border-top: #CCC 1px solid;
-          padding: 0.5rem 1rem;
-          background: rgba(255, 255, 255, 0.5);
-
-          a {
-            padding: 0;
-            display: inline;
-            width: initial;
-            border-bottom: #212121 1px solid;
-          }
-
-          h3 {
-            text-transform: uppercase;
-            font-size: 0.7em;
-            margin-bottom: 0.2rem;
-            margin-top: 1.3rem;
-            color: #555;
-          }
-
-          textarea {
-            height: 100px;
-          }
+          position: absolute;
+          right: 0.5rem;
+          top: 0;
+          width: 32px;
+          height: 100%;
+          border: 0;
+          background-image: url('/public/images/chevron.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 60% 60%;
         }
+      }
 
-        p {
-          margin-bottom: 0;
-
-          .bold {
-            font-weight: normal !important;
-          }
-        }
+      div {
+        border-top: #EEE 1px solid;
+        padding: 0.5rem 1rem;
 
         a {
-          text-decoration: none;
-          padding: 0.5rem 1rem;
-          display: block;
-          width: 100%;
+          padding: 0;
+          display: inline;
+          width: initial;
+          border-bottom: #212121 1px solid;
         }
+
+        h3 {
+          text-transform: uppercase;
+          font-size: 0.7em;
+          margin-bottom: 0.2rem;
+          margin-top: 1.3rem;
+          color: #555;
+        }
+
+        textarea {
+          height: 100px;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        .bold {
+          font-weight: normal !important;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        display: block;
+        width: 100%;
       }
     }
   }
