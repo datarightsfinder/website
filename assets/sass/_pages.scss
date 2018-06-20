@@ -61,7 +61,7 @@
       }
 
       .collapsable-content {
-        background: rgba(0,0,0,0.03);
+        background: $colour-secondary;
         border-top: #EEE 1px solid;
         padding: 0.5rem 1rem;
 
@@ -92,7 +92,7 @@
       margin-top: 1rem;
       margin-bottom: 0.5rem;
       height: 100px;
-      background:rgba(0,0,0,0.01);
+      background: $colour-secondary;
       font-family: monospace;
     }
   }
