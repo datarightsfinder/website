@@ -1,0 +1,36 @@
+<div class="collapsable-content shortcut-item">
+  {% if right == "access" %}
+    <p class="description">You can <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-of-access/" target="_blank">ask to see</a> what information {{ result.name }} has about you. They usually can’t charge for this, and they must respond to your request within a month.</p>
+  {% elif right == "rectification" %}
+    <p>You can ask {{ result.name }} to <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-rectification/" target="_blank">change inaccurate or incomplete information</a> about you. They must respond to your request within a month. Sometimes your request can be refused.</p>
+  {% elif right == "erasure" %}
+    <p>You can ask that {{ result.name }} <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/" target="_blank">delete information about you</a>. They must respond to your request within a month. Sometimes your request can be refused.</p>
+  {% elif right == "restrictProcessing" %}
+    <p>You can ask that {{ result.name }} <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-restrict-processing/" target="_blank">only store data about you</a> and not use it. They must respond to your request within a month.</p>
+  {% elif right == "dataPortability" %}
+    <p>You can ask {{ result.name }} to <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-data-portability/" target="_blank">move data about you</a> to another service or provide it in a format that can be used by another service.</p>
+  {% elif right == "object" %}
+    <p>You can ask {{ result.name }} to <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-object/" target="_blank">stop using your data</a> for particular reasons, like marketing. They must respond to your request within a month.</p>
+  {% elif right == "automatedDecisionMaking" %}
+    <p>You can ask {{ result.name }} to give you information about how they use <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/rights-related-to-automated-decision-making-including-profiling/" target="_blank">automated decision making</a>, or ask for a person to review an automated decision.</p>
+  {% endif %}
+
+  {% set contactInfo = result.payload.rights[right].contactInfo %}
+
+  {% if contactInfo %}
+    {% include 'partials/_shortcut_item_contact_info.html' %}
+  {% elif result.payload.rights.general.contactInfo %}
+    {% set contactInfo = result.payload.rights.general.contactInfo %}
+    {% include 'partials/_shortcut_item_contact_info.html' %}
+  {% elif result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.contactInfo %}
+    {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
+    {% include 'partials/_shortcut_item_contact_info.html' %}
+  {% else %}
+    <p><span class="semibold">No contact information is available for this kind of request.</span> Help us by updating this organisation on <a href="https://github.com/{{ settings.repository_path }}/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json" target="_blank">GitHub</a>.</p>
+  {% endif %}
+
+  {% if result.payload.rights[right].observations %}
+    <h3>Observations from contributor</h3>
+    <p>{{ result.payload.rights[right].observations }}</p>
+  {% endif %}
+</div>

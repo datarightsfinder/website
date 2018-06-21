@@ -1,6 +1,6 @@
 .organisation {
   ul {
-    margin-top: 0;
+    margin-top: 0.2rem;
     margin-bottom: 0;
 
     li {
@@ -8,122 +8,92 @@
     }
   }
 
-  .banner {
-    background: $colour-main;
-    color: #FFF;
+  .summary {
+    background: $colour-secondary;
 
-    h1 {
-      margin: 1rem 0;
-
-      @include media(desktop) {
-        margin: 1.25rem 0;
-      }
+    @include media(desktop) {
+      padding-bottom: 1rem;
     }
 
-    .banner-buttons {
-      margin-bottom: 1rem;
-      overflow: auto;
-      color: #FFF;
-
-      @include media(desktop) {
-        margin-bottom: 1.1rem;
-      }
-
-
+    .headline {
       a {
-        color: #FFF;
-        border-bottom: #FFF 1px solid;
         text-decoration: none;
-      }
-
-      span {
-        margin-right: 10px;
-      }
-    }
-
-    br {
-      @include media(desktop) {
-        display: none;
+        border-bottom: #{$color-link-underline} 1px solid;
       }
     }
   }
 
-  .summary {
-    background: $colour-secondary;
+  .collapsable {
+    margin-top: 1rem;
+    padding: 0;
 
-    h2 {
-      margin-top: 1rem;
+    li {
+      list-style-type: none;
+      border: #EEE 1px solid;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
 
-      @include media(desktop) {
-        margin-top: 2rem;
+      a {
+        border-bottom: 0;
+        position: relative;
+        padding: 0.5rem 1rem;
+        display: block;
+
+        &.bold {
+          div {
+            background-image: url('/public/images/chevron-active.svg');
+          }
+        }
+
+        div {
+          position: absolute;
+          right: 0.5rem;
+          top: 0;
+          width: 32px;
+          height: 100%;
+          border: 0;
+          background-image: url('/public/images/chevron.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 60% 60%;
+          background-color: #FFF !important;
+        }
+      }
+
+      .collapsable-content {
+        background: $colour-secondary;
+        border-top: #EEE 1px solid;
+        padding: 0.5rem 1rem;
+
+        a {
+          padding: 0;
+          display: inline;
+          width: initial;
+          border-bottom: #{$color-link-underline} 1px solid;
+        }
+
+        h3 {
+          text-transform: uppercase;
+          font-size: 0.7em;
+          margin-bottom: 0.2rem;
+          margin-top: 1.3rem;
+          color: #555;
+        }
       }
     }
+  }
 
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin-bottom: 1rem;
+  .shortcut-item {
+    .copy-to-clipboard {
+      font-size: 0.75em;
+    }
 
-      @include media(desktop) {
-        margin-bottom: 2.4rem;
-      }
-
-      li {
-        overflow: hidden;
-        margin-bottom: 1rem;
-
-        @include media(desktop) {
-          margin-bottom: 1.3rem;
-        }
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-
-        span {
-          @include media(desktop) {
-            font-size: 1.35rem;
-
-            &:first-of-type {
-              margin-top: 4px;
-            }
-          }
-
-          a {
-            border-bottom: #CCC 1px solid;
-            text-decoration: none;
-          }
-
-          &:first-of-type {
-            margin-right: 20px;
-            width: 25px;
-            height: 25px;
-            display: block;
-            float: left;
-            padding-top: 2px;
-            font-size: 1.5em;
-            text-align: center;
-            line-height: 20px;
-            border-radius: 5px;
-            color: #FFF;
-          }
-
-          &.good {
-            background: #21b321;
-          }
-
-          &.warning {
-            background: #f04124;
-            line-height: 16px;
-          }
-
-          &:last-of-type {
-            width: calc(100% - 25px - 20px);
-            display: block;
-            float: left;
-          }
-        }
-      }
+    textarea {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      height: 100px;
+      background: $colour-secondary;
+      font-family: monospace;
     }
   }
 
@@ -136,11 +106,10 @@
     }
 
     .description {
-      color: #666;
+      margin-bottom: 2rem;
 
       a {
-        color: #666;
-        border-bottom: #666 1px solid;
+        border-bottom: #{$color-link-underline} 1px solid;
         text-decoration: none;
       }
     }
@@ -167,55 +136,7 @@
 
     a {
       text-decoration: none;
-      border-bottom: #212121 1px solid;
-    }
-  }
-
-  .collapsable {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-    margin-top: 0.2rem;
-
-    li {
-      border: #CCC 1px solid !important;
-      padding: 0.5rem;
-      border-radius: 5px;
-      margin-bottom: 0.5rem;
-
-      &.active {
-        a {
-          &:first-of-type {
-            color: $colour-main;
-            font-weight: bold;
-          }
-        }
-      }
-
-      a {
-        border-bottom: none;
-        width: 100%;
-        display: inline-block;
-      }
-
-      div {
-        margin-top: 0.75rem;
-
-        a {
-          color: #212121 !important;
-          font-weight: normal !important;
-        }
-
-        p {
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-        }
-
-        h3 {
-          margin-top: 0.5rem;
-        }
-      }
+      border-bottom: #{$color-link-underline} 1px solid;
     }
   }
 
@@ -226,6 +147,11 @@
   #actions {
     margin-top: 1rem;
 
+    a {
+      border-bottom: #{$color-link-underline} 1px solid;
+      text-decoration: none;
+    }
+
     @include media(desktop) {
       margin-top: 2rem;
     }
@@ -233,6 +159,9 @@
 
   .update-needed {
     margin-top: 1rem;
+    border: #{$color-grey} 1px dashed;
+    padding: 1rem;
+    color: $color-grey;
 
     .bold {
       font-weight: 600;
@@ -240,8 +169,8 @@
     }
 
     a {
-      border: none !important;
-      text-decoration: underline !important;
+      color: $color-grey;
+      border-bottom: #{$color-link-underline} 1px solid !important;
       padding: 0 !important;
       margin: 0 !important;
     }
@@ -295,5 +224,10 @@
     margin-bottom: 0.2rem;
     margin-top: 1.3rem;
     color: #555;
+  }
+
+  .content p a {
+    border-bottom: #{$color-link-underline} 1px solid;
+    text-decoration: none;
   }
 }

@@ -309,13 +309,12 @@ function individualRightsWarning(payload) {
   let missingRightsCounter = 0;
 
   try {
-    if (payload.rights.isMissing === true) {
+    if (payload.rights.isMissing) {
       return message;
     }
   } catch (e) {
 
   }
-
 
   try {
     if (payload.rights.access.contactInfo) {
@@ -374,7 +373,7 @@ function individualRightsWarning(payload) {
   }
 
   try {
-    if (payload.rights.general.contactInfo) {
+    if (payload.rights.general) {
       return false;
     }
   } catch (e) {

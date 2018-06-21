@@ -6,35 +6,14 @@ const execSync = require('child_process').execSync;
 
 // STARTUP CHECKS
 const Utils = require('./libs/utils.js');
-
-if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'NODE_ENV'])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
   process.exit();
 }
 
 // LOCAL IMPORTS
+const models = require('./models');
 const sync = require('./libs/sync');
 const settings = yaml.load('settings.yaml');
-
-// SEQUELIZE
-const Sequelize = require('sequelize');
-const sequelizeConfig = require('./config/config.js');
-
-let sequelize;
-
-if (process.env.NODE_ENV === 'test') {
-  sequelize = new Sequelize({
-    storage: sequelizeConfig[process.env.NODE_ENV].storage,
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-} else {
-  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-}
-
-const Organisation = sequelize.import('./models/organisation.js');
 
 async.waterfall([
   function(callback) {
@@ -55,7 +34,7 @@ async.waterfall([
     }
 
     // Remove any existing entries
-    Organisation.destroy({
+    models.Organisation.destroy({
       where: {},
       truncate: true,
     }).then(function() {

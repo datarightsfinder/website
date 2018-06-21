@@ -3,29 +3,9 @@ const async = require('async');
 const cleanDeep = require('clean-deep');
 const yaml = require('yamljs');
 const request = require('request');
+const models = require('../models');
 
 const settings = yaml.load('settings.yaml');
-
-// SEQUELIZE
-const Sequelize = require('sequelize');
-const sequelizeConfig = require('../config/config.js');
-
-let sequelize;
-
-if (process.env.NODE_ENV === 'test') {
-  sequelize = new Sequelize({
-    storage: sequelizeConfig[process.env.NODE_ENV].storage,
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-} else {
-  sequelize = new Sequelize(sequelizeConfig[process.env.NODE_ENV].url, {
-    dialect: sequelizeConfig[process.env.NODE_ENV].dialect,
-    dialectOptions: sequelizeConfig[process.env.NODE_ENV].dialectOptions,
-  });
-}
-
-const Organisation = sequelize.import('../models/organisation.js');
 
 // Find what files have changed according to a GitHub push callback
 // _json (string): Webhook payload from GitHub push event
@@ -153,40 +133,14 @@ function handleModified(files, parentCallback) {
       // Remove empty fields
       json = cleanseJson(json);
 
-      // Try and get name from OpenCorporates
-      let url = `https://api.opencorporates.com/companies/`
-        + `${json.organisationInformation.registrationCountry.toLowerCase()}/`
-        + `${json.organisationInformation.number}`;
-
-      console.log(`---> Getting ${url}`);
-
-      request(url, function(err, res, body) {
-        let name = '';
-
-        if (res.statusCode === 200) {
-          // Company information available on OpenCorporates
-          try {
-            let openCorporates = JSON.parse(body);
-            name = openCorporates.results.company.name;
-            console.log('----> Successfully retreived from OpenCorporates');
-          } catch (e) {
-            name = json.organisationInformation.name;
-            console.log('----> Failed to get info from OpenCorporates');
-          }
-        } else {
-          name = json.organisationInformation.name;
-          console.log('----> Failed to get info from OpenCorporates');
-        }
-
-        upsert({
-          'name': name,
-          'registrationNumber': json.organisationInformation.number,
-          'registrationCountry': json.organisationInformation
-                                      .registrationCountry,
-          'payload': json,
-          'filename': filename,
-        }, callback);
-      });
+      upsert({
+        'name': json.organisationInformation.name,
+        'registrationNumber': json.organisationInformation.number,
+        'registrationCountry': json.organisationInformation
+                                    .registrationCountry,
+        'payload': json,
+        'filename': filename,
+      }, callback);
     },
   ], function(err) {
     if (err) {
@@ -209,7 +163,7 @@ function handleDeleted(files, parentCallback) {
 
   async.waterfall([
     function(callback) {
-      Organisation.findOne({
+      models.Organisation.findOne({
         where: {
           filename: file,
         },
@@ -277,7 +231,7 @@ function cleanseJson(json) {
 
 // Insert new entries or update existing ones
 function upsert(row, parentCallback) {
-  Organisation.findOne({
+  models.Organisation.findOne({
     where: {
       'filename': row.filename,
     },
@@ -289,7 +243,7 @@ function upsert(row, parentCallback) {
       });
     } else {
       // Insert
-      Organisation.create(row).then(function() {
+      models.Organisation.create(row).then(function() {
         parentCallback(null);
       });
     }

@@ -2,6 +2,11 @@ html, body {
   height: 100%;
 }
 
+/* Fix placeholder line-height bug on Safari */
+input {
+  line-height: normal;
+}
+
 .columns {
   padding-left: 1.3rem;
   padding-right: 1.3rem;
@@ -43,20 +48,6 @@ header {
     }
   }
 
-  .about {
-    text-align: right;
-    float: right;
-    text-decoration: none;
-    color: #FFF;
-    line-height: 50px;
-    margin-left: 5px;
-
-    @include media(desktop) {
-      line-height: 60px;
-      margin-left: 15px;
-    }
-  }
-
   .alpha {
     font-size: 0.75rem;
     margin-left: 8px;
@@ -80,16 +71,111 @@ header {
   }
 }
 
-.content {
-  overflow: auto;
-  min-height: calc(100% - 164px);
+.mobile-menu {
+  color: #FFF;
+  float: right;
+  text-decoration: none;
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  margin-left: 8px;
+
+  &.no-mobile-menu {
+    display: none;
+  }
 
   @include media(tablet) {
-    min-height: calc(100% - 116px);
+    display: none;
+  }
+
+  &.active {
+    z-index: 9999;
+    position: fixed;
+    right: 1.3rem;
+    top: 0;
+  }
+
+  @include media(tablet) {
+    display: none;
+  }
+}
+
+.nav {
+  display: none;
+  padding: 0;
+
+  &.no-mobile-menu {
+    display: block;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    float: right;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  &.active {
+    @include media(mobile) {
+      display: block;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: $colour-main;
+      z-index: 9998;
+      padding-top: 50%;
+
+      li {
+        width: 100%;
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 2%;
+      }
+    }
+  }
+
+  @include media(tablet) {
+    display: block;
+    margin-top: 0 !important;
+    float: right;
+    height: 50px;
   }
 
   @include media(desktop) {
-    min-height: calc(100% - 134px);
+    height: 60px;
+  }
+
+  li {
+    list-style-type: none;
+    margin-left: 8px;
+
+    @include media(tablet) {
+      float: left;
+      line-height: 50px;
+      margin-left: 15px;
+    }
+
+    @include media(desktop) {
+      line-height: 60px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #FFF;
+    }
+  }
+}
+
+.content {
+  overflow: auto;
+  min-height: calc(100% - 184px);
+
+  @include media(tablet) {
+    min-height: calc(100% - 140px);
+  }
+
+  @include media(desktop) {
+    min-height: calc(100% - 160px);
   }
 
   p {
@@ -126,6 +212,11 @@ footer {
   background: $colour-secondary;
   position: relative;
   bottom: 0;
+
+  a {
+    border-bottom: #{$color-link-underline} 1px solid;
+    text-decoration: none;
+  }
 
   .licence {
     opacity: 0.6;
@@ -211,7 +302,7 @@ form.search {
       background: none;
 
       input {
-        width: 250px;
+        width: 200px;
         height: 40px;
       }
 
@@ -251,7 +342,7 @@ form.search {
 
   li {
     padding: 0.5rem 0;
-    border-bottom: #CCC 1px solid;
+    border-bottom: #{$colour-seperator} 1px solid;
 
     &:last-of-type {
       border-bottom: 0;

@@ -13,7 +13,7 @@ const Constants = require('./libs/constants');
 const Utils = require('./libs/utils.js');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'NODE_ENV'])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
   process.exit();
 }
 
@@ -53,10 +53,13 @@ let searchRouter = require('./controllers/search');
 let organisationRouter = require('./controllers/organisation');
 let webhookRouter = require('./controllers/webhook');
 
+// API endpoints
 app.use('/', indexRouter);
+app.use('/', searchRouter);
+app.use('/', organisationRouter);
+
+// Non-API endpoints
 app.use('/about', aboutRouter);
-app.use('/search', searchRouter);
-app.use('/organisation', organisationRouter);
 app.use('/webhook', webhookRouter.router);
 
 // START SERVER
