@@ -1,21 +1,19 @@
 // NPM INCLUDES
-const _ = require('lodash');
-const cleanDeep = require('clean-deep');
 const async = require('async');
 const request = require('request');
 const yaml = require('yamljs');
 const execSync = require('child_process').execSync;
-const models = require('../models');
-
-// LOCAL IMPORTS
-const Utils = require('./libs/utils.js');
-const sync = require('./libs/sync');
-const settings = yaml.load('settings.yaml');
 
 // STARTUP CHECKS
+const Utils = require('./libs/utils.js');
 if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
   process.exit();
 }
+
+// LOCAL IMPORTS
+const models = require('./models');
+const sync = require('./libs/sync');
+const settings = yaml.load('settings.yaml');
 
 async.waterfall([
   function(callback) {

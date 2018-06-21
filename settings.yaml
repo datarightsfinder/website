@@ -20,3 +20,6 @@ twitter_card_handle: @projectsbyif
 # GitHub
 repository_path: projectsbyif/open-data-rights-data
 user_agent: projectsbyif/open-data-rights-website
+
+# Design
+disable_mobile_menu: true

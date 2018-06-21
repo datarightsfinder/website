@@ -1,13 +1,12 @@
-const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
 const moment = require('moment');
 const tableify = require('tableify');
-const overviewMatrix = require('../libs/overview_matrix');
 const constants = require('../libs/constants');
 const models = require('../models');
 
+const messageTemplates = require('../config/message_templates.js');
 const countries = require('../countries.json');
 const settings = yaml.load('settings.yaml');
 
@@ -20,10 +19,6 @@ router.get('/organisation/:country/:number', function(req, res, next) {
   }).then(function(_result) {
     let meta = {
       'fullCountryName': countries[_result.registrationCountry.toLowerCase()],
-      'overviewMatrix': _.filter(
-        overviewMatrix.generate(_result.payload), function(o) {
-        return o != false;
-      }),
       'friendlyDate': moment(_result.updatedAt).format('YYYY-MM-DD'),
       'friendlyTime': moment(_result.updatedAt).format('HH:MM:ss'),
       'isEEACountry': isEEACountry(_result.registrationCountry),
@@ -39,6 +34,7 @@ router.get('/organisation/:country/:number', function(req, res, next) {
       result: _result,
       meta: meta,
       extraData: extraData,
+      messageTemplates: messageTemplates,
     });
   }).catch(function(err) {
     console.log(err);
