@@ -22,9 +22,6 @@
     <meta name="twitter:description" content="{{ settings.description }}" />
     <meta name="twitter:image" content="{{ settings.twitter_card_image }}" />
     {% endif %}
-    {% if env == "production" %}
-    <!-- Matomo code -->
-    {% endif %}
     <script src="/public/js/jquery-3.3.1.min.js"></script>
     <script src="/public/js/app.js"></script>
     {% block inline_js %}{% endblock %}
@@ -75,5 +72,22 @@
         </div>
       </div>
     </footer>
+    {% if env == "production" %}
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      _paq.push(['disableCookies']);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//bug.openrightsgroup.org/piwik/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '25']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+    {% endif %}
   </body>
 </html>
