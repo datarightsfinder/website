@@ -22,6 +22,11 @@
     <meta name="twitter:description" content="{{ settings.description }}" />
     <meta name="twitter:image" content="{{ settings.twitter_card_image }}" />
     {% endif %}
+    {% ifAsync pageName == "organisation" %}
+    <script type="text/javascript">
+      var orgName = '{{ result.name }}';
+    </script>
+    {% endif %}
     <script src="/public/js/jquery-3.3.1.min.js"></script>
     <script src="/public/js/app.js"></script>
     {% block inline_js %}{% endblock %}

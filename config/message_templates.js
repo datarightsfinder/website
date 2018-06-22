@@ -2,11 +2,11 @@
 // page. To add a line break, use \n\n.
 
 module.exports = {
-  access: ``,
-  rectification: `this is a line about rectification`,
-  erasure: `this is a line about erasure`,
-  restrictProcessing: `this is a line about restrict_processing`,
-  dataPortability: `this is a line about data_portability`,
-  object: `this is a line about object`,
-  automatedDecisionMaking: `this is a line about automated_decision_making`,
+  access: `Dear {{name}},\n\nCould you please send me a copy of the personal data you hold about me? Please send the data in a commonly-used electronic format. This is as a subject access request.`,
+  rectification: `Dear {{name}},\n\nSome of the data you are holding about me is inaccurate.\n\n[Give details of the inaccurate information.]\n\nPlease rectify this inaccurate information. This is the correct information.\n\n[Give details of the correct information.]\n\n`,
+  erasure: `Dear {{name}},\n\nCould you please erase the following data about me that you are holding?\n\n[Give details of the data you would like to be erased. This may be all the data they are holding about you.]`,
+  restrictProcessing: `Dear {{name}},\n\nCould you please only store the following data about me? I want you not use it.\n\n[Give details about the data you would like not to be used]`,
+  dataPortability: `Dear {{name}},\n\nPlease provide me with a copy of my personal data that you holding about me in a structured, commonly-used, interoperable, and machine-readable format.\n\n[You can also ask for your personal data to be transferred to another organisation.]`,
+  object: `Dear {{name}}, Please stop using my data for direct marketing purposes.`,
+  automatedDecisionMaking: `Dear {{name}},\n\nI would like to ask for a review about a decision which was recently made about me by automated means.\n\n[Give details about the decision which was made about you]`,
 };

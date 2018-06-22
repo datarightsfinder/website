@@ -45,4 +45,9 @@ $(function() {
 
     $(this).text('Copied');
   });
+
+  // MESSAGE TEMPLATES
+  $('textarea').each(function(i, e) {
+    $(e).text($(e).text().replace('{{name}}', orgName));
+  });
 });
