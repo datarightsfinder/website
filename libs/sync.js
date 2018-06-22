@@ -107,10 +107,12 @@ function handleModified(files, parentCallback) {
       }, function(err, res, body) {
         if (err) {
           callback('---> Problem making request');
+          return;
         }
 
         if (res.statusCode !== 200) {
           callback('---> Unable to get file from GitHub');
+          return;
         }
 
         callback(null, body);
@@ -120,6 +122,7 @@ function handleModified(files, parentCallback) {
       // Check file for syntax errors
       if (!validateJSONString(_json)) {
         callback('---> Unable to parse JSON');
+        return;
       }
 
       // Convert and store parsed JSON object
@@ -128,6 +131,7 @@ function handleModified(files, parentCallback) {
       // Validate JSON
       if (!validateRequiredFields(json)) {
         callback('---> Missing required fields');
+        return;
       }
 
       // Remove empty fields
@@ -172,9 +176,11 @@ function handleDeleted(files, parentCallback) {
           callback(null);
         }).catch(function() {
           callback(`-> Unable to destroy entry for ${file}`);
+          return;
         });
       }).catch(function() {
         callback(`-> Unable to find entry for ${file}`);
+        return;
       });
     },
   ], function(err) {
