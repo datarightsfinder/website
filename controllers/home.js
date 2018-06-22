@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/api/1/all', function(req, res, next) {
-  Organisation.findAll({
+  models.Organisation.findAll({
     order: [
       ['name', 'ASC'],
     ],

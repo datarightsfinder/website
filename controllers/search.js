@@ -37,7 +37,7 @@ router.get('/search/:query', function(req, res, next) {
 router.get('/api/1/search/:query', function(req, res, next) {
   let query = req.params.query;
 
-  Organisation.findAll({
+  models.Organisation.findAll({
     where: {
       name: {
         ilike: '%' + query + '%',
@@ -49,7 +49,8 @@ router.get('/api/1/search/:query', function(req, res, next) {
     _results.forEach(function(result) {
       results.push({
         name: result.name,
-        url: ``,
+        url: `${settings.url}/organisation/${result.registrationCountry}/`
+          + `${result.registrationNumber}.json`,
       });
     });
 
