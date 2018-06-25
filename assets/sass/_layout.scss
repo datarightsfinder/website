@@ -249,8 +249,12 @@ form.search {
     border: #DDD 1px solid;
     padding-left: 15px;
     margin: 0;
-    font-family: "Open Sans";
+    font-family: "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
     float: left;
+
+    &::placeholder {
+      color: $color-grey;
+    }
   }
 
   button {
