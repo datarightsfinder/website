@@ -249,8 +249,12 @@ form.search {
     border: #DDD 1px solid;
     padding-left: 15px;
     margin: 0;
-    font-family: "Open Sans";
+    font-family: "Open Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
     float: left;
+
+    &::placeholder {
+      color: $color-grey;
+    }
   }
 
   button {
@@ -338,17 +342,14 @@ form.search {
 .organisation-list {
   list-style-type: none;
   padding-left: 0;
-  margin-top: 0;
+  margin-top: 0.2rem;
+  width: 50%;
 
   li {
     padding: 0.5rem 0;
-    border-bottom: #{$colour-seperator} 1px solid;
-
-    &:last-of-type {
-      border-bottom: 0;
-    }
 
     a {
+      border-bottom: #{$colour-main} 1px solid;
       text-decoration: none;
     }
   }
