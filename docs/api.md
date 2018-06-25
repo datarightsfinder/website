@@ -7,7 +7,7 @@ Data Rights Finder provides a simple, read-only API so developers can easily use
 The API is available at:
 
 ```
-https://datarightsfinder.org/api/1/
+https://www.datarightsfinder.org/api/1/
 ```
 
 ## Endpoints
