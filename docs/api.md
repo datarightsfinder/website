@@ -1,20 +1,20 @@
 # API
 
-Open Data Rights provides a simple, read-only API so developers can easily use the data from this website in their own applications.
+Data Rights Finder provides a simple, read-only API so developers can easily use the data from this website in their own applications.
 
 ## Root URL
 
 The API is available at:
 
 ```
-https://opendatarights.projectsbyif.com/api/1/
+https://datarightsfinder.org/api/1/
 ```
 
 ## Endpoints
 
 ### `GET /all`
 
-Returns an array of all organisations on Open Data Rights
+Returns an array of all organisations on Data Rights Finder
 
 ### `GET /search/{query}`
 

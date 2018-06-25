@@ -1,6 +1,6 @@
-# Open Data Rights Website
+# Data Rights Finder Website
 
-This is the codebase for [Open Data Rights](https://opendatarights.projectsbyif.com) by IF and Open Rights Group.
+This is the codebase for [Data Rights Finder](https://datarightsfinder.org) by IF and Open Rights Group.
 
 Code is licenced under the MIT Licence. Please use the [Google JavaScript style guide](https://google.github.io/styleguide/jsguide.html) when contributing.
 
@@ -23,7 +23,7 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
   postgres://foo@localhost:5432/foo
   ```
 
-2. In Terminal, clone this repository with `git clone git@github.com:projectsbyif/open-data-rights-website.git`
+2. In Terminal, clone this repository with `git clone git@github.com:datarightsfinder/website.git`
 
 3. Run `cd open-data-rights-website`
 
@@ -53,7 +53,7 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 
 ## Configuring the webhook
 
-The data for this app comes from the [projectsbyif/open-data-rights-data](https://github.com/projectsbyif/open-data-rights-data) repository on GitHub.
+The data for this app comes from the [datarightsfinder/data](https://github.com/datarightsfinder/data) repository on GitHub.
 
 Whenever a push to master is made in this repository, GitHub will send information about what has changed to this app. It will then update the internal database to reflect the modifications in this GitHub repository.
 
@@ -67,7 +67,7 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 4. Run ngrok with `./ngrok http 3000 -region eu`
 
-5. Go to [https://github.com/projectsbyif/open-data-rights-data/settings/hooks](https://github.com/projectsbyif/open-data-rights-data/settings/hooks) and click "Add Webhook".
+5. Go to [https://github.com/datarightsfinder/data/settings/hooks](https://github.com/datarightsfinder/data/settings/hooks) and click "Add Webhook".
 
 6. In "Payload URL", paste in the http forwarding address from ngrok, and add `/webhook/incoming` to the end. For example, `http://abcd1234.eu.ngrok.io/webhook/incoming`
 
@@ -79,9 +79,9 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 ### For Heroku installations
 
-1. Go to [https://github.com/projectsbyif/open-data-rights-data/settings/hooks](https://github.com/projectsbyif/open-data-rights-data/settings/hooks) and click "Add Webhook".
+1. Go to [https://github.com/datarightsfinder/data/settings/hooks](https://github.com/datarightsfinder/data/settings/hooks) and click "Add Webhook".
 
-2. In "Payload URL", enter `https://opendatarights.projectsbyif.com/webhook/incoming`
+2. In "Payload URL", enter `https://datarightsfinder.org/webhook/incoming`
 
 3. In "Content Type", choose `application/json`
 
