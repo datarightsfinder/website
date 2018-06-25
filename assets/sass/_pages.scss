@@ -232,8 +232,24 @@
   }
 }
 
+.index {
+  .intro {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
 .about {
   h3 {
     margin-top: 3rem;
+  }
+}
+
+.search_page {
+  p {
+    a {
+      border-bottom: #{$color-link-underline} 1px solid;
+      text-decoration: none;
+    }
   }
 }

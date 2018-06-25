@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set pageName = "home" %}
 
 {% block page_title %}{{ settings.title }}{% endblock %}
 
@@ -16,6 +17,11 @@
 
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
+    <div class="intro">
+      <p>Data Rights Finder helps you get hold of data about you and find out what’s happening with it. We have information for {{ organisation_count }} banks and financial service organisations.</p>
+      <p>Try searching for a name or check the list below.</p>
+    </div>
+
     {% if organisations %}
     <h3>All organisations</h3>
 
