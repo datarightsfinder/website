@@ -464,33 +464,6 @@
   </div>
 </div>
 
-<div id="dataProtectionRegister" class="row data-row">
-  <div class="columns small-12 large-6 end">
-    <h2>Data protection register</h2>
-    <p class="description">Some countries maintain a public register of organisations that process data.</p>
-
-    {% if result.payload.dataProtectionRegister %}
-      {% if result.payload.dataProtectionRegister.present == "not_present" %}
-        <p>This privacy notice does not appear to have this information.</p>
-      {% else %}
-        {% if result.payload.dataProtectionRegister.identifier %}
-          <h3>Identifier</h3>
-          <p>{{ result.payload.dataProtectionRegister.identifier }}</p>
-        {% endif %}
-
-        {% if result.payload.dataProtectionRegister.url %}
-          <h3>URL</h3>
-          <p>
-            <a href="{{ result.payload.dataProtectionRegister.url }}" target="_blank">{{ result.payload.dataProtectionRegister.url }}</a>
-          </p>
-        {% endif %}
-      {% endif %}
-    {% else %}
-      {% include 'partials/_section_missing.html' %}
-    {% endif %}
-  </div>
-</div>
-
 <div id="automatedDecisionMaking" class="row data-row">
   <div class="columns small-12 large-6 end">
     <h2>Automated decision making</h2>
