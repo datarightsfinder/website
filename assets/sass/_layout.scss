@@ -45,6 +45,12 @@ header {
 
     a {
       color: #FFF;
+      width: 205px;
+      display: block;
+
+      @include media(desktop) {
+        width: initial;
+      }
     }
   }
 
