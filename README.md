@@ -1,6 +1,6 @@
 # Data Rights Finder Website
 
-This is the codebase for [Data Rights Finder](https://datarightsfinder.org) by IF and Open Rights Group.
+This is the codebase for [Data Rights Finder](https://www.datarightsfinder.org) by IF and Open Rights Group.
 
 Code is licenced under the MIT Licence. Please use the [Google JavaScript style guide](https://google.github.io/styleguide/jsguide.html) when contributing.
 
@@ -81,7 +81,7 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 1. Go to [https://github.com/datarightsfinder/data/settings/hooks](https://github.com/datarightsfinder/data/settings/hooks) and click "Add Webhook".
 
-2. In "Payload URL", enter `https://datarightsfinder.org/webhook/incoming`
+2. In "Payload URL", enter `https://www.datarightsfinder.org/webhook/incoming`
 
 3. In "Content Type", choose `application/json`
 
