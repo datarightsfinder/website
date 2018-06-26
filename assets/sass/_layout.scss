@@ -49,6 +49,7 @@ header {
       display: block;
 
       @include media(desktop) {
+        width: auto;
         width: initial;
       }
     }
