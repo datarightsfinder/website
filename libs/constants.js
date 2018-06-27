@@ -11,6 +11,7 @@ class Constants {
       'health',
       'sex_life',
       'sexual_orientation',
+      'criminal_records',
     ];
   }
 
