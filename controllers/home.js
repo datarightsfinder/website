@@ -9,13 +9,11 @@ let settings = yaml.load('settings.yaml');
 router.get('/', function(req, res, next) {
   models.Organisation.findAll({
     order: [
-      ['name', 'ASC'],
+      ['sortName', 'ASC'],
     ],
   }).then(function(_all) {
     res.render('home/index.html', {
       settings: settings,
-      payload: _all,
-      organisation_count: _all.length,
       organisations: _all,
     });
   }).catch(function(err) {

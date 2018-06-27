@@ -11,6 +11,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
+      sortName: {
+        type: Sequelize.STRING,
+      },
       registrationNumber: {
         type: Sequelize.STRING,
       },

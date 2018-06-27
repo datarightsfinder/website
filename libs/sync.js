@@ -139,6 +139,7 @@ function handleModified(files, parentCallback) {
 
       upsert({
         'name': json.organisationInformation.name,
+        'sortName': json.organisationInformation.name.toUpperCase(),
         'registrationNumber': json.organisationInformation.number,
         'registrationCountry': json.organisationInformation
                                     .registrationCountry,
