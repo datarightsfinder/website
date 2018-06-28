@@ -45,11 +45,13 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 
 3. Create a new Heroku app in the CLI or on heroku.com.
 
-4. Add the Postgres add-on with the CLI (`heroku addons:create heroku-postgresql:hobby-dev`) or on heroku.com.
+4. If necessary, add the Heroku remotes with `heroku git:remote -a <name of heroku app>`
 
-5. If necessary, add the Heroku remotes with `heroku git:remote -a <name of heroku app>`
+5. Add the Postgres add-on with the CLI (`heroku addons:create heroku-postgresql:hobby-dev`) or on heroku.com.
 
-6. Push the app with `git push heroku master`
+6. Add the GitHub webhook secret with `heroku config:set WEBHOOK_KEY=<key>`
+
+7. Push the app with `git push heroku master`
 
 ## Configuring the webhook
 
@@ -73,9 +75,11 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 7. In "Content Type", choose `application/json`
 
-8. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
+8. In "Secret", use a password manager to generate a long, random string. Paste this in, and store it for later use
 
-9. Click "Add Webhook"
+9. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
+
+10. Click "Add Webhook"
 
 ### For Heroku installations
 
@@ -85,9 +89,11 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 3. In "Content Type", choose `application/json`
 
-4. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
+4. In "Secret", use a password manager to generate a long, random string. Paste this in, and store it for later use
 
-5. Click "Add Webhook"
+5. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
+
+6. Click "Add Webhook"
 
 ## App configuration
 
