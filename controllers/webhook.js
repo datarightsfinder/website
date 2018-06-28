@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const async = require('async');
 const sync = require('../libs/sync');
+const crypto = require('crypto');
 
 // SERVER ROUTES
 router.get('/incoming', function(req, res) {
@@ -10,6 +11,20 @@ router.get('/incoming', function(req, res) {
 });
 
 router.post('/incoming', function(req, res) {
+  if (process.env.NODE_ENV === 'production') {
+    let sigReceived = req.headers['x-hub-signature'].split('sha1=')[1];
+    let sigLocal = crypto.createHmac('sha1', process.env.WEBHOOK_KEY)
+                         .update(JSON.stringify(req.body)).digest('hex');
+    let sigResult = crypto.timingSafeEqual(
+      Buffer.from(sigReceived, 'utf8'), Buffer.from(sigLocal, 'utf8')
+    );
+
+    if (!sigResult) {
+      res.status(401).send('401 Unauthorized');
+      return;
+    }
+  }
+
   async.waterfall([
     function(callback) {
       handleIncoming(req.body, callback);
