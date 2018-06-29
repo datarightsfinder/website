@@ -13,8 +13,8 @@ apple_touch_icon: /public/images/apple_touch_icon.png
 # Social media
 use_facebook_meta_tags: true
 use_twitter_meta_tags: true
-facebook_card_image: /public/images/twitter-fb-card.png
-twitter_card_image: /public/images/twitter-fb-card.png
+facebook_card_image: https://www.datarightsfinder.org/public/images/twitter-fb-card-1.png
+twitter_card_image: https://www.datarightsfinder.org/public/images/twitter-fb-card-1.png
 twitter_card_handle: ""
 
 # GitHub
