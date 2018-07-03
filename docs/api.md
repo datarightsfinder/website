@@ -20,7 +20,7 @@ Returns an array of all organisations on Data Rights Finder
 
 Returns any search results for `{query}`
 
-### `GET /organisations/{registration country}/{registration number}`
+### `GET /organisation/{registration country}/{registration number}`
 
 Returns information about a single organisation.
 
