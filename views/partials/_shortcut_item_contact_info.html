@@ -9,8 +9,8 @@
   <h3>By email</h3>
 
   {% if messageTemplates[right] %}
-    <p><a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisations/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">Email {{ contactInfo.emailAddress }} using this template</a></p>
-    <textarea>{{ messageTemplates[right] }}</textarea>
+    <p><a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">Email {{ contactInfo.emailAddress }} using this template</a></p>
+      <textarea>{{ messageTemplates[right] }}</textarea>
     <p><a href="#" class="copy-to-clipboard">Copy template to clipboard</a></p>
   {% else %}
     <p><a href="mailto:{{ contactInfo.emailAddress }}">{{ contactInfo.emailAddress }}</a></p>
