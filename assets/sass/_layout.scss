@@ -345,8 +345,13 @@ form.search {
     text-decoration: none;
 
     img {
-      height: 50px;
+      height: 70px;
       margin-right: 20px;
+
+      @include media(desktop) {
+        height: 100px;
+        margin-right: 40px;
+      }
     }
 
     &:last-of-type {
