@@ -1,4 +1,5 @@
 // NPM INCLUDES
+require('dotenv').config();
 const async = require('async');
 const request = require('request');
 const yaml = require('yamljs');

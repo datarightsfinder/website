@@ -17,6 +17,7 @@
     "async": "^2.6.1",
     "bower": "^1.8.4",
     "clean-deep": "^3.0.2",
+    "dotenv": "^6.0.0",
     "express": "^4.15.2",
     "express-http-to-https": "^1.1.4",
     "express-validator": "^5.3.0",

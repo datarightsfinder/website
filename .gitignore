@@ -44,3 +44,4 @@ public/js/app.js
 
 # Testing
 test/test.db
+.env

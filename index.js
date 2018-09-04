@@ -1,4 +1,5 @@
 // REQUIRES
+require('dotenv').config();
 const yaml = require('yamljs');
 const settings = yaml.load('settings.yaml');
 const express = require('express');
