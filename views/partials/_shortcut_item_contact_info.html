@@ -1,7 +1,7 @@
 {% if contactInfo.url %}
   <h3>Through their website</h3>
   <p>
-    <a href="{{ contactInfo.url }}" target="_blank">{{ contactInfo.url }}</a>
+    <a href="{{ contactInfo.url }}" target="_blank" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/url', 'link']);">{{ contactInfo.url }}</a>
   </p>
 {% endif %}
 
