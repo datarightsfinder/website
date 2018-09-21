@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     registrationCountry: DataTypes.STRING,
     payload: DataTypes.JSON,
     filename: DataTypes.STRING,
+    jsonLastUpdated: DataTypes.TEXT,
+    hash: DataTypes.TEXT,
+    hashLastUpdated: DataTypes.TEXT,
   }, {});
   Organisation.associate = function(models) {
     // associations can be defined here
