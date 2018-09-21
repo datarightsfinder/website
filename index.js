@@ -14,7 +14,9 @@ const Constants = require('./libs/constants');
 const Utils = require('./libs/utils.js');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'WEBHOOK_KEY'])) {
+if (Utils.checkForMissingEnvVars([
+  'DATABASE_URL', 'WEBHOOK_KEY', 'GITHUB_TOKEN',
+])) {
   process.exit();
 }
 
