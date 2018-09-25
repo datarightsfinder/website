@@ -22,7 +22,8 @@ if (Utils.checkForMissingEnvVars([
 
 // SERVER CONFIGURATION
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
-app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
+app.use(redirectToHTTPS([/localhost:(\d{4})/, /[a-zA-Z0-9]+\.eu\.ngrok\.io/],
+  [], 301));
 
 app.use(helmet());
 app.use(express.json());
