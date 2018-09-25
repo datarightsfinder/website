@@ -152,7 +152,9 @@ function handleModified(files, parentCallback) {
       json = cleanseJson(json);
 
       // Find when file was last updated from GitHub
-      let url = `https://api.github.com/repos/datarightsfinder/data/commits?path=${filename}&page=1&per_page=1&access_token=${process.env.GITHUB_TOKEN}`;
+      let url = `https://api.github.com/repos/${settings.repository_path}/` +
+        `commits?path=${filename}&page=1&per_page=1&access_token=` +
+        `${process.env.GITHUB_TOKEN}`;
 
       request({
         url: url,
