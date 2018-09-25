@@ -6,6 +6,7 @@ const request = require('request');
 const crypto = require('crypto');
 const cheerio = require('cheerio');
 const isHtml = require('is-html');
+const moment = require('moment');
 const models = require('../models');
 
 const settings = yaml.load('settings.yaml');
@@ -211,7 +212,7 @@ function handleModified(files, parentCallback) {
         hashLastUpdated = jsonLastUpdated;
       } else {
         if (policyHash !== organisation.hash) {
-          hashLastUpdated = Date.now();
+          hashLastUpdated = `${moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ss')}Z`;
         } else {
           hashLastUpdated = organisation.hashLastUpdated;
         }

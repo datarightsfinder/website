@@ -61,11 +61,13 @@ let aboutRouter = require('./controllers/about');
 let searchRouter = require('./controllers/search');
 let organisationRouter = require('./controllers/organisation');
 let webhookRouter = require('./controllers/webhook');
+let changesRouter = require('./controllers/changes');
 
 // API endpoints
 app.use('/', indexRouter);
 app.use('/', searchRouter);
 app.use('/', organisationRouter);
+app.use('/', changesRouter);
 
 // Non-API endpoints
 app.use('/about', aboutRouter);
