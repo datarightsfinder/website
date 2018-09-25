@@ -17,15 +17,15 @@ Code is licenced under the MIT Licence. Please use the [Google JavaScript style 
 
 Local installation has been tested on macOS High Sierra, with [Node.js](https://nodejs.org) 8.9.4, npm 6.0.0 and PostgreSQL 10 installed using [postgres.app](https://postgresapp.com/).
 
-1. Make sure a local PostgreSQL server running and you know its DSN. If you're using postgress.app and your macOS username is `foo`, the DSN will be:
+1. Make sure a local PostgreSQL server running and you've created a database called `datarightsfinder`. If you're using postgress.app and your macOS username is `foo`, the DSN will be:
 
   ```
-  postgres://foo@localhost:5432/foo
+  postgres://foo@localhost:5432/datarightsfinder
   ```
 
 2. In Terminal, clone this repository with `git clone git@github.com:datarightsfinder/website.git`
 
-3. Run `cd open-data-rights-website`
+3. Run `cd website`
 
 4. Create a new file called `.env` and paste in the following template:
 
@@ -41,11 +41,13 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 
 5. Run `npm install` to install dependencies
 
-6. Run `gulp` to start the app. (If this fails, run `sudo npm install -g gulp-cli` and try again).
+6. Run `npm run seed` to populate the empty database
 
-7. Go to `http://localhost:3000` in your browser
+7. Run `gulp` to start the app. (If this fails, run `sudo npm install -g gulp-cli` and try again).
 
-8. If you need to test the GitHub sync webhook, read [Configuring the webhook](#configuring-the-webhook).
+8. Go to `http://localhost:3000` in your browser
+
+9. If you need to test the GitHub sync webhook, read [Configuring the webhook](#configuring-the-webhook).
 
 ### Heroku installation
 
@@ -64,6 +66,8 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 7. Add a GitHub personal access token with `heroku config:set GITHUB_TOKEN=<token>`. This [personal access token](https://github.com/settings/tokens) should have the `public_repo` scope only.
 
 8. Push the app with `git push heroku master`
+
+9. [TODO: `heroku run`]
 
 ## Configuring the webhook
 
