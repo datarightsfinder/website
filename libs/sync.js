@@ -4,6 +4,8 @@ const cleanDeep = require('clean-deep');
 const yaml = require('yamljs');
 const request = require('request');
 const crypto = require('crypto');
+const cheerio = require('cheerio');
+const isHtml = require('is-html');
 const models = require('../models');
 
 const settings = yaml.load('settings.yaml');
@@ -195,9 +197,13 @@ function handleModified(files, parentCallback) {
       });
     },
     function(_policyBody, callback) {
+      if (isHtml(_policyBody)) {
+        const $ = cheerio.load(_policyBody);
+        _policyBody = $('p').text();
+      }
+
       policyHash = crypto.createHash('sha512').update(_policyBody)
         .digest('hex');
-      console.log(policyHash);
 
       let hashLastUpdated = '';
 
