@@ -198,21 +198,32 @@ function handleModified(files, parentCallback) {
       });
     },
     function(_policyBody, callback) {
-      if (isHtml(_policyBody)) {
+      let hashLastUpdated = '';
+      let policyBodyFull = _policyBody;
+      let policyBodyNoSpaces = _policyBody;
+      let isHtmlPolicy = isHtml(_policyBody);
+      let policyTextOld = '';
+      let policyTextNew = '';
+
+      if (isHtmlPolicy) {
         const $ = cheerio.load(_policyBody);
-        _policyBody = $('p').text().replace(/\s+/g, '');
+        policyBodyFull = $('p').text();
+        policyBodyNoSpaces = policyBodyFull.replace(/\s+/g, '');
       }
 
-      policyHash = crypto.createHash('sha512').update(_policyBody)
+      policyHash = crypto.createHash('sha512').update(policyBodyNoSpaces)
         .digest('hex');
-
-      let hashLastUpdated = '';
 
       if (organisation === null) {
         hashLastUpdated = jsonLastUpdated;
+
+        policyTextOld = isHtmlPolicy ? policyBodyFull : null;
+        policyTextNew = isHtmlPolicy ? policyBodyFull : null;
       } else {
         if (policyHash !== organisation.hash) {
           hashLastUpdated = `${moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ss')}Z`;
+
+          policyTextNew = isHtmlPolicy ? policyBodyFull : null;
         } else {
           hashLastUpdated = organisation.hashLastUpdated;
         }
@@ -229,6 +240,8 @@ function handleModified(files, parentCallback) {
         'jsonLastUpdated': jsonLastUpdated,
         'hash': policyHash,
         'hashLastUpdated': hashLastUpdated,
+        'policyTextOld': policyTextOld,
+        'policyTextNew': policyTextNew,
       }, callback);
     },
   ], function(err) {

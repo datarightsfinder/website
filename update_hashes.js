@@ -46,19 +46,30 @@ let getLatestHash = (organisation) => {
   return new Promise((resolve, reject) => {
     requestUrl(organisation.payload.privacyNoticeUrl.url)
       .then((_policyBody) => {
-        if (isHtml(_policyBody)) {
+        let isHtmlPolicy = isHtml(_policyBody);
+        let policyBodyFull = _policyBody;
+        let policyBodyNoSpaces = _policyBody;
+
+        if (isHtmlPolicy) {
           const $ = cheerio.load(_policyBody);
-          _policyBody = $('p').text().replace(/\s+/g, '');
+          policyBodyFull = $('p').text();
+          policyBodyNoSpaces = policyBodyFull.replace(/\s+/g, '');
         }
 
-        let policyHash = crypto.createHash('sha512').update(_policyBody)
+        let policyHash = crypto.createHash('sha512').update(policyBodyNoSpaces)
           .digest('hex');
 
         if (policyHash !== organisation.hash) {
           console.log('Hashes are different');
           organisation.hash = policyHash;
+
+          if (isHtmlPolicy) {
+            organisation.policyTextNew = policyBodyFull;
+          }
+
           organisation.hashLastUpdated = `${moment().subtract(1, 'hours')
             .format('YYYY-MM-DDTHH:mm:ss')}Z`;
+
           organisation.save().then(() => {
             console.log('Changes saved');
             return resolve();
