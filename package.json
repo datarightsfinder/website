@@ -7,8 +7,7 @@
     "start": "node index.js",
     "postinstall": "bower install && gulp deploy",
     "nodemon": "nodemon --watch views -e html index.js",
-    "test": "NODE_ENV=test mocha",
-    "seed": "node seed.js"
+    "test": "NODE_ENV=test mocha"
   },
   "directories": {
     "test": "test"
