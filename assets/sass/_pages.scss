@@ -70,6 +70,7 @@
           display: inline;
           width: initial;
           border-bottom: #{$color-link-underline} 1px solid;
+          word-wrap: break-word;
         }
 
         h3 {
