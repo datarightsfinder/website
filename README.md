@@ -9,6 +9,7 @@ Code is licenced under the MIT Licence. Please use the [Google JavaScript style 
 * [Installation](#installation)
 * [Configuring the webhook](#configuring-the-webhook)
 * [App configuration](#app-configuration)
+* [Updates to privacy notices](#updates-to-privacy-notices)
 * [Scripts](#scripts)
 
 ## Installation
@@ -39,9 +40,10 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
   * Replace the value for `GITHUB_TOKEN` with a [personal access token from GitHub](https://github.com/settings/tokens). This token should have the `public_repo` scope only.
   * `WEBHOOK_KEY` can have a dummy value, unless you need to [configure the webhook](#configuring-the-webhook).
 
+
 5. Run `npm install` to install dependencies
 
-6. Run `npm run seed` to populate the empty database
+6. Run `node seed.js` to populate the empty database
 
 7. Run `gulp` to start the app. (If this fails, run `sudo npm install -g gulp-cli` and try again).
 
@@ -55,19 +57,19 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 
 2. Make sure the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) is installed and you are logged in with `heroku login` in Terminal
 
-3. Create a new Heroku app in the CLI or on heroku.com.
+3. Create a new Heroku app in the CLI or on heroku.com. To deploy to an existing Heroku app, add the remote with `heroku git:remote -a <name of heroku app>`
 
-4. If necessary, add the Heroku remotes with `heroku git:remote -a <name of heroku app>`
+4. In the control panel for the app on Heroku.com, click the Resources tab and add a Heroku Postgres addon
 
-5. Add the Postgres add-on with the CLI (`heroku addons:create heroku-postgresql:hobby-dev`) or on heroku.com.
+5. Also on the Resources tab, add the Heroku Scheduler addon. Go into the addon settings, then create a new daily job that runs `node update_hashes.js`
 
-6. Add the GitHub webhook secret with `heroku config:set WEBHOOK_KEY=<key>`
+6. Back on your CLI, add the GitHub webhook secret with `heroku config:set WEBHOOK_KEY=<key>`
 
-7. Add a GitHub personal access token with `heroku config:set GITHUB_TOKEN=<token>`. This [personal access token](https://github.com/settings/tokens) should have the `public_repo` scope only.
+7. Add a GitHub personal access token with `heroku config:set GITHUB_TOKEN=<token>`. This [personal access token](https://github.com/settings/tokens) should have the `public_repo` scope only
 
 8. Push the app with `git push heroku master`
 
-9. [TODO: `heroku run`]
+9. Populate the database with `heroku run node seed.js`
 
 ## Configuring the webhook
 
@@ -77,13 +79,13 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 ### For local installations
 
-1. Install [ngrok](https://ngrok.com/).
+1. Install [ngrok](https://ngrok.com/)
 
-2. Follow the instructions to install the app locally.
+2. Follow the instructions to install Data Rights Finder locally
 
 3. Run the app with `gulp`
 
-4. Run ngrok with `./ngrok http 3000 -region eu`
+4. In another Terminal tab, run ngrok with `./ngrok http 3000 -region eu`
 
 5. Go to [https://github.com/datarightsfinder/data/settings/hooks](https://github.com/datarightsfinder/data/settings/hooks) and click "Add Webhook".
 
@@ -91,7 +93,7 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 7. In "Content Type", choose `application/json`
 
-8. In "Secret", use a password manager to generate a long, random string. Paste this in, and store it for later use
+8. In "Secret", use a password manager to generate a long, random password. Paste this in, and store it somewhere safe
 
 9. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
 
@@ -99,17 +101,7 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 ### For Heroku installations
 
-1. Go to [https://github.com/datarightsfinder/data/settings/hooks](https://github.com/datarightsfinder/data/settings/hooks) and click "Add Webhook".
-
-2. In "Payload URL", enter `https://www.datarightsfinder.org/webhook/incoming`
-
-3. In "Content Type", choose `application/json`
-
-4. In "Secret", use a password manager to generate a long, random string. Paste this in, and store it for later use
-
-5. In "Which events would you like to trigger this webhook?" choose "Just the `push` event"
-
-6. Click "Add Webhook"
+Follow steps 5 to 10 for configuring the webhook locally.
 
 ## App configuration
 
@@ -117,6 +109,16 @@ Whenever a push to master is made in this repository, GitHub will send informati
 
 * `/config/message_templates.js` This file contains the templates used when clicking email links for exercising rights
 
+## Updates to privacy notices
+
+Data Rights Finder is configured to run a script once a day that hashes the text contents of a privacy policy. If the hash has changed since it was last checked, it will appear on the [changes page](https://datarightsfinder.org/changes) at [https://datarightsfinder.org/changes](https://datarightsfinder.org/changes).
+
+To resolve a change, make an edit to its corresponding JSON file and commit it to the data repository.
+
+To run this script manually, run `node update_hashes.js` locally or `heroku run node update_hashes.js` remotely.
+
 ## Scripts
 
-* `npm run seed` This command is automatically run when installing this project for the first time. If you need to reset the data in your local database with data from GitHub, run this command.
+* `node seed.js` This command is automatically run when installing this project for the first time. If you need to reset the data in your local database with data from GitHub, run this command.
+
+* `node update_hashes.js` This command checks each privacy notice and lists any content changes at [https://datarightsfinder.org/changes](https://datarightsfinder.org/changes).
