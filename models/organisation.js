@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     jsonLastUpdated: DataTypes.TEXT,
     hash: DataTypes.TEXT,
     hashLastUpdated: DataTypes.TEXT,
+    policyTextOld: DataTypes.TEXT,
+    policyTextNew: DataTypes.TEXT,
   }, {});
   Organisation.associate = function(models) {
     // associations can be defined here
