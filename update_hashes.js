@@ -48,7 +48,7 @@ let getLatestHash = (organisation) => {
       .then((_policyBody) => {
         if (isHtml(_policyBody)) {
           const $ = cheerio.load(_policyBody);
-          _policyBody = $('p').text();
+          _policyBody = $('p').text().replace(/\s+/g, '');
         }
 
         let policyHash = crypto.createHash('sha512').update(_policyBody)

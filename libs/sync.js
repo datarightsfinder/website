@@ -200,7 +200,7 @@ function handleModified(files, parentCallback) {
     function(_policyBody, callback) {
       if (isHtml(_policyBody)) {
         const $ = cheerio.load(_policyBody);
-        _policyBody = $('p').text();
+        _policyBody = $('p').text().replace(/\s+/g, '');
       }
 
       policyHash = crypto.createHash('sha512').update(_policyBody)
