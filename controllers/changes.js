@@ -4,28 +4,27 @@ const yaml = require('yamljs');
 const models = require('../models');
 const moment = require('moment');
 
-/* GET home page. */
-router.get('/changes', function(req, res, next) {
-  let title = '<b>Policies with changed content</b>';
-  let result = '';
+let settings = yaml.load('settings.yaml');
 
+/* GET home page. */
+router.get('/changes', (req, res, next) => {
   models.Organisation.findAll()
     .then((_allOrganisations) => {
+      let changedOrganisations = [];
+
       _allOrganisations.forEach((org) => {
         let jsonLastUpdated = moment(org.jsonLastUpdated).subtract(1, 'hours');
         let hashLastUpdated = moment(org.hashLastUpdated).subtract(1, 'hours');
 
         if (hashLastUpdated.isAfter(jsonLastUpdated)) {
-          result += `<p><a href="/organisation/${org.registrationCountry}/` +
-            `${org.registrationNumber}">${org.name}</a></p>`;
+          changedOrganisations.push(org);
         }
       });
 
-      if (result === '') {
-        result = '<p>No changes.</p>';
-      }
-
-      res.send(title + result);
+      res.render('changes/index.html', {
+        settings: settings,
+        changedOrganisations: changedOrganisations,
+      });
     })
     .catch(() => res.status(500));
 });
@@ -39,15 +38,24 @@ router.get('/changes/ignore/:id', (req, res, next) => {
     },
   })
   .then((org) => {
+    if (!org) {
+      return res.send('Error');
+    }
+
     let jsonLastUpdated = moment(org.jsonLastUpdated).subtract(1, 'hours');
     let hashLastUpdated = moment(org.hashLastUpdated).subtract(1, 'hours');
 
-    if (hashLastUpdated.isAfter(jsonLastUpdated)) {
-      org.jsonLastUpdated = `${moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ss')}Z`;
-      org.save().then(() => res.send('200 OK'));
-    } else {
-      res.send('Error');
+    if (!hashLastUpdated.isAfter(jsonLastUpdated)) {
+      return res.send('Error');
     }
+
+    org.jsonLastUpdated = `${moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ss')}Z`;
+
+    if (org.policyTextNew !== null) {
+      org.policyTextOld = org.policyTextNew;
+    }
+
+    org.save().then(() => res.redirect('/changes'));
   });
 });
 

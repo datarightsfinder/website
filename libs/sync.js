@@ -223,8 +223,12 @@ function handleModified(files, parentCallback) {
         if (policyHash !== organisation.hash) {
           hashLastUpdated = `${moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ss')}Z`;
 
+          policyTextOld = organisation.policyTextNew;
           policyTextNew = isHtmlPolicy ? policyBodyFull : null;
         } else {
+          policyTextOld = isHtmlPolicy ? policyBodyFull : null;
+          policyTextNew = isHtmlPolicy ? policyBodyFull : null;
+
           hashLastUpdated = organisation.hashLastUpdated;
         }
       }

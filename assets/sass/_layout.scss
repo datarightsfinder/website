@@ -376,3 +376,31 @@ form.search {
     }
   }
 }
+
+/* Changes diffs */
+.changes {
+  ins {
+    background-color: #c6ffc6;
+    text-decoration: none;
+  }
+
+  del {
+    background-color: #ffc6c6;
+    text-decoration: none;
+  }
+
+  pre {
+    background-color: #f2f2f2;
+    padding: 0.75em;
+    white-space: pre-wrap;
+    margin-bottom: 3em;
+  }
+
+  .org-name {
+    font-weight: 600;
+  }
+
+  .ignore {
+    float: right;
+  }
+}
