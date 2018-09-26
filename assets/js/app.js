@@ -39,9 +39,8 @@ $(function() {
   $('.copy-to-clipboard').click(function(e) {
     e.preventDefault();
 
-    $(this).parent().parent().find('textarea').select();
-    document.execCommand('copy');
-    $(this).parent().parent().find('textarea').blur();
+    var text = $(this).parent().parent().find('textarea').text();
+    clipboard.writeText(text);
 
     $(this).text('Copied');
   });
