@@ -13,10 +13,10 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   if (process.env.NODE_ENV === 'test') {
-    sequelize = new Sequelize({
-      storage: config.storage,
+    sequelize = new Sequelize(config.url, {
       dialect: config.dialect,
       dialectOptions: config.dialectOptions,
+      logging: false,
     });
   } else {
     sequelize = new Sequelize(config.url, {

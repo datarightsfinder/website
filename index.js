@@ -14,13 +14,16 @@ const Constants = require('./libs/constants');
 const Utils = require('./libs/utils.js');
 
 // STARTUP CHECKS
-if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'WEBHOOK_KEY'])) {
+if (Utils.checkForMissingEnvVars([
+  'DATABASE_URL', 'WEBHOOK_KEY', 'GITHUB_TOKEN',
+])) {
   process.exit();
 }
 
 // SERVER CONFIGURATION
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
-app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
+app.use(redirectToHTTPS([/localhost:(\d{4})/, /[a-zA-Z0-9]+\.eu\.ngrok\.io/],
+  [], 301));
 
 app.use(helmet());
 app.use(express.json());
@@ -58,11 +61,13 @@ let aboutRouter = require('./controllers/about');
 let searchRouter = require('./controllers/search');
 let organisationRouter = require('./controllers/organisation');
 let webhookRouter = require('./controllers/webhook');
+let changesRouter = require('./controllers/changes');
 
 // API endpoints
 app.use('/', indexRouter);
 app.use('/', searchRouter);
 app.use('/', organisationRouter);
+app.use('/', changesRouter);
 
 // Non-API endpoints
 app.use('/about', aboutRouter);

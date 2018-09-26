@@ -3,6 +3,10 @@ const async = require('async');
 const cleanDeep = require('clean-deep');
 const yaml = require('yamljs');
 const request = require('request');
+const crypto = require('crypto');
+const cheerio = require('cheerio');
+const isHtml = require('is-html');
+const moment = require('moment');
 const models = require('../models');
 
 const settings = yaml.load('settings.yaml');
@@ -91,9 +95,22 @@ function validateJSONString(json) {
 function handleModified(files, parentCallback) {
   let json;
   let filename = files[0];
+  let jsonLastUpdated;
+  let policyHash;
+  let organisation;
 
   async.waterfall([
     function(callback) {
+      // Try and see if this organisation already exists
+      models.Organisation.findOne({
+        where: {
+          filename: filename,
+        },
+      }).then((res) => callback(null, res));
+    },
+    function(_organisation, callback) {
+      organisation = _organisation;
+
       let timestamp = Math.round((new Date()).getTime() / 1000);
       let url = `https://raw.githubusercontent.com/${settings.repository_path}`
         + `/master/${filename}?${timestamp}`;
@@ -137,6 +154,70 @@ function handleModified(files, parentCallback) {
       // Remove empty fields
       json = cleanseJson(json);
 
+      // Find when file was last updated from GitHub
+      let url = `https://api.github.com/repos/${settings.repository_path}/` +
+        `commits?path=${filename}&page=1&per_page=1&access_token=` +
+        `${process.env.GITHUB_TOKEN}`;
+
+      request({
+        url: url,
+        headers: {'User-Agent': settings.user_agent},
+      }, function(err, res, body) {
+        if (err) {
+          callback('---> Problem making request');
+          return;
+        }
+
+        if (res.statusCode !== 200) {
+          callback('---> Unable to get file information from GitHub');
+          return;
+        }
+
+        callback(null, body);
+      });
+    },
+    function(_fileInfo, callback) {
+      _fileInfo = JSON.parse(_fileInfo);
+      jsonLastUpdated = _fileInfo[0].commit.author.date;
+
+      request({
+        url: json.privacyNoticeUrl.url,
+        headers: {'User-Agent': settings.user_agent},
+      }, function(err, res, body) {
+        if (err) {
+          callback('---> Problem making request');
+          return;
+        }
+
+        if (res.statusCode !== 200) {
+          callback('---> Unable to download privacy notice');
+          return;
+        }
+
+        callback(null, body);
+      });
+    },
+    function(_policyBody, callback) {
+      if (isHtml(_policyBody)) {
+        const $ = cheerio.load(_policyBody);
+        _policyBody = $('p').text();
+      }
+
+      policyHash = crypto.createHash('sha512').update(_policyBody)
+        .digest('hex');
+
+      let hashLastUpdated = '';
+
+      if (organisation === null) {
+        hashLastUpdated = jsonLastUpdated;
+      } else {
+        if (policyHash !== organisation.hash) {
+          hashLastUpdated = `${moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ss')}Z`;
+        } else {
+          hashLastUpdated = organisation.hashLastUpdated;
+        }
+      }
+
       upsert({
         'name': json.organisationInformation.name,
         'sortName': json.organisationInformation.name.toUpperCase(),
@@ -145,6 +226,9 @@ function handleModified(files, parentCallback) {
                                     .registrationCountry,
         'payload': json,
         'filename': filename,
+        'jsonLastUpdated': jsonLastUpdated,
+        'hash': policyHash,
+        'hashLastUpdated': hashLastUpdated,
       }, callback);
     },
   ], function(err) {

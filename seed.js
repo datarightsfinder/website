@@ -7,7 +7,7 @@ const execSync = require('child_process').execSync;
 
 // STARTUP CHECKS
 const Utils = require('./libs/utils.js');
-if (Utils.checkForMissingEnvVars(['DATABASE_URL'])) {
+if (Utils.checkForMissingEnvVars(['DATABASE_URL', 'GITHUB_TOKEN'])) {
   process.exit();
 }
 
@@ -43,7 +43,7 @@ async.waterfall([
     });
   },
   function(callback) {
-    let url = `https://api.github.com/repos/${settings.repository_path}/contents/`;
+    let url = `https://api.github.com/repos/${settings.repository_path}/contents/?access_token=${process.env.GITHUB_TOKEN}`;
 
     console.log(`-> Getting list of files from ${url}`);
 

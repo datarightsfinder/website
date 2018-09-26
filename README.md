@@ -27,7 +27,17 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 
 3. Run `cd open-data-rights-website`
 
-4. Run `export DATABASE_URL=<DSN>` where `<DSN>` is your PostgreSQL DSN.
+4. Create a new file called `.env` and paste in the following template:
+
+  ```
+  DATABASE_URL=CHANGEME
+  GITHUB_TOKEN=CHANGEME
+  WEBHOOK_KEY=foobar
+  ```
+
+  * Replace the value for `DATABASE_URL` with your PostgreSQL DSN.
+  * Replace the value for `GITHUB_TOKEN` with a [personal access token from GitHub](https://github.com/settings/tokens). This token should have the `public_repo` scope only.
+  * `WEBHOOK_KEY` can have a dummy value, unless you need to [configure the webhook](#configuring-the-webhook).
 
 5. Run `npm install` to install dependencies
 
@@ -51,7 +61,9 @@ Local installation has been tested on macOS High Sierra, with [Node.js](https://
 
 6. Add the GitHub webhook secret with `heroku config:set WEBHOOK_KEY=<key>`
 
-7. Push the app with `git push heroku master`
+7. Add a GitHub personal access token with `heroku config:set GITHUB_TOKEN=<token>`. This [personal access token](https://github.com/settings/tokens) should have the `public_repo` scope only.
+
+8. Push the app with `git push heroku master`
 
 ## Configuring the webhook
 
