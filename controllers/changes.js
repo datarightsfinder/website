@@ -30,4 +30,25 @@ router.get('/changes', function(req, res, next) {
     .catch(() => res.status(500));
 });
 
+router.get('/changes/ignore/:id', (req, res, next) => {
+  let id = req.params.id;
+
+  models.Organisation.findOne({
+    where: {
+      id: id,
+    },
+  })
+  .then((org) => {
+    let jsonLastUpdated = moment(org.jsonLastUpdated).subtract(1, 'hours');
+    let hashLastUpdated = moment(org.hashLastUpdated).subtract(1, 'hours');
+
+    if (hashLastUpdated.isAfter(jsonLastUpdated)) {
+      org.jsonLastUpdated = `${moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ss')}Z`;
+      org.save().then(() => res.send('200 OK'));
+    } else {
+      res.send('Error');
+    }
+  });
+});
+
 module.exports = router;
