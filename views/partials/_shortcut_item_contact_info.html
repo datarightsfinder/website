@@ -9,11 +9,17 @@
   <h3>By email</h3>
 
   {% if messageTemplates[right] %}
-    <p><a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">Email {{ contactInfo.emailAddress }} using this template</a></p>
-      <textarea>{{ messageTemplates[right] }}</textarea>
-    <p><a href="#" class="copy-to-clipboard">Copy template to clipboard</a></p>
+    <p><a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">Email {{ contactInfo.emailAddress }} using a template</a></p>
   {% else %}
     <p><a href="mailto:{{ contactInfo.emailAddress }}">{{ contactInfo.emailAddress }}</a></p>
+  {% endif %}
+{% endif %}
+
+{% if messageTemplates[right] %}
+  {% if contactInfo.url or contactInfo.emailAddress %}
+  <h3>Template</h3>
+  <textarea>{{ messageTemplates[right] }}</textarea>
+  <p><a href="#" class="copy-to-clipboard">Copy template to clipboard</a></p>
   {% endif %}
 {% endif %}
 
