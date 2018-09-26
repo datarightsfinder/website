@@ -88,7 +88,13 @@
     <script type="text/javascript">
       var _paq = _paq || [];
       _paq.push(['disableCookies']);
+
+      {% if pageName == "search" %}
+      _paq.push(['trackSiteSearch', "{{ query }}", false, {{ results.length }}]);
+      {% else %}
       _paq.push(['trackPageView']);
+      {% endif %}
+
       _paq.push(['enableLinkTracking']);
       (function() {
         var u="//bug.openrightsgroup.org/piwik/";
