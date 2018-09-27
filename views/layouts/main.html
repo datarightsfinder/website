@@ -26,6 +26,10 @@
     </script>
     {% endif %}
     <script src="/public/js/jquery-3.3.1.min.js"></script>
+    {% ifAsync pageName == "changes" %}
+    <script src="/public/js/diff_match_patch.js"></script>
+    <script src="/public/js/jquery.pretty-text-diff.js"></script>
+    {% endif %}
     {% ifAsync pageName == "organisation" %}
     <script src="/public/js/clipboard-polyfill.js"></script>
     {% endif %}

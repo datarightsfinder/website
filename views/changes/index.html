@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+
+{% set smallSearch = true %}
+{% set pageName = "changes" %}
+
+{% block head %}
+<script type="text/javascript">
+$(function() {
+  {% for organisation in changedOrganisations %}
+  {% if organisation.policyTextNew %}
+  $('body').prettyTextDiff({
+    diffContainer: '.diff_{{ organisation.registrationCountry }}{{ organisation.registrationNumber }}',
+    cleanup: true,
+    originalContent: '{{ organisation.policyTextOld | replace("\n", "") }}',
+    changedContent: '{{ organisation.policyTextNew | replace("\n", "") }}',
+  });
+  {% endif %}
+  {% endfor %}
+});
+</script>
+{% endblock %}
+
+{% block page_title %}Changes – {{ settings.title }}{% endblock %}
+
+{% block body_class %}changes{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
+    <h2>Changes</h2>
+
+    {% if changedOrganisations.length == 0 %}
+    <p>No changes found</p>
+    {% endif %}
+
+    {% for organisation in changedOrganisations %}
+    <p>
+      <span class="org-name"><a href="/organisation/{{ organisation.registrationCountry }}/{{ organisation.registrationNumber }}" />{{ organisation.name }}</a></span>
+      <span class="ignore"><a href="/changes/ignore/{{ organisation.id }}?key={{ changesKey }}">Ignore</a></span>
+    </p>
+
+    <pre class="diff_{{ organisation.registrationCountry }}{{ organisation.registrationNumber }}">{% if organisation.policyTextNew == null %}[PDF file]{% endif %}</pre>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
