@@ -8,6 +8,10 @@ let settings = yaml.load('settings.yaml');
 
 /* GET home page. */
 router.get('/changes', (req, res, next) => {
+  if (!req.query.key || req.query.key !== process.env.CHANGES_KEY) {
+    return res.status(401).send('401 Unauthorized');
+  }
+
   models.Organisation.findAll()
     .then((_allOrganisations) => {
       let changedOrganisations = [];
@@ -24,12 +28,17 @@ router.get('/changes', (req, res, next) => {
       res.render('changes/index.html', {
         settings: settings,
         changedOrganisations: changedOrganisations,
+        changesKey: req.query.key,
       });
     })
     .catch(() => res.status(500));
 });
 
 router.get('/changes/ignore/:id', (req, res, next) => {
+  if (!req.query.key || req.query.key !== process.env.CHANGES_KEY) {
+    return res.status(401).send('401 Unauthorized');
+  }
+
   let id = req.params.id;
 
   models.Organisation.findOne({
@@ -55,7 +64,7 @@ router.get('/changes/ignore/:id', (req, res, next) => {
       org.policyTextOld = org.policyTextNew;
     }
 
-    org.save().then(() => res.redirect('/changes'));
+    org.save().then(() => res.redirect(`/changes?key=${req.query.key}`));
   });
 });
 
