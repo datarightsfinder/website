@@ -3,6 +3,7 @@ const router = express.Router();
 const yaml = require('yamljs');
 const {check} = require('express-validator/check');
 const models = require('../models');
+const cors = require('cors');
 
 const settings = yaml.load('settings.yaml');
 
@@ -34,7 +35,7 @@ router.get('/search/:query', function(req, res, next) {
   });
 });
 
-router.get('/api/1/search/:query', function(req, res, next) {
+router.get('/api/1/search/:query', cors(), (req, res, next) => {
   let query = req.params.query;
 
   models.Organisation.findAll({

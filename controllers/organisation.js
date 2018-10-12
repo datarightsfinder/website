@@ -5,6 +5,7 @@ const moment = require('moment');
 const tableify = require('tableify');
 const constants = require('../libs/constants');
 const models = require('../models');
+const cors = require('cors');
 
 const messageTemplates = require('../config/message_templates.js');
 const countries = require('../countries.json');
@@ -42,12 +43,12 @@ router.get('/organisation/:country/:number', function(req, res, next) {
   });
 });
 
-router.get('/organisation/:country/:number.json', function(req, res, next) {
+router.get('/organisation/:country/:number.json', cors(), (req, res, next) => {
   res.redirect(`/api/1/organisation/${req.params.country}/`
       + `${req.params.number}`);
 });
 
-router.get('/api/1/organisation/:country/:number', function(req, res, next) {
+router.get('/api/1/organisation/:country/:number', cors(), (req, res, next) => {
   models.Organisation.findOne({
     where: {
       registrationCountry: req.params.country,

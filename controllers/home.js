@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const yaml = require('yamljs');
 const models = require('../models');
+const cors = require('cors');
 
 let settings = yaml.load('settings.yaml');
 
@@ -21,7 +22,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/api/1/all', function(req, res, next) {
+router.get('/api/1/all', cors(), (req, res, next) => {
   models.Organisation.findAll({
     order: [
       ['name', 'ASC'],
