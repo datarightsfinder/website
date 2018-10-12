@@ -4,7 +4,6 @@ const yaml = require('yamljs');
 const crypto = require('crypto');
 const cheerio = require('cheerio');
 const moment = require('moment');
-const isHtml = require('is-html');
 
 const settings = yaml.load('settings.yaml');
 
@@ -45,15 +44,17 @@ let getLatestHashes = (allOrganisations) => {
 let getLatestHash = (organisation) => {
   return new Promise((resolve, reject) => {
     requestUrl(organisation.payload.privacyNoticeUrl.url)
-      .then((_policyBody) => {
-        let isHtmlPolicy = isHtml(_policyBody);
-        let policyBodyFull = _policyBody;
-        let policyBodyNoSpaces = _policyBody;
+      .then((_result) => {
+        let isHtmlPolicy = false;
+        let policyBodyFull = _result[0];
+        let policyBodyNoSpaces = _result[0];
+        let contentType = _result[1].split(';')[0];
 
-        if (isHtmlPolicy) {
-          const $ = cheerio.load(_policyBody);
+        if (contentType === 'text/html') {
+          const $ = cheerio.load(_result[0]);
           policyBodyFull = $('p').text();
           policyBodyNoSpaces = policyBodyFull.replace(/\s+/g, '');
+          isHtmlPolicy = true;
         }
 
         let policyHash = crypto.createHash('sha512').update(policyBodyNoSpaces)
@@ -97,7 +98,7 @@ let requestUrl = (url) => {
         return reject('Unable to get file');
       }
 
-      resolve(body);
+      resolve([body, res.headers['content-type']]);
     });
   });
 };
