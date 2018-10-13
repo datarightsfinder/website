@@ -50,8 +50,8 @@ router.get('/api/1/search/:query', cors(), (req, res, next) => {
     _results.forEach(function(result) {
       results.push({
         name: result.name,
-        url: `${settings.url}/organisation/${result.registrationCountry}/`
-          + `${result.registrationNumber}.json`,
+        url: `${settings.url}/api/1/organisation/${result.registrationCountry}/`
+          + `${result.registrationNumber}`,
       });
     });
 
