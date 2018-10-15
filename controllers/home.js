@@ -33,8 +33,8 @@ router.get('/api/1/all', cors(), (req, res, next) => {
     _all.forEach(function(elem) {
       all.push({
         name: elem.name,
-        url: `${settings.url}/organisation/${elem.registrationCountry}/`
-          + `${elem.registrationNumber}.json`,
+        url: `${settings.url}/api/1/organisation/${elem.registrationCountry}/`
+          + `${elem.registrationNumber}`,
       });
     });
 
