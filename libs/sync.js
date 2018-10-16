@@ -5,7 +5,6 @@ const yaml = require('yamljs');
 const request = require('request');
 const crypto = require('crypto');
 const cheerio = require('cheerio');
-const isHtml = require('is-html');
 const moment = require('moment');
 const models = require('../models');
 
@@ -194,21 +193,23 @@ function handleModified(files, parentCallback) {
           return;
         }
 
-        callback(null, body);
+        callback(null, [body, res.headers['content-type']]);
       });
     },
-    function(_policyBody, callback) {
+    function(_result, callback) {
       let hashLastUpdated = '';
-      let policyBodyFull = _policyBody;
-      let policyBodyNoSpaces = _policyBody;
-      let isHtmlPolicy = isHtml(_policyBody);
+      let policyBodyFull = _result[0];
+      let policyBodyNoSpaces = _result[0];
       let policyTextOld = '';
       let policyTextNew = '';
+      let contentType = _result[1].split(';')[0];
+      let isHtmlPolicy = false;
 
-      if (isHtmlPolicy) {
-        const $ = cheerio.load(_policyBody);
+      if (contentType === 'text/html') {
+        const $ = cheerio.load(_result[0]);
         policyBodyFull = $('p').text();
         policyBodyNoSpaces = policyBodyFull.replace(/\s+/g, '');
+        isHtmlPolicy = true;
       }
 
       policyHash = crypto.createHash('sha512').update(policyBodyNoSpaces)
