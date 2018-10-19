@@ -34,12 +34,16 @@ $(function() {
     {% endif %}
 
     {% for organisation in changedOrganisations %}
-    <p>
-      <span class="org-name"><a href="/organisation/{{ organisation.registrationCountry }}/{{ organisation.registrationNumber }}" />{{ organisation.name }}</a></span>
-      <span class="ignore"><a href="/changes/ignore/{{ organisation.id }}?key={{ changesKey }}">Ignore</a></span>
-    </p>
+    <details class="changed-organisations">
+      <p>
+        <summary>
+          <span class="org-name"><a href="/organisation/{{ organisation.registrationCountry }}/{{ organisation.registrationNumber }}" />{{ organisation.name }}</a></span>
+          <span class="ignore"><a href="/changes/ignore/{{ organisation.id }}?key={{ changesKey }}">Ignore</a></span>
+        </summary>
+      </p>
 
-    <pre class="diff_{{ organisation.registrationCountry }}{{ organisation.registrationNumber }}">{% if organisation.policyTextNew == null %}[PDF file]{% endif %}</pre>
+      <pre class="diff_{{ organisation.registrationCountry }}{{ organisation.registrationNumber }}">{% if organisation.policyTextNew == null %}[PDF file]{% endif %}</pre>
+    </details>
     {% endfor %}
   </div>
 </div>
