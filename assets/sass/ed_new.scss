@@ -132,6 +132,10 @@ summary {
         font-weight: 700;
     }
 
+    &:focus {
+        outline: 0;
+    }
+
     &::before,
     &::after {
         width: .75em;
