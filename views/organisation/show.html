@@ -191,7 +191,10 @@
       {% if result.payload.dataCategoriesCollected.isMissing == true %}
       <p>This privacy notice does not appear to have this information.</p>
       {% else %}
+
       {% if result.payload.dataCategoriesCollected.list %}
+
+      <p>{{ result.name }} says they collect: </p>
       <ul>
         {% for item in result.payload.dataCategoriesCollected.list %}
         {% set flag = item | highlightSpecialCategory %}
@@ -264,7 +267,7 @@
       <p>This privacy notice does not appear to have this information.</p>
       {% else %}
       {% if result.payload.thirdParties.list %}
-      <h3>List of third parties</h3>
+      <p>{{ result.name }} says they share data with: </p>
       <ul>
         {% for item in result.payload.thirdParties.list %}
         <li>
@@ -374,6 +377,7 @@
       {% if lawfulBases.isMissing == true %}
       <p>This privacy notice does not appear to have this information.</p>
       {% else %}
+      <p>{{ result.name }} says they on these lawful bases to process data: </p>
       <ul class="collapsable">
         {% if lawfulBases.consent %}
         <li>
@@ -496,7 +500,7 @@
       {% if specificity %}
       <h3>How specific is this information?</h3>
       {% if specificity == "specific" %}
-      <p>This organisation provides specific details class="data_section" about how they secure data</p>
+      <p>This organisation provides specific details about how they secure data</p>
       {% elif specificity == "general" %}
       <p>This organisation provides general details about how they secure data</p>
       {% endif %}
