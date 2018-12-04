@@ -40,7 +40,7 @@
     {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
     {% include 'partials/_shortcut_item_contact_info.html' %}
   {% else %}
-    <p><span class="semibold">No contact information is available for this kind of request.</span> Help us by updating this organisation on <a href="https://github.com/{{ settings.repository_path }}/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json" target="_blank">GitHub</a>.</p>
+    <p><span class="semibold">No contact information is available for this kind of request.</span> Help us by <a href="mailto:{{ settings.contact_email }}"> emailing us about this organisation</a> or <a href="https://github.com/{{ settings.repository_path }}/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json" target="_blank">add it yourself on GitHub</a>.</p>
   {% endif %}
 
   {% if result.payload.rights[right].observations %}

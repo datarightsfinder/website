@@ -6,34 +6,74 @@
 {% block body_class %}index{% endblock %}
 
 {% block content %}
+
+
 <div class="home-search-wrapper">
+
   <div class="row">
-    <div class="columns small-12 large-8 large-offset-2">
-      <h2>{{ settings.description }}</h2>
-      {% include "partials/_search.html" %}
-    </div>
+    <div class="columns small-12 medium-8 medium-offset-2">
+      <h1 class="site-title">{{ settings.title }}</h1>
+      <h2>We'll help you take control of the data that organisations have about you</h2>
+
+          <h3 class="made-by">Made by<br><span><a href="https://www.openrightsgroup.org">Open Rights Group</a></span> & <span><a href="https://www.projectsbyif.com">Projects By IF</a></span></h3>
+
+        <div class="row front-page-logos">
+          <div class="column small-6 medium-4 logo">
+          <a href="https://www.openrightsgroup.org">
+            <img src="/public/images/logo_org_horiz.svg" alt="Open Rights Group logo" />
+          </a>
+        </div>
+        <div class="column small-6 medium-4 logo">
+
+          <a href="https://www.projectsbyif.com">
+            <img src="/public/images/logo_if.svg" alt="IF logo" />
+          </a>
+          </div>
+        </div>
+   </div>
   </div>
 </div>
 
-<div class="row">
-  <div class="columns small-12 large-8 large-offset-2">
-    <div class="intro">
-      <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
+<div class="row homepage_main_  section">
+  <div class="columns small-12 medium-8 medium-offset-2">
 
-      <p>We have information for the main banks, insurance providers, comparison websites, and financial services organisations.</p>
+
+    <h2>Get started by searching for an organisation's name or find them in the list below</h2>
+    <p>We have information about how data is used by the <strong>main banks</strong>, <strong>insurance providers</strong>, <strong>comparison websites</strong>, and <strong>financial services organisations</strong>.</p>
+    {% include "partials/_search.html" %}
+
+
+    <div class="column small-12">
+
+      {% if organisations %}
+      {% set initial = "" %}
+      <div class="organisations row">
+        {% for item in organisations %}
+        {% set organisationName = item.name %}
+        {% set currentInitial = organisationName | first %}
+
+        {% if currentInitial != initial %}
+
+
+        <div class="column small-12 organisation_list_initial">
+          <h2>
+            {{ currentInitial }}
+          </h2>
+
+        </div>
+
+        {% set initial = currentInitial %}
+
+        {% endif %}
+
+        <div class="columns small-10 small-offset-1 medium-4 medium-offset-1 organisation-title">
+          <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
+        </div>
+
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
-
-    {% if organisations %}
-    <h3>All organisations</h3>
-
-    <ul class="organisation-list">
-      {% for item in organisations %}
-      <li>
-        <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
   </div>
 </div>
 {% endblock %}

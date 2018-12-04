@@ -9,36 +9,31 @@
 
 {% block content %}
 <div class="row">
-  <div class="columns small-12 large-8 large-offset-2">
-    <h2>About</h2>
+  <div class="columns small-10 small-offset-1 medium-8 medium-offset-2">
+    <h2>About Data Rights Finder</h2>
 
-    <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
+    <p><span class="semibold">Let's be honest. We've all agreed to privacy policies we haven't read or understood.</span> And when we do have an issue we want to resolve, not many of us know what to do.</p>
 
-    <p>We're currently focussing on covering fintech organisations. We'll be expanding our coverage in the future.</p>
+    <p>Organisations should make their privacy policies easy to understand. But not all of them do. To help with this problem, <span class="semibold">we've analysed organisations' privacy policies</span> to make it clearer how they use data, including data about you.</p>
 
-    <h3>For developers</h3>
+    <p><span class="semibold">And we're making it easier to know what your rights are</span> if you want to use any of your data protection rights. <span class="semibold">We'll guide you through making requests</span> to change how data about you is used.</p>
 
-    <p>This website uses a <a href="https://github.com/{{ settings.repository_path }}" target="_blank">new and open dataset</a> of machine-readable privacy notices. Developers can use our API to integrate this dataset with their application.</p>
+    <p>Currently, we're focussing on covering <span class="semibold">fintech organisations</span>. We'll be expanding our coverage in the future. <a href="mailto:{{ settings.contact_email }}">Let us know</a> if there's a specific organisation you'd like to be added to the site</p>
 
-    <p class="semibold"><a href="https://github.com/datarightsfinder/website/blob/master/docs/api.md" target="_blank">Learn how to use the API on GitHub</a></p>
+    <h3>Contact Us</h3>
 
-    <h3>Contribute</h3>
-
-    <p>We’re looking for partners to expand the organisations we cover. You can help by converting a text privacy notice into a machine-readable privacy notice, or by contributing your organisation's privacy notice.</p>
-
-    <p><span class="semibold"><a href="https://generator.projectsbyif.com" target="_blank">Start a contribution with the form</a></span> or <span class="semibold"><a href="mailto:{{ settings.contact_email }}">request an organisation by email</a></span></p>
-
-    <h3>Contact</h3>
-
-    <p>We'd love your feedback on Data Rights Finder. Get in touch at <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>.</p>
+    <p><span class="semibold">We'd love your feedback on Data Rights Finder</span>. Get in touch at <a href="mailto:{{ settings.contact_email }}">{{
+        settings.contact_email }}</a> and let us know what you think.</p>
 
     <div class="logos">
       <a href="https://projectsbyif.com"><img src="/public/images/logo_if.svg" alt="IF logo" />
-      <a href="https://openrightsgroup.org"><img src="/public/images/logo_org.svg" alt="Open Rights Group logo" /></a>
-      <a href="https://ico.org.uk"><img src="/public/images/logo_ico.svg" alt="Information Commissioner's Office logo" /></a>
+        <a href="https://openrightsgroup.org"><img src="/public/images/logo_org.svg" alt="Open Rights Group logo" /></a>
+        <a href="https://ico.org.uk"><img src="/public/images/logo_ico.svg" alt="Information Commissioner's Office logo" /></a>
     </div>
 
-    <p>This project is maintained by <a href="https://projectsbyif.com">IF</a> and <a href="https://openrightsgroup.org" target="_blank">Open Rights Group</a> with funding from the <a href="https://ico.org.uk/" target="_blank">Information Commissioner’s Office</a>.</p>
+    <p>This project is maintained by <a href="https://projectsbyif.com">IF</a> and <a href="https://openrightsgroup.org"
+        target="_blank">Open Rights Group</a> with funding from the <a href="https://ico.org.uk/" target="_blank">Information
+        Commissioner’s Office</a>.</p>
   </div>
 </div>
 {% endblock %}

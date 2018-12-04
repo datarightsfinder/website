@@ -22,4 +22,4 @@ repository_path: datarightsfinder/data
 user_agent: datarightsfinder/website
 
 # Design
-disable_mobile_menu: true
+disable_mobile_menu: false

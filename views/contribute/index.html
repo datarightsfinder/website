@@ -1,0 +1,23 @@
+{% extends "layouts/main.html" %}
+
+{% set smallSearch = true %}
+{% set pageName = "Contribute" %}
+
+{% block page_title %}Contribute – {{ settings.title }}{% endblock %}
+
+{% block body_class %}contribute{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="columns small-10 small-offset-1 medium-8 medium-offset-2">
+    <h2>Contribute</h2>
+
+    <p>The data on Data Rights Finder is open. Anyone can contribute to it and anyone can use it and re-use it under the <a href="https://opendatacommons.org/licenses/odbl/summary/index.html">Open Database License</a>.</p>
+
+    <p><span class="semibold"><a href="https://generator.projectsbyif.com" target="_blank">You can make a contribution</a></span> of data about an organisation that's not in the database at the moment <a href="https://generator.projectsbyif.com" target="_blank"></a>with <a href="https://generator.projectsbyif.com">this form</a></a>. Organisations can add data about their own privacy policy. We'll check over all contributions before they're added into the database. All contributions are licensed under the Open Database License.</p>
+
+    <p>There's a <a href="https://github.com/datarightsfinder/website/projects/1" class="semibold">to-do list of organisations</a> to be added to the database. If there's an organisation you'd like to add to the list <a href="mailto:{{ settings.contact_email }}">send us an email</a> to let us know. Or if you have a Github account, you can add the organisation directly to the list.</p>
+
+  </div>
+</div>
+{% endblock %}

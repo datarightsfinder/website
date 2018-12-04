@@ -1,4 +1,5 @@
 <form action="/search" method="post" class="search{% if smallSearch %} small-search{% endif %}">
-<input id="query=" name="query" type="text" autocomplete="off" placeholder="{% if smallSearch %}Search{% else %}Find an organisation by name{% endif %}" value="{% if not smallSearch %}{{ query }}{% endif %}" {% ifAsync pageName == "home" %}autofocus{% endif %} />
+  <input id="query=" name="query" type="text" autocomplete="off" placeholder="{% if smallSearch %}Search{% else %}Find an organisation by name{% endif %}"
+    value="{% if not smallSearch %}{{ query }}{% endif %}" {% ifAsync pageName=="home" %}autofocus{% endif %} />
   <button type="submit">Search</button>
 </form>

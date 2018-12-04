@@ -18,17 +18,23 @@
     {% include "partials/_search.html" %}
 
     {% if results.length > 0 %}
-      <ul class="organisation-list">
-        {% for result in results %}
-        <li>
-          <a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}">{{ result.name }}</a>
-        </li>
-        {% endfor %}
-      </ul>
+    <p class="bold">{{ results.length }} organisations</p>
+
+    <div class="row">
+      {% for result in results %}
+      <div class="columns small-10 small-offset-1 medium-4 medium-offset-1 organisation-title">
+        <a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}">{{ result.name }}</a>
+      </div>
+
+      {% endfor %}
+    </div>
     {% else %}
-      <p class="bold">No results found</p>
+    <p class="bold">No results found</p>
     {% endif %}
-    <p>Help us expand the organisations we cover. <a href="https://generator.projectsbyif.com" target="_blank">Use this form</a> to contribute with GitHub, or email <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a> to request the organisation you're looking for.</p>
+    <p>Are we missing an organisation you'd like information about?</p>
+    <p><strong>Email <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></strong> to request
+      the organisation you're looking for.</p>
+    <!-- <p><a href="https://generator.projectsbyif.com" target="_blank">Use this form</a> to contribute with GitHub </p> -->
   </div>
 </div>
 {% endblock %}

@@ -1,117 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=contain" />
-    <title>{% block page_title %}{% endblock %}</title>
-    <link rel="icon" id="favicon" href="{{ settings.favicon }}" />
-    <link rel="apple-touch-icon-precomposed" href="{{ settings.apple_touch_icon }}" />
-    <meta name="description" content="{{ settings.description }}" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    {% if settings.use_facebook_meta_tags %}
-    <meta property="og:title" content="{{ settings.title }}" />
-    <meta property="og:url" content="{{ settings.url }}" />
-    <meta property="og:description" content="{{ settings.description }}" />
-    <meta property="og:image" content="{{ settings.facebook_card_image }}" />
-    {% endif %}
-    {% if settings.use_twitter_meta_tags %}
-    <meta property"twitter:title" content="{{ settings.title }}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:description" content="{{ settings.description }}" />
-    <meta name="twitter:image" content="{{ settings.twitter_card_image }}" />
-    {% endif %}
-    {% ifAsync pageName == "organisation" %}
-    <script type="text/javascript">
-      var orgName = '{{ result.name }}';
-    </script>
-    {% endif %}
-    <script src="/public/js/jquery-3.3.1.min.js"></script>
-    {% ifAsync pageName == "changes" %}
-    <script src="/public/js/diff_match_patch.js"></script>
-    <script src="/public/js/jquery.pretty-text-diff.js"></script>
-    {% endif %}
-    {% ifAsync pageName == "organisation" %}
-    <script src="/public/js/clipboard-polyfill.js"></script>
-    {% endif %}
-    <script src="/public/js/app.js"></script>
-    {% block inline_js %}{% endblock %}
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="/public/css/app.css" />
-    {% block inline_css %}{% endblock %}
-    {% block head %}{% endblock %}
-  </head>
-  <body class="{% block body_class %}{% endblock %}">
-    <div class="alpha-banner">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=contain" />
+  <title>{% block page_title %}{% endblock %}</title>
+  <link rel="icon" id="favicon" href="{{ settings.favicon }}" />
+  <link rel="apple-touch-icon-precomposed" href="{{ settings.apple_touch_icon }}" />
+  <meta name="description" content="{{ settings.description }}" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  {% if settings.use_facebook_meta_tags %}
+  <meta property="og:title" content="{{ settings.title }}" />
+  <meta property="og:url" content="{{ settings.url }}" />
+  <meta property="og:description" content="{{ settings.description }}" />
+  <meta property="og:image" content="{{ settings.facebook_card_image }}" />
+  {% endif %}
+  {% if settings.use_twitter_meta_tags %}
+  <meta property"twitter:title" content="{{ settings.title }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:description" content="{{ settings.description }}" />
+  <meta name="twitter:image" content="{{ settings.twitter_card_image }}" />
+  {% endif %}
+  {% ifAsync pageName == "organisation" %}
+  <script type="text/javascript">
+    var orgName = '{{ result.name }}';
+  </script>
+  {% endif %}
+  <script src="/public/js/jquery-3.3.1.min.js"></script>
+  {% ifAsync pageName == "changes" %}
+  <script src="/public/js/diff_match_patch.js"></script>
+  <script src="/public/js/jquery.pretty-text-diff.js"></script>
+  {% endif %}
+  {% ifAsync pageName == "organisation" %}
+  <script src="/public/js/clipboard-polyfill.js"></script>
+  {% endif %}
+  <script src="/public/js/app.js"></script>
+  {% block inline_js %}{% endblock %}
+  <link href="https://fonts.googleapis.com/css?family=Heebo:900|Open+Sans:400,600,700" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/public/css/app.css" />
+  {% block inline_css %}{% endblock %}
+  {% block head %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  <!-- <div class="alpha-banner">
       <div class="row">
         <div class="columns small-12 large-12">
           <p><span class="semibold">Alpha</span> This is a new service – <a href="mailto:{{ settings.contact_email }}">your feedback</a> will help us to improve it.</p>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <header>
-      <div class="row">
-        <div class="columns small-8 medium-6">
-          <h1>
-            <a href="/">{{ settings.title }}</a>
-          </h1>
-        </div>
-        <div class="columns small-4 medium-6">
-          <a href="#" class="mobile-menu{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">Menu</a>
-          <ul class="nav{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">
-            <li>
-              <a href="/about">About</a>
-            </li>
-          </ul>
-          {% ifAsync smallSearch %}
-            <a href="#" class="mobile-search">Search</a>
-            {% include "partials/_search.html" %}
-          {% endif %}
-        </div>
+  <header>
+    <div class="row">
+      <div class="columns">
+        <h1>
+          <a href="/">{{ settings.title }}</a>
+        </h1>
       </div>
-    </header>
+      <div class="columns">
+        <a href="#" class="mobile-menu{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}"><strong>Menu</strong></a>
+        <ul class="nav{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">
+          <li>
+            <a href="/contribute">Contribute</a>
+          </li>
+          <li>
+            <a href="/developers">Developers</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+        </ul>
+        {% ifAsync smallSearch %}
+        <a href="#" class="mobile-search">Search</a>
+        {% include "partials/_search.html" %}
+        {% endif %}
+      </div>
+    </div>
+  </header>
 
-    <div class="content">
+  <div class="content">
     {% block content %}{% endblock %}
-    </div>
+  </div>
 
-    <footer>
-      <div class="row">
-        <div class="columns small-12 large-12">
-          {% if pageName == "organisation" %}
-            <p>Problem on this page? Help us <a href="https://github.com/{{ settings.repository_path }}/issues/new" target="_blank">make it better</a> on GitHub.</p>
-          {% endif %}
+  <footer>
+    <div class="row">
+      <div class="columns small-12 large-12">
+        {% if pageName == "organisation" %}
+        <p><strong>Problem on this page?</strong> Help us make it better by <a href="mailto:{{ settings.contact_email }}">sending
+            us email</a> or <a href="https://github.com/{{ settings.repository_path }}/issues/new" target="_blank">making
+            an issue on GitHub</a>.</p>
+        {% endif %}
 
-          {% if pageName != "About" %}
-          <div class="licence">
-            <p>This website is maintained by <a href="https://www.openrightsgroup.org/" target="_blank">Open Rights Group</a> and <a href="https://projectsbyif.com" target="_blank">IF</a> with funding from the <a href="https://ico.org.uk/" target="_blank">Information Commissioner’s Office</a>. Data is licenced under the <a href="https://opendatacommons.org/licenses/odbl/1.0/" target="_blank">Open Database Licence</a>. <a href="https://www.openrightsgroup.org/privacy" target="_blank">Privacy notice</a></p>
-          </div>
-          {% endif %}
+        <div class="licence">
+          <p>This website is maintained by <a href="https://www.openrightsgroup.org/" target="_blank">Open Rights Group</a>
+            and <a href="https://projectsbyif.com" target="_blank">IF</a> with funding from the <a href="https://ico.org.uk/"
+              target="_blank">Information Commissioner’s Office</a>. &bull; Data is licensed under the <a href="https://opendatacommons.org/licenses/odbl/1.0/"
+              target="_blank">Open Database Licence</a>. &bull; <a href="https://www.openrightsgroup.org/privacy"
+              target="_blank">Privacy notice</a></p>
         </div>
       </div>
-    </footer>
-    {% if env == "production" %}
-    <!-- Matomo -->
-    <script type="text/javascript">
-      var _paq = _paq || [];
-      _paq.push(['disableCookies']);
+    </div>
+  </footer>
+  {% if env == "production" %}
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = _paq || [];
+    _paq.push(['disableCookies']);
 
-      {% if pageName == "search" %}
-      _paq.push(['trackSiteSearch', "{{ query }}", false, {{ results.length }}]);
-      {% else %}
-      _paq.push(['trackPageView']);
-      {% endif %}
+    { %
+      if pageName == "search" %
+    }
+    _paq.push(['trackSiteSearch', "{{ query }}", false, {
+      {
+        results.length
+      }
+    }]); { %
+      else %
+    }
+    _paq.push(['trackPageView']); { % endif %
+    }
 
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="//bug.openrightsgroup.org/piwik/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', '25']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    <!-- End Matomo Code -->
-    {% endif %}
-  </body>
+    _paq.push(['enableLinkTracking']);
+    (function () {
+      var u = "//bug.openrightsgroup.org/piwik/";
+      _paq.push(['setTrackerUrl', u + 'piwik.php']);
+      _paq.push(['setSiteId', '25']);
+      var d = document,
+        g = d.createElement('script'),
+        s = d.getElementsByTagName('script')[0];
+      g.type = 'text/javascript';
+      g.async = true;
+      g.defer = true;
+      g.src = u + 'piwik.js';
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+  {% endif %}
+</body>
+
 </html>

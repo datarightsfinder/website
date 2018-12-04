@@ -4,9 +4,9 @@
 
 @include foundation-global-styles;
 @include foundation-grid;
-// @include foundation-flex-grid;
+@include foundation-flex-grid;
 // @include foundation-typography;
-// @include foundation-button;
+@include foundation-button;
 @include foundation-forms;
 // @include foundation-range-input;
 // @include foundation-accordion;
@@ -50,3 +50,5 @@
 @import 'type';
 @import 'layout';
 @import 'pages';
+@import 'ed_new';
+

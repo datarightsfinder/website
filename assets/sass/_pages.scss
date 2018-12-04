@@ -1,7 +1,7 @@
 .organisation {
   ul {
     margin-top: 0.2rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
 
     li {
       margin-bottom: 0.2rem;
@@ -9,7 +9,8 @@
   }
 
   .summary {
-    background: $colour-secondary;
+    background-color: $colour-secondary;
+    margin-bottom: 2rem;
 
     @include media(desktop) {
       padding-bottom: 1rem;
@@ -61,7 +62,7 @@
       }
 
       .collapsable-content {
-        background: $colour-secondary;
+        background-color: $colour-secondary;
         border-top: #EEE 1px solid;
         padding: 0.5rem 1rem;
 
@@ -93,21 +94,19 @@
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
       height: 200px;
-      background: $colour-secondary;
+      background-color: $colour-secondary;
       font-family: monospace;
     }
   }
 
   .data-row {
-    border-bottom: #{$colour-seperator} 1px solid;
     padding: 1rem 0 1.2rem 0;
 
     @include media(desktop) {
-      padding: 2rem 0 2rem 0;
+      padding: 2rem 0 1rem 0;
     }
 
     .description {
-      margin-bottom: 2rem;
 
       a {
         border-bottom: #{$color-link-underline} 1px solid;
