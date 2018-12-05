@@ -607,11 +607,11 @@
       <h3>Summary</h3>
 
       {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking == "present" %}
-      <p>This organisation uses automated decision making</p>
+      <p>This organisation uses automated decision making.</p>
       {% elif result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking == "not_present" %}
       <p>This organisation does not use automated decision making</p>
       {% elif result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking == "unknown" %}
-      <p>It's unclear if this organisation uses automated decision making</p>
+      <p>It's unclear if this organisation uses automated decision making.</p>
       {% endif %}
       {% endif %}
 
@@ -623,7 +623,7 @@
       {% if result.payload.automatedDecisionMaking.specificity %}
       <h3>How specific is this information?</h3>
       {% if result.payload.automatedDecisionMaking.specificity == "specific" %}
-      <p>The organisation mentions use of automated decision making for specific purposes</p>
+      <p>The organisation mentions use of automated decision making for specific purposes.</p>
       {% elif result.payload.automatedDecisionMaking.specificity == "specific" %}
       <p>The organisation mentions use of automated decision making for general purposes</p>
       {% endif %}
