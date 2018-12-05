@@ -16,9 +16,11 @@
     <h2>Search results</h2>
 
     {% include "partials/_search.html" %}
-
-    {% if results.length > 0 %}
-    <p class="bold">{{ results.length }} organisations</p>
+    {% set numberResults = results.length %}
+    {% if numberResults > 0 %}
+    <p class="bold">{{ numberResults }}
+        {{ "organisations" if numberResults > 1  else "organisation" }}
+    </p>
 
     <div class="row">
       {% for result in results %}
