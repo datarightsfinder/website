@@ -13,7 +13,7 @@
   <div class="row">
     <div class="columns small-12 medium-8 medium-offset-2">
       <h1 class="site-title">{{ settings.title }}</h1>
-      <h2>We'll help you take control of the data that organisations have about you</h2>
+      <h2>We'll help you use your rights to take control of the data that organisations have about you</h2>
 
       <h3 class="made-by">Made by<br><span><a href="https://www.openrightsgroup.org">Open Rights Group</a></span> &
         <span><a href="https://www.projectsbyif.com">Projects By IF</a></span></h3>
@@ -41,7 +41,7 @@
 
     <h2>Get started by searching for an organisation's name or find them in the list below</h2>
     <p>We have information about how data is used by the <strong>main banks</strong>, <strong>insurance providers</strong>,
-      <strong>comparison websites</strong>, and <strong>financial services organisations</strong>.</p>
+      <strong>comparison websites</strong>, and <strong>financial services organisations</strong>.</p> And we can help you <strong>get a copy of data</strong>, <strong>get an explanation of computer-made decisions</strong>, <strong>delete data</strong> held by an organisation and more.</p>
 
     {% include "partials/_search.html" %}
     {% include "partials/_missing_org.html" %}
@@ -69,9 +69,9 @@
         </div>
         {% endfor %}
       </div>
-      {% include "partials/_missing_org.html" %}
       {% endif %}
     </div>
+    {% include "partials/_missing_org.html" %}
   </div>
 </div>
 {% endblock %}
