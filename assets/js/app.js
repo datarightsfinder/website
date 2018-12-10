@@ -18,6 +18,11 @@ $(function () {
     e.preventDefault();
 
     $('.small-search').fadeIn(250);
+    $('.content').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $('.small-search').fadeOut(50);
+    });
   });
 
   // COLLAPSABLES

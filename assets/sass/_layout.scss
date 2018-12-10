@@ -18,7 +18,7 @@ input {
 }
 
 header {
-  background: $colour-main;
+  background-color: $colour-main;
   width: 100%;
   height: 50px;
 
@@ -73,7 +73,7 @@ header {
 }
 
 .alpha-banner {
-  background: #EEE;
+  background-color: #EEE;
 
   span {
     margin-right: 5px;
@@ -139,7 +139,7 @@ header {
       top: 0;
       width: 100vw;
       height: 100vh;
-      background: $colour-main;
+      background-color: $colour-main;
       z-index: 9998;
       padding-top: 50%;
 
@@ -202,7 +202,7 @@ header {
 }
 
 .home-search-wrapper {
-  background: #EEE;
+  background-color: #EEE;
   padding: 1rem 0 1.5rem 0;
 
   @include media(desktop) {
@@ -227,7 +227,7 @@ header {
 
 footer {
   margin-top: 10px;
-  background: $colour-secondary;
+  background-color: $colour-secondary;
   position: relative;
   bottom: 0;
 
@@ -294,7 +294,7 @@ form.search {
   }
 
   &.small-search {
-    background: $colour-secondary;
+    background-color: $colour-secondary;
     width: 100vw;
     height: 50px;
     position: absolute;

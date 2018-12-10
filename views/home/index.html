@@ -15,10 +15,11 @@
       <h1 class="site-title">{{ settings.title }}</h1>
       <h2>We'll help you take control of the data that organisations have about you</h2>
 
-          <h3 class="made-by">Made by<br><span><a href="https://www.openrightsgroup.org">Open Rights Group</a></span> & <span><a href="https://www.projectsbyif.com">Projects By IF</a></span></h3>
+      <h3 class="made-by">Made by<br><span><a href="https://www.openrightsgroup.org">Open Rights Group</a></span> &
+        <span><a href="https://www.projectsbyif.com">Projects By IF</a></span></h3>
 
-        <div class="row front-page-logos">
-          <div class="column small-6 medium-4 logo">
+      <div class="row front-page-logos">
+        <div class="column small-6 medium-4 logo">
           <a href="https://www.openrightsgroup.org">
             <img src="/public/images/logo_org_horiz.svg" alt="Open Rights Group logo" />
           </a>
@@ -28,9 +29,9 @@
           <a href="https://www.projectsbyif.com">
             <img src="/public/images/logo_if.svg" alt="IF logo" />
           </a>
-          </div>
         </div>
-   </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -39,12 +40,15 @@
 
 
     <h2>Get started by searching for an organisation's name or find them in the list below</h2>
-    <p>We have information about how data is used by the <strong>main banks</strong>, <strong>insurance providers</strong>, <strong>comparison websites</strong>, and <strong>financial services organisations</strong>.</p>
-    {% include "partials/_search.html" %}
+    <p>We have information about how data is used by the <strong>main banks</strong>, <strong>insurance providers</strong>,
+      <strong>comparison websites</strong>, and <strong>financial services organisations</strong>.</p>
 
+    {% include "partials/_search.html" %}
+    <div class="missing_org">
+      <small>Email <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a> if you can't find an organisation</small>
+    </div>
 
     <div class="column small-12">
-
       {% if organisations %}
       {% set initial = "" %}
       <div class="organisations row">
@@ -53,24 +57,22 @@
         {% set currentInitial = organisationName | first %}
 
         {% if currentInitial != initial %}
-
-
         <div class="column small-12 organisation_list_initial">
           <h2>
             {{ currentInitial }}
           </h2>
-
         </div>
 
         {% set initial = currentInitial %}
-
         {% endif %}
 
         <div class="columns small-10 small-offset-1 medium-4 medium-offset-1 organisation-title">
           <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
         </div>
-
         {% endfor %}
+      </div>
+      <div class="missing_org">
+        <small>Email <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a> if you can't find an organisation</small>
       </div>
       {% endif %}
     </div>
