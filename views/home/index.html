@@ -44,9 +44,7 @@
       <strong>comparison websites</strong>, and <strong>financial services organisations</strong>.</p>
 
     {% include "partials/_search.html" %}
-    <div class="missing_org">
-      <small>Email <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a> if you can't find an organisation</small>
-    </div>
+    {% include "partials/_missing_org.html" %}
 
     <div class="column small-12">
       {% if organisations %}
@@ -71,9 +69,7 @@
         </div>
         {% endfor %}
       </div>
-      <div class="missing_org">
-        <small>Email <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a> if you can't find an organisation</small>
-      </div>
+      {% include "partials/_missing_org.html" %}
       {% endif %}
     </div>
   </div>
