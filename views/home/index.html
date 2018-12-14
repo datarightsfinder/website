@@ -10,15 +10,15 @@
 
 <div class="home-search-wrapper">
 
-  <div class="row">
-    <div class="columns small-12 medium-8 medium-offset-2">
+  <div class="row align-center">
+    <div class="columns small-12 medium-8">
       <h1 class="site-title">{{ settings.title }}</h1>
       <h2>We'll help you use your rights to take control of the data that organisations have about you</h2>
 
       <h3 class="made-by">Made by<br><span><a href="https://www.openrightsgroup.org">Open Rights Group</a></span> &
         <span><a href="https://www.projectsbyif.com">Projects By IF</a></span></h3>
 
-      <div class="row front-page-logos">
+      <div class="row align-spaced front-page-logos">
         <div class="column small-6 medium-4 logo">
           <a href="https://www.openrightsgroup.org">
             <img src="/public/images/logo_org_horiz.svg" alt="Open Rights Group logo" />
@@ -35,21 +35,26 @@
   </div>
 </div>
 
-<div class="row homepage_main_  section">
-  <div class="columns small-12 medium-8 medium-offset-2">
-
-
+<div class="row align-center homepage_main_section">
+  <div class="columns small-12 medium-8">
+    <div class="row align-center site-introduction">
+      <div class="columns small-11 medium-6">
+        <p>Find out about how data is used by the <strong>main banks</strong>, <strong>insurance providers</strong>,
+          <strong>comparison websites</strong>, and <strong>financial services organisations</strong></p>
+      </div>
+      <div class="columns small-11 medium-6">
+        <p><strong>Get a copy of data about you</strong>, <strong>get an explanation of computer-made decisions</strong>,
+          <strong>delete data</strong> held by an organisation and more</p>
+      </div>
+    </div>
     <h2>Get started by searching for an organisation's name or find them in the list below</h2>
-    <p>We have information about how data is used by the <strong>main banks</strong>, <strong>insurance providers</strong>,
-      <strong>comparison websites</strong>, and <strong>financial services organisations</strong>.</p> And we can help you <strong>get a copy of data</strong>, <strong>get an explanation of computer-made decisions</strong>, <strong>delete data</strong> held by an organisation and more.</p>
-
     {% include "partials/_search.html" %}
     {% include "partials/_missing_org.html" %}
 
     <div class="column small-12">
       {% if organisations %}
       {% set initial = "" %}
-      <div class="organisations row">
+      <div class="organisations row align-left">
         {% for item in organisations %}
         {% set organisationName = item.name %}
         {% set currentInitial = organisationName | first %}
