@@ -140,6 +140,12 @@ header {
     margin-top: 0 !important;
     float: right;
     height: 50px;
+
+    li {
+      a {
+        padding-left: 10px;
+      }
+    }
   }
 
   @include media(desktop) {
