@@ -72,23 +72,6 @@ header {
   }
 }
 
-.alpha-banner {
-  background: #EEE;
-
-  span {
-    margin-right: 5px;
-  }
-
-  @include media(tablet) {
-    height: 50px;
-
-    p {
-      margin: 0;
-      line-height: 50px;
-    }
-  }
-}
-
 .mobile-menu {
   color: #FFF;
   float: right;
