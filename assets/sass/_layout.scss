@@ -94,6 +94,8 @@ header {
   }
 
   &.active {
+    background-image: url('/public/images/icon_close.svg');
+    background-size: 22px;
     z-index: 9999;
     position: fixed;
     right: 1.3rem;
