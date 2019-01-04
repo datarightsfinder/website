@@ -1,0 +1,20 @@
+{% extends "layouts/main.html" %}
+
+{% set smallSearch = true %}
+{% set pageName = "Contribute" %}
+
+{% block page_title %}Contribute – {{ settings.title }}{% endblock %}
+
+{% block body_class %}contribute{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
+    <h3>Contribute</h3>
+
+    <p>We’re looking for partners to expand the organisations we cover. You can help by converting a text privacy notice into a machine-readable privacy notice, or by contributing your organisation's privacy notice.</p>
+
+    <p><span class="semibold"><a href="https://generator.projectsbyif.com" target="_blank">Start a contribution with the form</a></span> or <span class="semibold"><a href="mailto:{{ settings.contact_email }}">request an organisation by email</a></span></p>
+  </div>
+</div>
+{% endblock %}

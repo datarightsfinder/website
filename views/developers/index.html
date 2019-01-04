@@ -1,0 +1,20 @@
+{% extends "layouts/main.html" %}
+
+{% set smallSearch = true %}
+{% set pageName = "Developers" %}
+
+{% block page_title %}Developers – {{ settings.title }}{% endblock %}
+
+{% block body_class %}developers{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
+    <h2>For developers</h2>
+
+    <p>This website uses a <a href="https://github.com/{{ settings.repository_path }}" target="_blank">new and open dataset</a> of machine-readable privacy notices. Developers can use our API to integrate this dataset with their application.</p>
+
+    <p class="semibold"><a href="https://github.com/datarightsfinder/website/blob/master/docs/api.md" target="_blank">Learn how to use the API on GitHub</a></p>
+  </div>
+</div>
+{% endblock %}
