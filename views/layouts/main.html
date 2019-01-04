@@ -52,9 +52,13 @@
           <a href="#" class="mobile-menu{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">Menu</a>
           <ul class="nav{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">
             <li>
-              <a href="/contribute">Contribute</a>
-              <a href="/developers">Developers</a>
               <a href="/about">About</a>
+            </li>
+            <li>
+              <a href="/developers">Developers</a>
+            </li>
+            <li>
+              <a href="/contribute">Contribute</a>
             </li>
           </ul>
           {% ifAsync smallSearch %}
