@@ -219,22 +219,16 @@
   .contentsList {
     margin-top: 1rem;
     list-style: none;
-    & > li {
+    margin: 0;
+    padding: 0;
+
+    li {
       font-weight: 600;
-      margin-bottom: 1rem;
-    }
+      margin-bottom: 0.5rem;
 
-    ul {
-      list-style: none;
-      font-weight:normal;
-      margin: 0;
-      padding: 0;
-
-      li {
-        &:before {
-          content: "— ";
-          padding-right: 5px;
-        }
+      &:before {
+        content: "— ";
+        padding-right: 5px;
       }
     }
   }
