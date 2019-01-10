@@ -23,7 +23,32 @@
       <p><a href="#">Finance Organisations</a></p>
     </div>
     {% endif %}
+  </div>
+</div>
 
+<div class="row new-contributions">
+  <div class="columns small-12 large-8 large-offset-2">
+    <h3>Recently updated</h3>
+
+    <table>
+      <tbody>
+        {% set newest = organisations | sort(true, false, 'jsonLastUpdated') %}
+        {% for item in newest %}
+          {% if loop.index0 < 5 %}
+            <tr>
+              <td>{{ item.name }}</td>
+              <td class="date-added">{{ item.jsonLastUpdated | truncate(10, true, '') }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
     <div class="intro">
       <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
 

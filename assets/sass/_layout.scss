@@ -369,6 +369,18 @@ form.search {
   }
 }
 
+.new-contributions {
+  table {
+    width: 100%;
+  }
+
+  .date-added {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
 .organisation-list {
   list-style-type: none;
   padding-left: 0;
