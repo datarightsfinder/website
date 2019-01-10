@@ -26,12 +26,19 @@
   </div>
 </div>
 
-<div class="row data-row">
+<div id="contents" class="row data-row">
+  <div class="columns small-12 large-6 end">
+    <h2>Contents</h2>
+    {% include 'partials/_contents.html' %}
+  </div>
+</div>
+
+<div id="makeARequest" class="row data-row">
   <div class="columns small-12 large-6 end">
     <h2>Make a request</h2>
 
     <ul class="collapsable">
-      <li>
+      <li id="seeDataAboutYou">
         <a href="#" class="toggle">
           <p>See data they hold about you</p>
           <div></div>
@@ -39,7 +46,7 @@
         {% set right = "access" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li>
+      <li id="changeDataAboutYou">
         <a href="#" class="toggle">
           <p>Change data they hold about you</p>
           <div></div>
@@ -47,7 +54,7 @@
         {% set right = "rectification" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li>
+      <li id="deleteDataAboutYou">
         <a href="#" class="toggle">
           <p>Delete data they hold about you</p>
           <div></div>
@@ -55,7 +62,7 @@
         {% set right = "erasure" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li>
+      <li id="limitDataAboutYou">
         <a href="#" class="toggle">
           <p>Limit how they use data about you</p>
           <div></div>
@@ -63,7 +70,7 @@
         {% set right = "restrictProcessing" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li>
+      <li id="stopDataAboutYou">
         <a href="#" class="toggle">
           <p>Stop their use of data about you</p>
           <div></div>
@@ -71,7 +78,7 @@
         {% set right = "object" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li>
+      <li id="exportDataAboutYou">
         <a href="#" class="toggle">
           <p>Export data they hold about you</p>
           <div></div>
@@ -79,7 +86,7 @@
         {% set right = "dataPortability" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li>
+      <li id="challengeAutomatedDecision">
         <a href="#" class="toggle">
           <p>Challenge an automated decision</p>
           <div></div>
@@ -96,14 +103,14 @@
     <h2>Organisation information</h2>
 
     {% if result.payload.organisationInformation.description %}
-      <h3>Description</h3>
+      <h3 id="organisationDescription">Description</h3>
       <p>{{ result.payload.organisationInformation.description }}</p>
     {% endif %}
 
-    <h3>Registration country</h3>
+    <h3 id="registrationCountry">Registration country</h3>
     <p>{{ meta.fullCountryName }}</p>
 
-    <h3>Registration number</h3>
+    <h3 id="registrationNumber">Registration number</h3>
     <p>{{ result.registrationNumber }}</p>
   </div>
 </div>
@@ -116,11 +123,11 @@
     {% if result.payload.dataProtectionOfficer %}
       {% if result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.name or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.role or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.contactInfo %}
         {% if result.payload.dataProtectionOfficer.name %}
-          <h3>Name</h3>
+          <h3 id="dpoName">Name</h3>
           <p>{{ result.payload.dataProtectionOfficer.name }}</p>
         {% endif %}
         {% if result.payload.dataProtectionOfficer.role %}
-          <h3>Role</h3>
+          <h3 id="dpoRole">Role</h3>
           <p>{{ result.payload.dataProtectionOfficer.role }}</p>
         {% endif %}
         {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
@@ -176,7 +183,7 @@
           <h3>Observations</h3>
           <p>{{ result.payload.unusualProcessingPurposes.observations | striptags(true) | escape | nl2br }}</p>
         {% elif result.payload.unusualProcessingPurposes.present == "not_present" %}
-          <p>This privacy notice does not appear to mention any unusual processing purposes.</o>
+          <p>This privacy notice does not appear to mention any unusual processing purposes.</p>
         {% endif %}
       {% endif %}
     {% else %}
