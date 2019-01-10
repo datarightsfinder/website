@@ -73,17 +73,15 @@ header {
 }
 
 .mobile-menu {
-  width: 25px;
+  width: 22px;
   height: 50px;
   background-image: url('/public/images/menu.svg');
   text-indent: -9999px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 22px;
   float: right;
   text-decoration: none;
   display: block;
-  margin-left: 8px;
 
   &.no-mobile-menu {
     display: none;
