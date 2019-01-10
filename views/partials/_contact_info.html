@@ -1,25 +1,25 @@
 {% if contactInfo.url %}
-<h3 id="dpoURL">URL</h3>
+<h3>URL</h3>
 <p>
   <a href="{{ contactInfo.url }}" target="_blank">{{ contactInfo.url }}</a>
 </p>
 {% endif %}
 
 {% if contactInfo.emailAddress %}
-<h3 id="dpoEmail">Email address</h3>
+<h3>Email address</h3>
 <p>
   <a href="mailto:{{ contactInfo.emailAddress }}">{{ contactInfo.emailAddress }}</a>
 </p>
 {% endif %}
 
 {% if contactInfo.telephoneNumber %}
-<h3 id="dpoPhone">Telephone number</h3>
+<h3>Telephone number</h3>
 <p>
   <a href="tel:{{ contactInfo.telephoneNumber }}">{{ contactInfo.telephoneNumber }}</a>
 </p>
 {% endif %}
 
 {% if contactInfo.postalAddress %}
-<h3 id="dpoAddress">Postal address</h3>
+<h3>Postal address</h3>
 <p>{{ contactInfo.postalAddress }}</p>
 {% endif %}

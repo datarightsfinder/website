@@ -1,212 +1,65 @@
 <ul class="contentsList">
   <li>
     <a href="#makeARequest">Make a request</a>
-    <ul>
-      <li><a href="#seeDataAboutYou">See data they hold about you</a></li>
-      <li><a href="#changeDataAboutYou">Change data they hold about you</a></li>
-      <li><a href="#deleteDataAboutYou">Delete data they hold about you</a></li>
-      <li><a href="#limitDataAboutYou">Limit how they use data about you</a></li>
-      <li><a href="#stopDataAboutYou">Stop their use of data about you</a></li>
-      <li><a href="#exportDataAboutYou">Export data they hold about you</a></li>
-      <li><a href="#challengeAutomatedDecision">Challenge an automated decision</a></li>
-    </ul>
   </li>
 
   <li>
     <a href="#organisationInformation">Organisation information</a>
-    <ul>
-      {% if result.payload.organisationInformation.description %}
-      <li><a href="#organisationDescription">Description</a></li>
-      {% endif %}
-      <li><a href="#registrationCountry">Registration country</a></li>
-      <li><a href="#registrationNumber">Registration number</a></li>
-    </ul>
   </li>
 
   <li>
     <a href="#dataProtectionOfficer">Data Protection Officer</a>
-    {% if result.payload.dataProtectionOfficer %}
-    <ul>
-      {% if result.payload.dataProtectionOfficer %}
-        {% if result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.name or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.role or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.contactInfo %}
-          {% if result.payload.dataProtectionOfficer.name %}
-          <li><a href="#dpoName">Name</a></li>
-          {% endif %}
-          {% if result.payload.dataProtectionOfficer.role %}
-          <li><a href="#dpoRole">Role</a></li>
-          {% endif %}
-        {% endif %}
-        {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
-        {% if contactInfo.url %}
-        <li><a href="#dpoURL">URL</a></li>
-        {% endif %}
-        {% if contactInfo.emailAddress %}
-        <li><a href="#dpoEmail">Email address</a></li>
-        {% endif %}
-        {% if contactInfo.telephoneNumber %}
-        <li><a href="#dpoPhone">Telephone number</a></li>
-        {% endif %}
-        {% if contactInfo.postalAddress %}
-        <li><a href="#dpoAddress">Postal address</a></li>
-        {% endif %}
-      {% endif %}
-    </ul>
-    {% endif %}
   </li>
 
-  <li>Data categories collected</li>
-
-  <li>Unusual processing purposes
-    {% if result.payload.unusualProcessingPurposes.present == "present" and result.payload.unusualProcessingPurposes.observations %}
-      <ul>
-        <li>Observations</li>
-      </ul>
-    {% endif %}
+  <li>
+    <a href="#dataCategoriesCollected">Data categories collected</a>
   </li>
 
-  <li>Third parties
-    {% if result.payload.thirdParties %}
-    <ul>
-    {% if result.payload.thirdParties.list %}
-      <li>List of third parties</li>
-    {% endif %}
-    {% if result.payload.thirdParties.specificity %}
-      <li>How specific is this information?</li>
-    {% endif %}
-    {% if result.payload.thirdParties.observations %}
-      <li>Observations</li>
-    {% endif %}
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#unusualProcessingPurposes">Unusual processing purposes</a>
   </li>
 
-  <li>Retention rules
-    {% if result.payload.retentionRules %}
-    <ul>
-      {% if result.payload.retentionRules.summary %}
-      <li>Summary</li>
-      {% endif %}
-      {% if result.payload.retentionRules.observations %}
-      <li>Observations</li>
-      {% endif %}
-      {% if result.payload.retentionRules.specificityCategory or result.payload.retentionRules.specificityTime %}
-      <li>How specific is this information?</li>
-      {% endif %}
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#thirdParties">Third parties</a>
   </li>
 
-  <li>Lawful bases
-    {% if lawfulBases %}
-    <ul>
-      {% if lawfulBases.consent %}
-        <li>Consent</li>
-      {% endif %}
-      {% if lawfulBases.contract %}
-        <li>Contract</li>
-      {% endif %}
-      {% if lawfulBases.legalObligation %}
-        <li>Legal obligation</li>
-      {% endif %}
-      {% if lawfulBases.vitalInterests %}
-        <li>Vital interests</li>
-      {% endif %}
-      {% if lawfulBases.publicTask %}
-        <li>Public task</li>
-      {% endif %}
-      {% if lawfulBases.legitimateInterests %}
-        <li>Legitimate interests</li>
-      {% endif %}
-      {% if lawfulBases.observations %}
-        <li>Observations</li>
-      {% endif %}
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#retentionRules">Retention rules</a>
   </li>
 
-  <li>Security standards
-    {% if result.payload.securityStandards %}
-      <ul>
-        {% if result.payload.securityStandards.url %}
-          <li>Security standards URL</li>
-        {% endif %}
-        {% if result.payload.securityStandards.observations %}
-          <li>Observations</li>
-        {% endif %}
-        {% if result.payload.securityStandards.specificity %}
-          <li>How specific is this information?</li>
-        {% endif %}
-      </ul>
-    {% endif %}
+  <li>
+    <a href="#lawfulBases">Lawful bases</a>
+  </li>
+
+  <li>
+    <a href="#securityStandards">Security standards</a>
   </li>
 
   {% if meta.isUS %}
-  <li>US-EU Privacy Shield
-    {% if result.payload.privacyShield %}
-    <ul>
-      <li>URL</li>
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#privacyShield">US-EU Privacy Shield</a>
   </li>
   {% endif %}
 
-  <li>Data processing addendum
-    {% if result.payload.dataProcessingAddendum %}
-    <ul>
-      {% if result.payload.dataProcessingAddendum.type %}
-        <li>Type</li>
-      {% endif %}
-      {% if result.payload.dataProcessingAddendum.url %}
-        <li>URL</li>
-      {% endif %}
-      {% if result.payload.dataProcessingAddendum.observations %}
-        <li>Observations</li>
-      {% endif %}
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#dataProcessingAddendum">Data processing addendum</a>
   </li>
 
-  <li>Automated decision making
-    {% if result.payload.automatedDecisionMaking %}
-    <ul>
-    {% if result.payload.automatedDecisionMaking.usesAutomatedDecisionMaking %}
-      <li>Summary</li>
-    {% endif %}
-    {% if result.payload.automatedDecisionMaking.observations %}
-      <li>Observations</li>
-    {% endif %}
-    {% if result.payload.automatedDecisionMaking.specificity %}
-      <li>How specific is this information?</li>
-    {% endif %}
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#automatedDecisionMaking">Automated decision making</a>
   </li>
 
-  <li>Complaint information
-    {% if result.payload.complaintInformation %}
-    <ul>
-      {% if result.payload.complaintInformation.present == "present" %}
-        <li>Summary</li>
-      {% endif %}
-      {% if result.payload.complaintInformation.observations %}
-        <li>Observations</li>
-      {% endif %}
-      {% if result.payload.complaintInformation.specificity %}
-        <li>How specific is this information?</li>
-      {% endif %}
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#complaintInformation">Complaint information</a>
   </li>
 
-  <li>Design recommendations
-    {% if result.payload.presentation %}
-    <ul>
-      <li>Assessment</li>
-    </ul>
-    {% endif %}
+  <li>
+    <a href="#designRecommendations">Design recommendations</a>
   </li>
 
   {% if extraData %}
-  <li>Extra data</li>
+  <li>
+    <a href="#extraData">Extra data</a>
+  </li>
   {% endif %}
 </ul>

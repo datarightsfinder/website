@@ -38,7 +38,7 @@
     <h2>Make a request</h2>
 
     <ul class="collapsable">
-      <li id="seeDataAboutYou">
+      <li>
         <a href="#" class="toggle">
           <p>See data they hold about you</p>
           <div></div>
@@ -46,7 +46,7 @@
         {% set right = "access" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li id="changeDataAboutYou">
+      <li>
         <a href="#" class="toggle">
           <p>Change data they hold about you</p>
           <div></div>
@@ -54,7 +54,7 @@
         {% set right = "rectification" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li id="deleteDataAboutYou">
+      <li>
         <a href="#" class="toggle">
           <p>Delete data they hold about you</p>
           <div></div>
@@ -62,7 +62,7 @@
         {% set right = "erasure" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li id="limitDataAboutYou">
+      <li>
         <a href="#" class="toggle">
           <p>Limit how they use data about you</p>
           <div></div>
@@ -70,7 +70,7 @@
         {% set right = "restrictProcessing" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li id="stopDataAboutYou">
+      <li>
         <a href="#" class="toggle">
           <p>Stop their use of data about you</p>
           <div></div>
@@ -78,7 +78,7 @@
         {% set right = "object" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li id="exportDataAboutYou">
+      <li>
         <a href="#" class="toggle">
           <p>Export data they hold about you</p>
           <div></div>
@@ -86,7 +86,7 @@
         {% set right = "dataPortability" %}
         {% include 'partials/_shortcut_item.html' %}
       </li>
-      <li id="challengeAutomatedDecision">
+      <li>
         <a href="#" class="toggle">
           <p>Challenge an automated decision</p>
           <div></div>
@@ -103,14 +103,14 @@
     <h2>Organisation information</h2>
 
     {% if result.payload.organisationInformation.description %}
-      <h3 id="organisationDescription">Description</h3>
+      <h3>Description</h3>
       <p>{{ result.payload.organisationInformation.description }}</p>
     {% endif %}
 
-    <h3 id="registrationCountry">Registration country</h3>
+    <h3>Registration country</h3>
     <p>{{ meta.fullCountryName }}</p>
 
-    <h3 id="registrationNumber">Registration number</h3>
+    <h3>Registration number</h3>
     <p>{{ result.registrationNumber }}</p>
   </div>
 </div>
@@ -123,11 +123,11 @@
     {% if result.payload.dataProtectionOfficer %}
       {% if result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.name or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.role or result.payload.dataProtectionOfficer.present == "present" and result.payload.dataProtectionOfficer.contactInfo %}
         {% if result.payload.dataProtectionOfficer.name %}
-          <h3 id="dpoName">Name</h3>
+          <h3>Name</h3>
           <p>{{ result.payload.dataProtectionOfficer.name }}</p>
         {% endif %}
         {% if result.payload.dataProtectionOfficer.role %}
-          <h3 id="dpoRole">Role</h3>
+          <h3>Role</h3>
           <p>{{ result.payload.dataProtectionOfficer.role }}</p>
         {% endif %}
         {% set contactInfo = result.payload.dataProtectionOfficer.contactInfo %}
