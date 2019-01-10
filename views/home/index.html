@@ -17,6 +17,13 @@
 
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
+    {% if organisations %}
+    <div class="totals">
+      <p><a href="#">{{ organisations | length }}</a></p>
+      <p><a href="#">Finance Organisations</a></p>
+    </div>
+    {% endif %}
+
     <div class="intro">
       <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
 

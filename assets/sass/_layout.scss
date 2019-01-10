@@ -355,6 +355,20 @@ form.search {
   }
 }
 
+.totals {
+  p:first-of-type {
+    font-size: 3rem;
+    margin: 0;
+  }
+
+  p {
+    font-weight: 600;
+    a {
+      border-bottom: 0 !important;
+    }
+  }
+}
+
 .organisation-list {
   list-style-type: none;
   padding-left: 0;
