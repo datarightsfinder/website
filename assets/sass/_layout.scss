@@ -72,31 +72,16 @@ header {
   }
 }
 
-.alpha-banner {
-  background: #EEE;
-
-  span {
-    margin-right: 5px;
-  }
-
-  @include media(tablet) {
-    height: 50px;
-
-    p {
-      margin: 0;
-      line-height: 50px;
-    }
-  }
-}
-
 .mobile-menu {
-  color: #FFF;
+  width: 22px;
+  height: 50px;
+  background-image: url('/public/images/menu.svg');
+  text-indent: -9999px;
+  background-position: center;
+  background-repeat: no-repeat;
   float: right;
   text-decoration: none;
   display: block;
-  height: 50px;
-  line-height: 50px;
-  margin-left: 8px;
 
   &.no-mobile-menu {
     display: none;
@@ -107,6 +92,8 @@ header {
   }
 
   &.active {
+    background-image: url('/public/images/icon_close.svg');
+    background-size: 22px;
     z-index: 9999;
     position: fixed;
     right: 1.3rem;
@@ -157,6 +144,12 @@ header {
     margin-top: 0 !important;
     float: right;
     height: 50px;
+
+    li {
+      a {
+        padding-left: 10px;
+      }
+    }
   }
 
   @include media(desktop) {
