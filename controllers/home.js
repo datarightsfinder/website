@@ -3,6 +3,7 @@ const router = express.Router();
 const yaml = require('yamljs');
 const models = require('../models');
 const cors = require('cors');
+const moment = require('moment');
 
 let settings = yaml.load('settings.yaml');
 
@@ -13,9 +14,29 @@ router.get('/', function(req, res, next) {
       ['jsonLastUpdated', 'DESC'],
     ],
   }).then(function(_all) {
+    let all = _all.map(function(elem) {
+      let dateLastUpdated = moment(elem.dataValues.jsonLastUpdated);
+
+      let currentDate = moment();
+
+      let diff = currentDate.diff(dateLastUpdated, 'days');
+
+      let ending = ' days ago';
+
+      if (diff <= 1) {
+        ending = ' day ago';
+      }
+
+      let daysSinceLastUpdate = diff + ending;
+
+      elem.dataValues.jsonLastUpdated = daysSinceLastUpdate;
+
+      return elem;
+    });
+
     res.render('home/index.html', {
       settings: settings,
-      organisations: _all,
+      organisations: all,
     });
   }).catch(function(err) {
     res.render('home/index.html', {settings: settings, organisations: []});

@@ -36,7 +36,7 @@
           {% if loop.index0 < 5 %}
             <tr>
               <td>{{ item.name }}</td>
-              <td class="date-added">{{ item.jsonLastUpdated | truncate(10, true, '') }}</td>
+              <td class="date-added">{{ item.jsonLastUpdated }}</td>
             </tr>
           {% endif %}
         {% endfor %}
