@@ -263,6 +263,38 @@
   }
 }
 
+.allOrgs {
+  .alphabet {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-row-gap: 1rem;
+  }
+
+  .back-to-top-link {
+    position: fixed;
+    bottom: 0;
+    transform: translateY(11vh);
+    transition: transform 0.5s ease-in-out;
+    background-color: lightgrey;
+    height: 10vh;
+    width: 100%;
+    z-index: 100;
+
+    p {
+      line-height: 10vh;
+    }
+
+    &.active {
+      transition: transform 0.5 ease-in-out;
+      transform: translate(0);
+    }
+  }
+}
+
 .search_page {
   p {
     a {

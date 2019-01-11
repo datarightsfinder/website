@@ -1,0 +1,61 @@
+{% extends "layouts/main.html" %}
+{% set pageName = "All" %}
+
+{% block page_title %}{{ settings.title }}{% endblock %}
+
+{% block body_class %}allOrgs{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
+
+    <div class="home-search-wrapper">
+      <h2>{{ settings.description }}</h2>
+      {% include "partials/_search.html" %}
+    </div>
+
+    {% if organisations %}
+
+    <h2 id="contents">All organisations</h2>
+    <nav>
+      <ul class="alphabet">
+      {% for letter in alphabet %}
+        <li>
+          <a href="#{{ letter | capitalize }}">{{ letter | capitalize }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    </nav>
+
+    {% set initial = "" %}
+    <ul class="organisation-list">
+      {% for item in organisations %}
+      {% set organisationName = item.sortName %}
+      {% set currentInitial = organisationName | first %}
+
+      {% if currentInitial != initial %}
+      <h3 id="{{ currentInitial }}">
+        {{ currentInitial }}
+      </h3>
+      {% set initial = currentInitial %}
+      {% endif %}
+
+      <li>
+        <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row back-to-top">
+  <div class="back-to-top-link">
+    <div class="columns small-12 large-8 large-offset-2">
+      <p><a href="#contents">Back to top</a></p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

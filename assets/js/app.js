@@ -49,4 +49,18 @@ $(function() {
   $('textarea').each(function(i, e) {
     $(e).text($(e).text().replace('{{name}}', orgName));
   });
+
+  // BACK TO TOP
+  if ($('.allOrgs')) {
+    $(window).scroll(function(e) {
+      var viewportHeight = $(window).height();
+      var scrollY = e.pageY;
+
+      if (scrollY > viewportHeight) {
+        $('.back-to-top-link').addClass('active');
+      } else {
+        $('.back-to-top-link').removeClass('active');
+      }
+    })
+  }
 });

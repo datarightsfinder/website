@@ -19,8 +19,8 @@
   <div class="columns small-12 large-8 large-offset-2">
     {% if organisations %}
     <div class="totals">
-      <p><a href="#">{{ organisations | length }}</a></p>
-      <p><a href="#">Finance Organisations</a></p>
+      <p><a href="/all">{{ organisations | length }}</a></p>
+      <p><a href="/all">Finance Organisations</a></p>
     </div>
     {% endif %}
   </div>
@@ -53,18 +53,6 @@
 
       <p>We have information for the main banks, insurance providers, comparison websites, and financial services organisations.</p>
     </div>
-
-    {% if organisations %}
-    <h3>All organisations</h3>
-
-    <ul class="organisation-list">
-      {% for item in organisations %}
-      <li>
-        <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
   </div>
 </div>
 {% endblock %}
