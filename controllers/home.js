@@ -10,7 +10,7 @@ let settings = yaml.load('settings.yaml');
 router.get('/', function(req, res, next) {
   models.Organisation.findAll({
     order: [
-      ['sortName', 'ASC'],
+      ['jsonLastUpdated', 'DESC'],
     ],
   }).then(function(_all) {
     res.render('home/index.html', {

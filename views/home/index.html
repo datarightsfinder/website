@@ -32,8 +32,7 @@
 
     <table>
       <tbody>
-        {% set newest = organisations | sort(true, false, 'jsonLastUpdated') %}
-        {% for item in newest %}
+        {% for item in organisations %}
           {% if loop.index0 < 5 %}
             <tr>
               <td>{{ item.name }}</td>
