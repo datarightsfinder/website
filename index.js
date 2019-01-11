@@ -57,6 +57,7 @@ nunjucksEnv.express(app);
 
 // ROUTES
 let indexRouter = require('./controllers/home');
+let allRouter = require('./controllers/all');
 let aboutRouter = require('./controllers/about');
 let developersRouter = require('./controllers/developers');
 let contributeRouter = require('./controllers/contribute');
@@ -73,6 +74,7 @@ app.use('/', changesRouter);
 
 // Non-API endpoints
 app.use('/about', aboutRouter);
+app.use('/all', allRouter);
 app.use('/contribute', contributeRouter);
 app.use('/developers', developersRouter);
 app.use('/webhook', webhookRouter.router);
