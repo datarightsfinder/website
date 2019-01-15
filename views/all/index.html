@@ -9,7 +9,7 @@
 
 <div class="home-search-wrapper">
   <div class="row">
-    <div class="columns small-12 large-8 large-offset-2>">
+    <div class="columns small-12 large-8 large-offset-2">
       <h2>{{ settings.description }}</h2>
       {% include "partials/_search.html" %}
     </div>
@@ -60,12 +60,7 @@
   </div>
 </div>
 
-<div class="row back-to-top">
-  <div class="back-to-top-link">
-    <div class="columns small-12 large-8 large-offset-2">
-      <p><a href="#contents">Back to top</a></p>
-    </div>
-  </div>
-</div>
+{% set allOrgs = true %}
+{% include "partials/_back_to_top.html" %}
 
 {% endblock %}

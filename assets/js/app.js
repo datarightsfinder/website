@@ -65,9 +65,9 @@ $(function() {
       var scrollY = e.pageY;
 
       if (scrollY > viewportHeight) {
-        $('.back-to-top-link').addClass('active');
+        $('.back-to-top').addClass('active');
       } else {
-        $('.back-to-top-link').removeClass('active');
+        $('.back-to-top').removeClass('active');
       }
     })
   }

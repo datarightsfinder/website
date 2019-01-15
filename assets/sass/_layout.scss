@@ -408,6 +408,32 @@ form.search {
   }
 }
 
+.back-to-top {
+  position: fixed;
+  bottom: 0;
+  transform: translateY(11vh);
+  transition: transform 0.5s ease-in-out;
+  height: 10vh;
+  width: 100%;
+  background-color: lightgrey;
+  z-index: 100;
+
+  p {
+    line-height: 10vh;
+  }
+
+  a {
+    border-bottom: #{$colour-main} 1px solid;
+    text-decoration: none;
+
+  }
+
+  &.active {
+    transition: transform 0.5 ease-in-out;
+    transform: translate(0);
+  }
+}
+
 /* Changes diffs */
 .changes {
   ins {
