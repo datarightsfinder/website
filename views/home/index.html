@@ -23,7 +23,7 @@
       <p>We have information for the main banks, insurance providers, comparison websites, and financial services organisations.</p>
     </div>
 
-    
+
     {% if organisations %}
     <div class="totals">
       <p><a href="/all">{{ organisations | length }}</a></p>
@@ -55,12 +55,14 @@
 
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
-    <h3>
-      All organisations
-    </h3>
+    <div class="toggle-collapsable-content">
+      <a href="#" class="toggle">All organisations</a>
+      <div class="toggle"></div>
+    </div>
 
     {% if organisations %}
-    <ul class="organisation-list">
+    <ul class="collapsable-content organisation-list">
+
       {% for item in organisations | sort(false, false, 'sortName')%}
 
       <li>
@@ -68,6 +70,7 @@
       </li>
 
       {% endfor %}
+
     </ul>
     {% endif %}
   </div>

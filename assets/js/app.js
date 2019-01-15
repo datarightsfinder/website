@@ -23,6 +23,14 @@ $(function() {
   // COLLAPSABLES
   $('.collapsable-content').hide();
 
+  $('.toggle-collapsable-content .toggle').click(function(e) {
+    e.preventDefault();
+
+    $('.collapsable-content').toggle();
+
+    $('.toggle-collapsable-content').toggleClass('active');
+  })
+
   $('.collapsable li a.toggle').click(function(e) {
     e.preventDefault();
 
