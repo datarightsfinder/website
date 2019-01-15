@@ -17,6 +17,13 @@
 
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
+    <div class="intro">
+      <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
+
+      <p>We have information for the main banks, insurance providers, comparison websites, and financial services organisations.</p>
+    </div>
+
+    
     {% if organisations %}
     <div class="totals">
       <p><a href="/all">{{ organisations | length }}</a></p>
@@ -48,11 +55,21 @@
 
 <div class="row">
   <div class="columns small-12 large-8 large-offset-2">
-    <div class="intro">
-      <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
+    <h3>
+      All organisations
+    </h3>
 
-      <p>We have information for the main banks, insurance providers, comparison websites, and financial services organisations.</p>
-    </div>
+    {% if organisations %}
+    <ul class="organisation-list">
+      {% for item in organisations | sort(false, false, 'sortName')%}
+
+      <li>
+        <a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a>
+      </li>
+
+      {% endfor %}
+    </ul>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
