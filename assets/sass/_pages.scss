@@ -319,7 +319,24 @@
 
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-row-gap: 1rem;
+    justify-items: stretch;
+
+    a {
+      padding: 0.75rem;
+      display: inline-block;
+      font-size: 1rem;
+    }
+
+    @include media(tablet) {
+      grid-template-columns: repeat(10, 1fr);
+    };
+  }
+
+  .no-link {
+    a {
+      color: #757575;
+      border-bottom: none;
+    }
   }
 
   .back-to-top-link {
@@ -334,6 +351,12 @@
 
     p {
       line-height: 10vh;
+    }
+
+    a {
+      border-bottom: #{$colour-main} 1px solid;
+      text-decoration: none;
+
     }
 
     &.active {
