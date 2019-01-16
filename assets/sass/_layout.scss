@@ -439,9 +439,8 @@ form.search {
   }
 
   a {
-    border-bottom: #{$colour-main} 1px solid;
-    text-decoration: none;
-
+    display: inline-block;
+    width: 100%;
   }
 
   &.active {

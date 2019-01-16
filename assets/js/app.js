@@ -75,8 +75,6 @@ $(function() {
   // SCROLL INTO VIEW
   var linksOnPage = $('a');
 
-  console.log(linksOnPage)
-
   linksOnPage.each(function() {
     var anchorID;
     var href = $(this).attr('href');
