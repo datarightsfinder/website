@@ -15,6 +15,17 @@
       padding-bottom: 1rem;
     }
 
+    .request-button {
+      text-decoration: none;
+      background-color: $colour-main;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      margin: 1rem 0;
+      display: inline-block;
+      font-weight: 600;
+    }
+
     .headline {
       a {
         text-decoration: none;
