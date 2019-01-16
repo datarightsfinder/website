@@ -59,7 +59,8 @@ $(function() {
   });
 
   // BACK TO TOP
-  if ($('.allOrgs')) {
+
+  if ($('.allOrgs').length || $('.organisation').length) {
     $(window).scroll(function(e) {
       var viewportHeight = $(window).height();
       var scrollY = e.pageY;
@@ -71,31 +72,4 @@ $(function() {
       }
     })
   }
-
-  // SCROLL INTO VIEW
-  var linksOnPage = $('a');
-
-  linksOnPage.each(function() {
-    var anchorID;
-    var href = $(this).attr('href');
-
-    if (!href) {
-      return;
-    }
-
-    // Check link has in page anchor.
-    if (href.charAt(0) === '#' && href.length > 1) {
-      anchorID = href;
-    }
-
-    if (anchorID) {
-      $(this).click(function(e) {
-        e.preventDefault();
-
-        $('html, body').animate({
-          scrollTop: $(anchorID).offset().top
-        }, 500);
-      });
-    }
-  })
 });
