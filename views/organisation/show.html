@@ -16,9 +16,12 @@
     <div class="columns small-12 large-6">
       <h1>{{ result.name }}</h1>
 
-      <h2 class="headline">The information on this page is from the {% if result.payload.privacyNoticeUrl.url %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">{% endif %}privacy notice{% if result.payload.privacyNoticeUrl.url %}</a>{% endif %} published by {% if result.payload.organisationUrls[0] %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">{% endif%}{{ result.name }}{% if result.payload.organisationUrls[0] %}</a>{% endif %}.</h2>
+      <h2 class="headline">We read {% if result.payload.organisationUrls[0] %}<a href="{{ result.payload.organisationUrls[0] }}" target="_blank">{% endif%}{{ result.name }}{% if result.payload.organisationUrls[0] %}</a>{% endif %}'s {% if result.payload.privacyNoticeUrl.url %}<a href="{{ result.payload.privacyNoticeUrl.url }}" target="_blank">{% endif %}privacy policy{% if result.payload.privacyNoticeUrl.url %}</a>{% endif %} so you don't have to.</h2>
 
-      <p>You can use this page to learn about how this organisation uses personal data and find out how to make a request related to the data they hold about you.</p>
+      <ul>
+        <li>Find out what they do with data about you</li>
+        <li>Contact them if you have a request about that data</li>
+      </ul>
     </div>
   </div>
 </div>
