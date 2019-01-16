@@ -4,11 +4,11 @@ const constants = require('../libs/constants');
 const templates = {
   'dataProtectionOfficerPresent': {
     'status': 'good',
-    'message': 'Provides contact details for a <a href="#dataProtectionOfficer">Data Protection Officer</a>',
+    'message': 'Provides contact details for a <a href="#data-protection-officer">Data Protection Officer</a>',
   },
   'dataProtectionOfficerSpecialCategories': {
     'status': 'warning',
-    'message': 'Does not appear to have a <a href="#dataProtectionOfficer">Data Protection Officer</a>',
+    'message': 'Does not appear to have a <a href="#data-protection-officer">Data Protection Officer</a>',
   },
   'dataProtectionRegister': {
     'status': 'good',
@@ -16,7 +16,7 @@ const templates = {
   },
   'internationalTransferPrivacyShield': {
     'status': 'good',
-    'message': 'Self-certified under the <a href="#privacyShield">US–EU Privacy Shield Framework</a>',
+    'message': 'Self-certified under the <a href="#privacy-shield">US–EU Privacy Shield Framework</a>',
   },
   'internationalTransferAddendum': {
     'status': 'good',
