@@ -359,19 +359,35 @@ form.search {
   p:first-of-type {
     font-size: 3rem;
     margin: 0;
+    line-height: 3rem;
+  }
+
+  p:nth-of-type(2) {
+    font-size: 16px;
+    margin-bottom: 1.5rem;
   }
 
   p {
     font-weight: 600;
     a {
       border-bottom: 0 !important;
+      text-decoration: none;
     }
   }
 }
 
 .new-contributions {
+  h4 {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin-bottom: 0.2rem;
+    margin-top: 1.5rem;
+    color: #555;
+  }
+
   table {
     width: 100%;
+    margin-bottom: calc(1.5rem - 10px);
   }
 
   .date-added {
