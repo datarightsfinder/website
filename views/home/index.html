@@ -1,46 +1,70 @@
-{% extends "layouts/main.html" %}
-{% set pageName = "home" %}
-
-{% block page_title %}{{ settings.title }}{% endblock %}
-
-{% block body_class %}index{% endblock %}
-
-{% block content %}
+{% extends "layouts/main.html" %} {% set pageName = "home" %} {% block page_title %}{{ settings.title }}{% endblock %} {% block body_class %}index{% endblock %} {% block content %}
 <div class="home-search-wrapper">
   <div class="row">
-    <div class="columns small-12 large-8 large-offset-2">
+    <div class="columns small-12 large-8 large-offset-1">
       <h2>{{ settings.description }}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns small-12 large-6 large-offset-2">
       {% include "partials/_search.html" %}
+    </div>
+    <div class="columns small-12 large-2 end">
+      <p class="all-organsiations" ><a href="/all">All organisations</a></p>
     </div>
   </div>
 </div>
 
+
+
 <div class="row">
-  <div class="columns small-12 large-8 large-offset-2">
+  <div class="columns small-12 large-6 large-offset-2">
     <div class="intro">
       <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
 
       <p>We have information for the main banks, insurance providers, comparison websites, and financial services organisations.</p>
     </div>
+  </div>
+</div>
 
-
+<div class="row new-contributions">
+  <div class="columns small-12 large-4 large-offset-2">
     {% if organisations %}
     <div class="totals">
       <p><a href="/all">{{ organisations | length }}</a></<p>
-      <p><a href="/all">Finance Organisations</a></p>
+        <p><a href="/all">Finance Organisations</a></p>
     </div>
     {% endif %}
+  </div>
+  <div class="columns small-12 large-4 end">
+    <h4>Recently updated</h4>
+
+    <table>
+      <tbody>
+        {% for item in organisations %} {% if loop.index0
+        < 5 %} <tr>
+          <td>{{ item.name }}</td>
+          <td class="date-added">{{ item.jsonLastUpdated }}</td>
+          </tr>
+          {% endif %} {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 
 <div class="row">
-  <div class="columns small-12 large-8 large-offset-2">
-    <div class="toggle-collapsable-content">
-      <a href="#" class="toggle">All organisations</a>
-      <div class="toggle"></div>
-    </div>
 
-    {% if organisations %}
+
+</div>
+
+<div class="row">
+  <div class="columns small-12 large-8 large-offset-2">
+    <!-- <div class="toggle-collapsable-content"> -->
+
+    <!-- <div class="toggle"></div> -->
+    <!-- </div> -->
+
+    <!-- {% if organisations %}
     <ul class="collapsable-content organisation-list">
 
       {% for item in organisations | sort(false, false, 'sortName')%}
@@ -52,27 +76,9 @@
       {% endfor %}
 
     </ul>
-    {% endif %}
+    {% endif %} -->
   </div>
 </div>
 
-<div class="row new-contributions">
-  <div class="columns small-12 large-8 large-offset-2">
-    <h4>Recently updated</h4>
 
-    <table>
-      <tbody>
-        {% for item in organisations %}
-          {% if loop.index0 < 5 %}
-            <tr>
-              <td>{{ item.name }}</td>
-              <td class="date-added">{{ item.jsonLastUpdated }}</td>
-            </tr>
-          {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-
-</div>
 {% endblock %}

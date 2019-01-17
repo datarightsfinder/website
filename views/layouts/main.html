@@ -43,12 +43,12 @@
   <body class="{% block body_class %}{% endblock %}">
     <header>
       <div class="row">
-        <div class="columns small-8 medium-6">
+        <div class="columns small-8 medium-6 large-5 large-offset-1">
           <h1>
             <a href="/">{{ settings.title }}</a>
           </h1>
         </div>
-        <div class="columns small-4 medium-6">
+        <div class="columns small-4 medium-6 large-5">
           <a href="#" class="mobile-menu{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">Menu</a>
           <ul role="navigation" class="nav{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">
             <li>
@@ -75,14 +75,14 @@
 
     <footer>
       <div class="row">
-        <div class="columns small-12 large-12">
+        <div class="columns small-12 large-10 large-offset-2">
           {% if pageName == "organisation" %}
             <p>Problem on this page? Help us <a href="https://github.com/{{ settings.repository_path }}/issues/new" target="_blank">make it better</a> on GitHub.</p>
           {% endif %}
 
           {% if pageName != "About" %}
           <div class="licence">
-            <p>This website is maintained by <a href="https://www.openrightsgroup.org/" target="_blank">Open Rights Group</a> and <a href="https://projectsbyif.com" target="_blank">IF</a> with funding from the <a href="https://ico.org.uk/" target="_blank">Information Commissioner’s Office</a>. Data is licenced under the <a href="https://opendatacommons.org/licenses/odbl/1.0/" target="_blank">Open Database Licence</a>. <a href="https://www.openrightsgroup.org/privacy" target="_blank">Privacy notice</a></p>
+            <p>This website is maintained by <a href="https://www.openrightsgroup.org/" target="_blank">Open Rights Group</a> and <a href="https://projectsbyif.com" target="_blank">IF</a> with funding from the <a href="https://ico.org.uk/" target="_blank">Information Commissioner’s Office</a>. <br class="desktop-only">Data is licenced under the <a href="https://opendatacommons.org/licenses/odbl/1.0/" target="_blank">Open Database Licence</a>. <a href="https://www.openrightsgroup.org/privacy" target="_blank">Privacy notice</a></p>
           </div>
           {% endif %}
         </div>

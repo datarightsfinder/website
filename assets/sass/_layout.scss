@@ -18,7 +18,7 @@ input {
 }
 
 header {
-  background: $colour-main;
+  background: white;
   width: 100%;
   height: 50px;
 
@@ -44,8 +44,8 @@ header {
     }
 
     a {
-      color: #FFF;
       width: 210px;
+      color: $colour-main;
       display: block;
 
       @include media(desktop) {
@@ -172,7 +172,7 @@ header {
 
     a {
       text-decoration: none;
-      color: #FFF;
+      color: black;
     }
   }
 }
@@ -195,11 +195,10 @@ header {
 }
 
 .home-search-wrapper {
-  background: #EEE;
   padding: 1rem 0 1.5rem 0;
 
   @include media(desktop) {
-    padding: 2rem 0 2.5rem 0;
+    padding: 3.5rem 0 2.5rem 0;
     margin-bottom: 0.4rem;
   }
 
@@ -209,13 +208,17 @@ header {
     margin-top: 0;
 
     @include media(desktop) {
-      font-size: 1.6rem;
+      font-size: 2.7rem;
+      text-align: left;
+      line-height: 58px;
+      padding-bottom: 0;
     }
   }
 
   form {
     margin-bottom: 0 !important;
   }
+
 }
 
 footer {
@@ -224,13 +227,29 @@ footer {
   position: relative;
   bottom: 0;
 
+  br {
+    display: none;
+  }
+
+  @include media(desktop) {
+    margin-top: 3rem;
+    br {
+      display: block;
+    }
+  };
   a {
-    border-bottom: #{$color-link-underline} 1px solid;
     text-decoration: none;
+    &:hover {
+      color: black;
+    }
   }
 
   .licence {
     opacity: 0.6;
+
+    @include media(desktop) {
+      font-size: 14px;
+    };
   }
 }
 
@@ -357,7 +376,7 @@ form.search {
 
 .totals {
   p:first-of-type {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin: 0;
     line-height: 3rem;
   }
@@ -365,6 +384,7 @@ form.search {
   p:nth-of-type(2) {
     font-size: 16px;
     margin-bottom: 1.5rem;
+    margin-top: 0.6rem;
   }
 
   p {
@@ -381,7 +401,7 @@ form.search {
     text-transform: uppercase;
     font-size: 0.8em;
     margin-bottom: 0.2rem;
-    margin-top: 1.5rem;
+    margin-top: 0 !important;
     color: #555;
   }
 
@@ -482,4 +502,11 @@ form.search {
   background-color: #eeeeee;
   padding: 1rem 0.5rem 1rem 1rem;
   margin: 0.75rem 0;
+}
+
+#contents {
+  position: absolute;
+  top: 400px;
+  left: 12rem;
+  background-color: white;
 }
