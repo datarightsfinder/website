@@ -7,6 +7,15 @@ input {
   line-height: normal;
 }
 
+a {
+  text-decoration: none;
+  border-bottom: #{$color-link-underline} 1px solid;
+
+  &:hover {
+    border-bottom-color: $colour-main;
+  }
+}
+
 .columns {
   padding-left: 1.3rem;
   padding-right: 1.3rem;
@@ -47,6 +56,7 @@ header {
       width: 210px;
       color: $colour-main;
       display: block;
+      border-bottom: 0;
 
       @include media(desktop) {
         width: auto;
@@ -81,6 +91,7 @@ header {
   background-repeat: no-repeat;
   float: right;
   text-decoration: none;
+  border-bottom: 0;
   display: block;
 
   &.no-mobile-menu {
@@ -129,6 +140,7 @@ header {
       background: $colour-main;
       z-index: 9998;
       padding-top: 50%;
+      margin-top:0;
 
       li {
         width: 100%;
@@ -173,6 +185,7 @@ header {
     a {
       text-decoration: none;
       color: black;
+      border-bottom: 0;
     }
   }
 }
@@ -203,15 +216,30 @@ header {
   }
 
   h2 {
-    font-size: 1.2rem;
-    text-align: center;
+    font-size: 1.5rem;
+    text-align: left;
     margin-top: 0;
+    line-height: 32px;
 
     @include media(desktop) {
       font-size: 2.7rem;
       text-align: left;
       line-height: 58px;
       padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .description {
+    margin-bottom: 2rem;
+
+    @include media(desktop) {
+      margin-bottom: 1rem;
+    };
+
+    a {
+      border-bottom: #{$color-link-underline} 1px solid;
+      text-decoration: none;
     }
   }
 
@@ -375,20 +403,56 @@ form.search {
 }
 
 .totals {
+  &:hover {
+    a {
+      color: $colour-main;
+    }
+  }
+
+  position: relative;
+  margin-bottom: 1.2rem;
+
+  @include media(desktop) {
+    position: static;
+    margin-bottom: 0;
+    br {
+      display: none;
+    }
+  };
+
   p:first-of-type {
     font-size: 3.5rem;
     margin: 0;
     line-height: 3rem;
+
+    display: inline;
+
+
+    @include media(desktop) {
+            display: block;
+    };
   }
 
   p:nth-of-type(2) {
     font-size: 16px;
     margin-bottom: 1.5rem;
     margin-top: 0.6rem;
+
+    display: inline-block;
+    position: relative;
+    bottom: 1px;
+    left: 0.5rem;
+
+    @include media(desktop) {
+      position: static;
+
+      display: block;
+    };
   }
 
   p {
     font-weight: 600;
+
     a {
       border-bottom: 0 !important;
       text-decoration: none;
@@ -399,7 +463,7 @@ form.search {
 .new-contributions {
   h4 {
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin-bottom: 0.2rem;
     margin-top: 0 !important;
     color: #555;
@@ -408,13 +472,18 @@ form.search {
   table {
     width: 100%;
     margin-bottom: calc(1.5rem - 10px);
+
+    a {
+      font-size: 0.9em;
+    }
   }
 
   .date-added {
     font-size: 0.8em;
     text-transform: uppercase;
-    text-align: center;
   }
+
+
 }
 
 .organisation-list {
@@ -504,7 +573,7 @@ form.search {
   margin: 0.75rem 0;
 }
 
-#contents {
+.contents {
   position: absolute;
   top: 400px;
   left: 12rem;

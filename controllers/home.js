@@ -11,23 +11,26 @@ let settings = yaml.load('settings.yaml');
 router.get('/', function(req, res, next) {
   models.Organisation.findAll({
     order: [
-      ['jsonLastUpdated', 'DESC'],
+      ['hashLastUpdated', 'DESC'],
     ],
   }).then(function(_all) {
     let all = _all.map(function(elem) {
-      let dateLastUpdated = moment(elem.dataValues.jsonLastUpdated);
+      let dateLastUpdated = moment(elem.dataValues.hashLastUpdated);
 
       let currentDate = moment();
 
       let diff = currentDate.diff(dateLastUpdated, 'days');
 
-      let ending = ' days ago';
+      let daysSinceLastUpdate = diff + ' days ago';
 
-      if (diff <= 1) {
-        ending = ' day ago';
+      if (diff == 1) {
+        daysSinceLastUpdate = 'yesterday';
       }
 
-      let daysSinceLastUpdate = diff + ending;
+      if (diff == 0) {
+        daysSinceLastUpdate = 'today';
+      }
+
 
       elem.dataValues.jsonLastUpdated = daysSinceLastUpdate;
 

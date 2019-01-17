@@ -117,15 +117,6 @@
       padding: 2rem 0 2rem 0;
     }
 
-    .description {
-      margin-bottom: 2rem;
-
-      a {
-        border-bottom: #{$color-link-underline} 1px solid;
-        text-decoration: none;
-      }
-    }
-
     h2 {
       margin-top: 0;
       margin-bottom: 0.2rem;
@@ -251,6 +242,7 @@
     margin-top: 1rem;
   }
 }
+
 .about {
   h3 {
     text-transform: uppercase;
@@ -267,13 +259,33 @@
 }
 
 .index {
-  .all-organsiations {
-    text-align: center;
-    margin-top: 1rem;
-  }
   .intro {
+
+    p {
+      display: none;
+    }
+
+    .description {
+      display: inline-block;
+    }
+
+    @include media(desktop) {
+      margin-top: 2rem;
+      padding-bottom: 2rem;
+
+      p {
+        display: inline-block;
+      }
+    }
+  }
+
+  .all-organisations {
+    text-align: center;
     margin-top: 1.5rem;
-    padding-bottom: 3rem;
+
+    @include media(desktop) {
+      text-align: left;
+    };
   }
 }
 

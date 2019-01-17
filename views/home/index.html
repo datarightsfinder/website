@@ -7,10 +7,22 @@
   </div>
   <div class="row">
     <div class="columns small-12 large-6 large-offset-2">
+      <div class="intro">
+        <p class="description">Organisations should make their privacy policies understandable. Most of them don't, but you have rights over the data they hold about you.</p>
+        
+        <p>{{ settings.title }} helps you use your rights by guiding you through making requests to change how data about you is used.</p>
+
+        <p>Try searching for banks, insurance providers, comparison websites, and financial services organisations.</p>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns small-12 large-6 large-offset-2">
       {% include "partials/_search.html" %}
     </div>
     <div class="columns small-12 large-2 end">
-      <p class="all-organsiations" ><a href="/all">All organisations</a></p>
+      <p class="all-organisations" ><a href="/all">See all organisations</a></p>
     </div>
   </div>
 </div>
@@ -19,11 +31,7 @@
 
 <div class="row">
   <div class="columns small-12 large-6 large-offset-2">
-    <div class="intro">
-      <p>{{ settings.title }} helps you understand how organisations use data. It guides you through making requests to change how data about you is used.</p>
 
-      <p>We have information for the main banks, insurance providers, comparison websites, and financial services organisations.</p>
-    </div>
   </div>
 </div>
 
@@ -31,19 +39,18 @@
   <div class="columns small-12 large-4 large-offset-2">
     {% if organisations %}
     <div class="totals">
-      <p><a href="/all">{{ organisations | length }}</a></<p>
-        <p><a href="/all">Finance Organisations</a></p>
+      <p><a href="/all">{{ organisations | length }}</a><p><a href="/all">Organisations in <br> Data Rights Finder</a></p>
     </div>
     {% endif %}
   </div>
   <div class="columns small-12 large-4 end">
-    <h4>Recently updated</h4>
+    <h4>Recent Privacy Policy Changes</h4>
 
     <table>
       <tbody>
         {% for item in organisations %} {% if loop.index0
         < 5 %} <tr>
-          <td>{{ item.name }}</td>
+          <td><a href="/organisation/{{ item.registrationCountry }}/{{ item.registrationNumber }}">{{ item.name }}</a></td>
           <td class="date-added">{{ item.jsonLastUpdated }}</td>
           </tr>
           {% endif %} {% endfor %}
