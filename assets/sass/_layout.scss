@@ -210,9 +210,22 @@ header {
 .home-search-wrapper {
   padding: 1rem 0 1.5rem 0;
 
+  img {
+    display: none;
+  }
+
   @include media(desktop) {
     padding: 3.5rem 0 2.5rem 0;
     margin-bottom: 0.4rem;
+
+    img {
+      display: block;
+      width: 29%;
+      position: absolute;
+      right: 138px;
+      top: 258px;
+      opacity: 0.3;
+    }
   }
 
   h2 {
