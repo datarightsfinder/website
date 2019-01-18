@@ -7,8 +7,6 @@
     <img src="/public/images/magn-glass.png" alt="Data Rights Finder logo">
   </div>
 
-
-
   <div class="row">
     <div class="columns small-12 large-6 large-offset-1">
       <div class="intro">
@@ -31,23 +29,8 @@
   </div>
 </div>
 
-
-
-<div class="row">
-  <div class="columns small-12 large-6 large-offset-1">
-
-  </div>
-</div>
-
 <div class="row new-contributions">
   <div class="columns small-12 large-4 large-offset-1">
-    {% if organisations %}
-    <div class="totals">
-      <p><a href="/all">{{ organisations | length }}</a><p><a href="/all">Organisations in <br> Data Rights Finder</a></p>
-    </div>
-    {% endif %}
-  </div>
-  <div class="columns small-12 large-4 end">
     <h4>Recent Privacy Policy Changes</h4>
 
     <table>
@@ -60,6 +43,13 @@
           {% endif %} {% endfor %}
       </tbody>
     </table>
+  </div>
+  <div class="columns small-12 large-4 end">
+    {% if organisations %}
+    <div class="totals">
+      <p><a href="/all">{{ organisations | length }}</a><p><a href="/all">Organisations in <br> Data Rights Finder</a></p>
+    </div>
+    {% endif %}
   </div>
 </div>
 
