@@ -283,6 +283,18 @@ footer {
     display: none;
   }
 
+  &.add-padding-org {
+    padding-bottom: 10vh;
+
+    @include media(desktop) {
+      padding-bottom: 0;
+    };
+  }
+
+  &.add-padding-all {
+    padding-bottom: 10vh;
+  }
+
   @include media(desktop) {
     margin-top: 3rem;
     br {

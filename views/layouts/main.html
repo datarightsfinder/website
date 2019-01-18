@@ -72,7 +72,8 @@
     {% block content %}{% endblock %}
     </div>
 
-    <footer>
+
+    <footer class="{% if pageName == 'organisation' %}add-padding-org{% elif pageName == 'All' %}add-padding-all{% endif %}">
       <div class="row">
         <div class="columns small-12 large-10 large-offset-2">
           {% if pageName == "organisation" %}
