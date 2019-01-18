@@ -59,7 +59,6 @@ $(function() {
   });
 
   // BACK TO TOP
-
   if ($('.allOrgs').length || $('.organisation').length) {
     $(window).scroll(function(e) {
       var viewportHeight = $(window).height();
@@ -69,6 +68,20 @@ $(function() {
         $('.back-to-top').addClass('active');
       } else {
         $('.back-to-top').removeClass('active');
+      }
+    })
+  }
+
+  // STICKY CONTENTS MENU
+
+  if ($('.contents').length) {
+    var contentsTop = $('.contents').offset().top;
+    $(window).scroll(function(e) {
+      if (e.pageY > contentsTop) {
+        $('.contents').css('position', 'fixed');
+        $('.contents').css('top', '0px');
+      } else {
+        $('.contents').css('position', 'static');
       }
     })
   }
