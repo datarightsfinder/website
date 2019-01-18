@@ -343,6 +343,18 @@
 }
 
 .allOrgs {
+  h2 {
+    @include media(desktop) {
+      margin-bottom: 3.5rem;
+    };
+  }
+
+  nav {
+    @include media(desktop) {
+      margin-bottom: 3.5rem;
+    };
+  }
+
   .alphabet {
     list-style: none;
     margin: 0;
@@ -355,7 +367,7 @@
     a {
       padding: 0.75rem;
       display: inline-block;
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
 
     @include media(tablet) {
