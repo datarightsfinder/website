@@ -253,8 +253,8 @@
     text-transform: uppercase;
     font-size: 0.8em;
     margin-bottom: 0.2rem;
-    margin-top: 1.3rem;
     color: #555;
+    margin-top: 3rem;
 
     @include media(desktop) {
       margin-bottom: 0.5rem;
@@ -342,12 +342,6 @@
         background-image: url("/public/images/chevron-active.svg");
       }
     }
-  }
-}
-
-.about {
-  h3 {
-    margin-top: 3rem;
   }
 }
 
