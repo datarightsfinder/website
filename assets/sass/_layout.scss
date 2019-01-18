@@ -595,4 +595,11 @@ form.search {
 .contents {
   background-color: white;
   position: static;
+
+  @include media(desktop) {
+    h2 {
+      margin-top: 0;
+    }
+    padding-top: 2rem;
+  }
 }
