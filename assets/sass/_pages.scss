@@ -376,7 +376,11 @@
     a {
       padding: 0.75rem;
       display: inline-block;
-      font-size: 1.2rem;
+      font-size: 1rem;
+
+      @include media(desktop) {
+        font-size: 1.2rem;
+      };
     }
 
     @include media(tablet) {
