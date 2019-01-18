@@ -22,6 +22,7 @@ if (config.use_env_variable) {
     sequelize = new Sequelize(config.url, {
       dialect: config.dialect,
       dialectOptions: config.dialectOptions,
+      logging: false,
     });
   }
 }
