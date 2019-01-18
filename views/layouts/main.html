@@ -43,14 +43,17 @@
   <body class="{% block body_class %}{% endblock %}">
     <header>
       <div class="row">
-        <div class="columns small-8 medium-6 large-5 large-offset-1">
+        <div class="columns small-8 medium-6 large-4 large-offset-1">
           <h1>
             <a href="/">{{ settings.title }}</a>
           </h1>
         </div>
-        <div class="columns small-4 medium-6 large-6">
+        <div class="columns small-4 medium-6 large-7">
           <a href="#" class="mobile-menu{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">Menu</a>
           <ul role="navigation" class="nav{% if settings.disable_mobile_menu %} no-mobile-menu{% endif %}">
+            <li class="mobile-only">
+              <a href="/all">Search</a>
+            </li>
             <li>
               <a href="/about">About</a>
             </li>
@@ -61,10 +64,6 @@
               <a href="/contribute">Contribute</a>
             </li>
           </ul>
-          {% ifAsync smallSearch %}
-            <a href="#" class="mobile-search">Search</a>
-            {% include "partials/_search.html" %}
-          {% endif %}
         </div>
       </div>
     </header>

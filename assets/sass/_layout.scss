@@ -71,6 +71,7 @@ header {
     display: block;
     text-indent: -9999px;
     float: right;
+    border: 0;
     background-image: url('/public/images/search.svg');
     background-size: 50% 50%;
     background-position: center center;
@@ -120,6 +121,10 @@ header {
   display: none;
   padding: 0;
 
+  .mobile-only {
+    display: none;
+  }
+
   &.no-mobile-menu {
     display: block;
     margin-top: 0 !important;
@@ -142,11 +147,16 @@ header {
       padding-top: 50%;
       margin-top:0;
 
+      .mobile-only {
+        display: block;
+      }
+
       li {
         width: 100%;
         text-align: center;
         font-size: 2rem;
         margin-bottom: 2%;
+        margin-left: 0;
       }
     }
   }
