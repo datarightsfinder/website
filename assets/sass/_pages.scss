@@ -235,6 +235,12 @@
       }
     }
   }
+
+  .back-to-top {
+    @include media(desktop) {
+      display: none;
+    };
+  }
 }
 
 .index {

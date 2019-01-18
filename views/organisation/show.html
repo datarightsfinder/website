@@ -608,4 +608,7 @@
     <p>Last updated {{ meta.friendlyDate }} at {{ meta.friendlyTime }} &bull; <a href="/organisation/{{ result.registrationCountry }}/{{ result.registrationNumber }}.json" target="_blank">Download as JSON</a> &bull; <a href="https://github.com/datarightsfinder/website/blob/master/docs/api.md" target="_blank">API documentation</a> &bull; <a href="https://github.com/{{ settings.repository_path }}/blob/master/{{ result.registrationCountry }}{{ result.registrationNumber }}.json" target="_blank">View on GitHub</a> &bull; <a href="https://opencorporates.com/companies/{{ result.registrationCountry }}/{{ result.registrationNumber }}" target="_blank">View on OpenCorporates</a></p>
   </div>
 </div>
+
+{% include 'partials/_back_to_top.html' %}
+
 {% endblock %}
