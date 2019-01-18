@@ -394,3 +394,11 @@
     }
   }
 }
+
+.developers {
+  h2 {
+    @include media(desktop) {
+      padding: 1.5rem 0 0.5rem 0;
+    };
+  }
+}
