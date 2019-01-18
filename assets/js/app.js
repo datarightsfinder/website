@@ -77,7 +77,12 @@ $(function() {
   // STICKY CONTENTS MENU
 
   function stickyContentsMenu() {
-    var contentsTop = $('#organisation-information').offset().top
+    var contentsTop;
+
+    if ($('#organisation-information').length) {
+      contentsTop = $('#organisation-information').offset().top;
+    }
+
     function scrollEvent() {
       if (window.pageYOffset > contentsTop) {
         $('.contents').css('position', 'fixed');
