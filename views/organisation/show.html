@@ -88,8 +88,8 @@
           {% if result.payload.dataCategoriesCollected.isMissing == true %}
             <p>This privacy notice does not appear to have this information.</p>
           {% else %}
-            <p>{{ result.name }} say they collect the following: </p>
             {% if result.payload.dataCategoriesCollected.list %}
+            <p>{{ result.name }}'s privacy policy says they collect the following categories of data: </p>
             <ul>
               {% for item in result.payload.dataCategoriesCollected.list %}
               {% set flag = item | highlightSpecialCategory %}
