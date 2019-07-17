@@ -22,6 +22,7 @@
     "express": "^4.15.2",
     "express-http-to-https": "^1.1.4",
     "express-validator": "^5.3.0",
+    "extend": ">=3.0.2",
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-uglify": "^3.0.1",
