@@ -6,36 +6,26 @@
 {% endif %}
 
 {% if contactInfo.emailAddress %}
-  <h3>Contact the organisation by email</h3>
-
-  {% if messageTemplates[right] %}
-    <p>Email <a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">{{ contactInfo.emailAddress }}</a> using the template below.</p>
-  {% else %}
-    <p><a href="mailto:{{ contactInfo.emailAddress }}">{{ contactInfo.emailAddress }}</a></p>
-  {% endif %}
-{% endif %}
+  <h3>Email the organisation</h3>
 
 {% if messageTemplates[right] %}
   {% if contactInfo.url or contactInfo.emailAddress %}
-  <h3>Template</h3>
-  {% if contactInfo.emailAddress %}
-    <p>Copy and paste this template into an email and send it to {{ result.name }} at <a href="mailto:{{ contactInfo.emailAddress }}">{{ contactInfo.emailAddress }}</a></p>
-  {% else %}
-    <p>Use this template to help you know what to say to {{ result.name }}.</p>
-  {% endif %}
+    <p>Copy and paste this template into an email and send it to {{ result.name }} at <a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">{{ contactInfo.emailAddress }}</a></p>
   <textarea>{{ messageTemplates[right] }}</textarea>
   <p><a href="#" class="copy-to-clipboard">Copy template to clipboard</a></p>
   {% endif %}
 {% endif %}
 
 {% if contactInfo.telephoneNumber %}
-  <h3>Contact the organisation by phone</h3>
+  <h3>Phone the organisation</h3>
   <p>
     <a href="tel:{{ contactInfo.telephoneNumber }}">{{ contactInfo.telephoneNumber }}</a>
   </p>
-{% endif %}
+  <p>Use this template message above to help you know what to say.</p>
+  {% endif %}
 
 {% if contactInfo.postalAddress %}
   <h3>Contact the organisation by post</h3>
   <p>{{ contactInfo.postalAddress }}</p>
+  <p>Use this template message above to help you write a letter to the organisation.</p>
 {% endif %}
