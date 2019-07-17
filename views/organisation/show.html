@@ -99,7 +99,7 @@
             {% endif %}
 
             {% if result.payload.dataCategoriesCollected.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.dataCategoriesCollected.observations | striptags(true) | escape | nl2br }}</p>
             {% endif %}
           {% endif %}
@@ -119,7 +119,7 @@
             <p>This privacy notice does not appear to provide information about processing purposes.</p>
           {% else %}
             {% if result.payload.unusualProcessingPurposes.present == "present" and result.payload.unusualProcessingPurposes.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.unusualProcessingPurposes.observations | striptags(true) | escape | nl2br }}</p>
             {% elif result.payload.unusualProcessingPurposes.present == "not_present" %}
               <p>This privacy notice does not appear to mention any unusual processing purposes.</p>
@@ -159,7 +159,7 @@
             {% endif %}
 
             {% if result.payload.thirdParties.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.thirdParties.observations | striptags(true) | escape | nl2br }}</p>
             {% endif %}
           {% endif %}
@@ -184,7 +184,7 @@
             {% endif %}
 
             {% if result.payload.retentionRules.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.retentionRules.observations | striptags(true) | escape | nl2br }}</p>
             {% endif %}
 
@@ -305,7 +305,7 @@
             </ul>
 
             {% if lawfulBases.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ lawfulBases.observations | striptags(true) | escape | nl2br }}</p>
             {% endif %}
           {% endif %}
@@ -334,7 +334,7 @@
             {% endif %}
 
             {% if result.payload.securityStandards.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.securityStandards.observations | striptags(true) | escape | nl2br }}</p>
             {% endif %}
 
@@ -403,7 +403,7 @@
             {% endif %}
 
             {% if result.payload.dataProcessingAddendum.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.dataProcessingAddendum.observations }}</p>
             {% endif %}
           {% endif %}
@@ -435,7 +435,7 @@
             {% endif %}
 
             {% if result.payload.automatedDecisionMaking.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.automatedDecisionMaking.observations | striptags(true) | escape | nl2br }}</p>
             {% endif %}
 
@@ -465,7 +465,7 @@
             <p>This privacy notice contains information about to make a complaint to a data protection regulator</p>
 
             {% if result.payload.complaintInformation.observations %}
-              <h3>Observations</h3>
+              <h3>Our Observations</h3>
               <p>{{ result.payload.complaintInformation.observations | striptags(true) | escape | nl2br }}</p>
             {% endif %}
 
