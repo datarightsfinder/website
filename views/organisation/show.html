@@ -141,6 +141,8 @@
             <p>This privacy notice does not appear to have this information.</p>
           {% else %}
             {% if result.payload.thirdParties.list %}
+            <p>{{ result.name }}'s privacy policy says they share data with the following third parties: </p>
+
               <h3>List of third parties</h3>
               <ul>
                 {% for item in result.payload.thirdParties.list %}
@@ -223,6 +225,8 @@
       <div class="columns small-12 large-12">
         <h2>Lawful bases</h2>
         <p class="description">Organisations <a href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/lawful-basis-for-processing/" target="_blank">must justify collection and use of data</a> under six lawful bases and provide information about their decisions</p>
+
+        <p>{{ result.name }}'s privacy policy says they use the following lawful bases to collect and use data: </p>
 
         {% set lawfulBases = result.payload.lawfulBases %}
 
