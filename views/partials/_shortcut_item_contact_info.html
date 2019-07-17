@@ -1,19 +1,26 @@
 {% if contactInfo.url %}
-  <h3>Through their website</h3>
+  <h3>Contact the organisation through their website</h3>
   <p>
     <a href="{{ contactInfo.url }}" target="_blank" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/url', 'link']);">{{ contactInfo.url }}</a>
+  </p>
+  <p>
+    You might want to use the template message below to help you know what to say.
   </p>
 {% endif %}
 
 {% if contactInfo.emailAddress %}
   <h3>Email the organisation</h3>
+{% endif %}
+
+{% if contactInfo.url or contactInfo.emailAddress %}
+  <p>
+    Copy and paste this template into an email and send it to {{ result.name }} at <a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">{{ contactInfo.emailAddress }}</a>
+  </p>
+{% endif %}
 
 {% if messageTemplates[right] %}
-  {% if contactInfo.url or contactInfo.emailAddress %}
-    <p>Copy and paste this template into an email and send it to {{ result.name }} at <a href="mailto:{{ contactInfo.emailAddress }}?body={{ messageTemplates[right] | replace("\n", "%0D%0A") | replace("{{name}}", result.name) }}" onClick="_paq.push(['trackLink', '{{ settings.url }}/organisation/{{ result.registrationCountry}}/{{ result.registrationNumber}}/{{ right }}/email', 'link']);">{{ contactInfo.emailAddress }}</a></p>
   <textarea>{{ messageTemplates[right] }}</textarea>
   <p><a href="#" class="copy-to-clipboard">Copy template to clipboard</a></p>
-  {% endif %}
 {% endif %}
 
 {% if contactInfo.telephoneNumber %}
