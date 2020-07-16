@@ -27,7 +27,7 @@
     "gulp-uglify": "^3.0.1",
     "helmet": "^3.13.0",
     "is-html": "^1.1.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "moment": "^2.22.2",
     "nodemon": "^1.18.4",
     "nunjucks": "^3.1.3",
